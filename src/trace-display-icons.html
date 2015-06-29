@@ -1,9 +1,22 @@
 <link rel="import" href="../demo/bower_components/polymer/polymer.html"/>
 
+<script type="text/javascript" src="static-samotraces-libs/d3.js"></script>
+<script type="text/javascript" src="static-samotraces-libs/jquery.js"></script>
+<script type="text/javascript" src="static-samotraces-libs/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="static-samotraces-libs/Samotraces.js"></script>
+
 <dom-module id="trace-display-icons">
 
+  <!-- this css LEAK outside the private dom but render exactly like the `classic` CSS of Samotraces-->
+  <!-- <link rel="stylesheet" type="text/css" href="static-samotraces-libs/samotraces.css"> -->
+
+  <!-- this css does NOT LEAK outside the private dom (in both shady and shadow mode) -->
+  <!-- but it seem the render is different than with the `classic` CSS of Samotraces -->
+  <link rel="import" type="css" href="static-samotraces-libs/samotraces.css">
+
   <template>
-    <p>I'm inside the shadow DOM, it's dark here !</p>
+    <h6>TraceDisplayIcons<h6>
+    <div id="my-widget"></div>
   </template>
 
   <script>
@@ -11,6 +24,17 @@
       is: "trace-display-icons",
       ready: function() {
         console.log("i'm ready.");
+
+        // Create logical objects
+        var trace = new Samotraces.LocalTrace();
+        var tw = new Samotraces.TimeWindow({start: 0,end: 20});
+
+        trace.create_obsel({type: 'click', begin: 1});
+        trace.create_obsel({type: 'click', begin: 5});
+        trace.create_obsel({type: 'click', begin: 12});
+
+        // Create widgets
+        new Samotraces.UI.Widgets.TraceDisplayIcons('my-widget',trace,tw);
       }
     });
   </script>
