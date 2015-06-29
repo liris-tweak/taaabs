@@ -1,0 +1,26 @@
+{
+  "name": "liris-taaabs",
+  "version": "0.0.1",
+  "homepage": "",
+  "authors": [
+    "Raphael Cazenave-Leveque <raphael.cazenave@gmail.com>"
+  ],
+  "description": "liris-taaabs",
+  "keywords": [
+    "polymer",
+    "webcomponents",
+    "javascript",
+    "traces"
+  ],
+  "license": "GPL-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.5"
+  }
+}
