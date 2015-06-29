@@ -22,19 +22,19 @@
   <script>
     Polymer({
       is: "trace-display-icons",
-      ready: function() {
-        console.log("i'm ready.");
-
+      created: function() { // default `contructor`
         // Create logical objects
-        var trace = new Samotraces.LocalTrace();
-        var tw = new Samotraces.TimeWindow({start: 0,end: 20});
-
-        trace.create_obsel({type: 'click', begin: 1});
-        trace.create_obsel({type: 'click', begin: 5});
-        trace.create_obsel({type: 'click', begin: 12});
-
-        // Create widgets
-        new Samotraces.UI.Widgets.TraceDisplayIcons('my-widget',trace,tw);
+        this.trace = new Samotraces.LocalTrace();
+        this.tw = new Samotraces.TimeWindow({start: 0, end: 20});
+      },
+      attached: function() {
+        new Samotraces.UI.Widgets.TraceDisplayIcons('my-widget', this.trace, this.tw);
+        this.addDefaultObsels(); // TODO this must be removed after testing done
+      },
+      addDefaultObsels: function() {
+        this.trace.create_obsel({type: 'click', begin: 1});
+        this.trace.create_obsel({type: 'click', begin: 5});
+        this.trace.create_obsel({type: 'click', begin: 12});
       }
     });
   </script>
