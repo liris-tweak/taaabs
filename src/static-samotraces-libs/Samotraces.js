@@ -3240,7 +3240,7 @@ Samotraces.UI.Widgets.TraceDisplayIcons.prototype = {
 	init_DOM: function() {
 
 
-		var div_elmt = d3.select('#'+this.id);
+		var div_elmt = d3.select(this.element);
 		this.svg = div_elmt.append('svg');
 
 		// create the (red) line representing current time
@@ -3920,10 +3920,10 @@ Samotraces.UI.Widgets.Widget = (function() {
 				break;
 		}
 	}
-	return function(id) {
+	return function(element) {
 		// DOCUMENTED ABOVE
-		this.id = id;
-		this.element = document.getElementById(this.id);
+    this.element = element;
+    this.id = element.id;
 		this.add_class = add_class;
 		this.add_behaviour = add_behaviour;
 
