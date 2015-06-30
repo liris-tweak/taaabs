@@ -12,10 +12,10 @@
 
   <!-- this css does NOT LEAK outside the private dom (in both shady and shadow mode) -->
   <!-- but it seem the render is different than with the `classic` CSS of Samotraces -->
-  <link rel="import" type="css" href="static-samotraces-libs/samotraces.css">
+  <link rel="import" type="css" href="static-samotraces-libs/samotraces.css"/>
 
   <template>
-    <h6>TraceDisplayIcons<h6>
+    <h6>TraceDisplayIcons</h6>
     <div id="my-widget"></div>
   </template>
 
@@ -28,7 +28,8 @@
         this.tw = new Samotraces.TimeWindow({start: 0, end: 20});
       },
       attached: function() {
-        new Samotraces.UI.Widgets.TraceDisplayIcons('my-widget', this.trace, this.tw);
+        var widgetElement = this.$$("#my-widget");
+        new Samotraces.UI.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.tw);
         this.addDefaultObsels(); // TODO this must be removed after testing done
       },
       addDefaultObsels: function() {
