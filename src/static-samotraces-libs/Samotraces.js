@@ -3997,7 +3997,7 @@ Samotraces.UI.Widgets.WindowScale = function(html_id,time_window,is_javascript_d
 Samotraces.UI.Widgets.WindowScale.prototype = {
 	init_DOM: function() {
 		// create the slider
-		this.svg = d3.select("#"+this.id).append("svg");
+		this.svg = d3.select(this.element).append("svg");
 		if(this.is_javascript_date) {
 			this.x = d3.time.scale(); //.range([0,this.element.getSize().x]);
 		} else {

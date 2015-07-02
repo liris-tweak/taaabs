@@ -13,7 +13,7 @@
   </script>
 
   <link rel="import" href="../src/trace-display-icons.html"/>
-  <link rel="import" href="../src/taaabs-wrapper.html"/>
+  <link rel="import" href="../src/window-scale.html"/>
 
   <link rel="import" href="bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html"/>
   <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html"/>
@@ -23,9 +23,12 @@
     <paper-toolbar>
       <div class="title">Liris-Taaabs</div>
     </paper-toolbar>
-    <taaabs-wrapper>
-      <trace-display-icons></trace-display-icons>
-    </taaabs-wrapper>
+    
+    <template is="dom-bind">
+      <trace-display-icons timewindow="{{tw}}"></trace-display-icons>
+      <window-scale timewindow="{{tw}}"></window-scale>
+    </template>
+    
   </paper-scroll-header-panel>
 </body>
 </html>

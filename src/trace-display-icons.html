@@ -22,14 +22,22 @@
   <script>
     Polymer({
       is: "trace-display-icons",
-      created: function() { // default `contructor`
-        // Create logical objects
+      properties: {
+        timewindow: {
+          type: String,
+          notify: true,
+          reflectToAttribute: true
+        },
+      },
+      created: function() {
         this.trace = new Samotraces.LocalTrace();
-        this.tw = new Samotraces.TimeWindow({start: 0, end: 20});
       },
       attached: function() {
+        this.timewindow = new Samotraces.TimeWindow({start: 0, end: 20});
+        console.log("");
+        
         var widgetElement = this.$$("#my-widget");
-        new Samotraces.UI.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.tw);
+        this.tracedisplayicons = new Samotraces.UI.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow);
         this.addDefaultObsels(); // TODO this must be removed after testing done
       },
       addDefaultObsels: function() {
