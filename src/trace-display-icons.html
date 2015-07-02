@@ -28,11 +28,17 @@
           notify: true,
           reflectToAttribute: true
         },
+        trace: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true
+        }
       },
       created: function() {
-        this.trace = new Samotraces.LocalTrace();
+        
       },
       attached: function() {
+        this.trace = new Samotraces.LocalTrace();
         this.timewindow = new Samotraces.TimeWindow({start: 0, end: 20});
         console.log("");
         

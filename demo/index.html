@@ -14,6 +14,7 @@
 
   <link rel="import" href="../src/trace-display-icons.html"/>
   <link rel="import" href="../src/window-scale.html"/>
+  <link rel="import" href="../src/import-trace.html"/>
 
   <link rel="import" href="bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html"/>
   <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html"/>
@@ -25,8 +26,9 @@
     </paper-toolbar>
     
     <template is="dom-bind">
-      <trace-display-icons timewindow="{{tw}}"></trace-display-icons>
+      <trace-display-icons timewindow="{{tw}}" trace="{{tr}}"></trace-display-icons>
       <window-scale timewindow="{{tw}}"></window-scale>
+      <import-trace trace="{{tr}}"></import-trace>
     </template>
     
   </paper-scroll-header-panel>

@@ -1,0 +1,11 @@
+0,click,target,button2
+2,click,target,button1,value,toto
+3,focus,target,submit
+5,click,target,submit
+8,click,target,button2
+9,click,target,button1,value,toto
+10,focus,target,submit
+11,focus,target,submit
+12,click,target,submit
+13,click,target,submit
+20,click,target,submit
