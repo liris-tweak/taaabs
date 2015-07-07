@@ -1,14 +1,8 @@
 <link rel="import" href="../demo/bower_components/polymer/polymer.html"/>
 
 <dom-module id="window-scale">
-  
-  <!-- this css LEAK outside the private dom but render exactly like the `classic` CSS of Samotraces-->
-  <!-- <link rel="stylesheet" type="text/css" href="static-samotraces-libs/samotraces.css"> -->
-
-  <!-- this css does NOT LEAK outside the private dom (in both shady and shadow mode) -->
-  <!-- but it seem the render is different than with the `classic` CSS of Samotraces -->
   <link rel="import" type="css" href="static-samotraces-libs/samotraces.css"/>
-  
+
   <template>
     <div id="scale"></div>
   </template>
@@ -19,12 +13,8 @@
       properties: {
         timewindow: {
           type: Object,
-          notify: true,
-          reflectToAttribute: true
+          notify: true
         },
-      },
-      created: function() {
-        
       },
       attached: function() {
         var widgetElement = this.$$("#scale");

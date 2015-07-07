@@ -7,11 +7,6 @@
 
 <dom-module id="trace-display-icons">
 
-  <!-- this css LEAK outside the private dom but render exactly like the `classic` CSS of Samotraces-->
-  <!-- <link rel="stylesheet" type="text/css" href="static-samotraces-libs/samotraces.css"> -->
-
-  <!-- this css does NOT LEAK outside the private dom (in both shady and shadow mode) -->
-  <!-- but it seem the render is different than with the `classic` CSS of Samotraces -->
   <link rel="import" type="css" href="static-samotraces-libs/samotraces.css"/>
 
   <template>
@@ -25,13 +20,11 @@
       properties: {
         timewindow: {
           type: String,
-          notify: true,
-          reflectToAttribute: true
+          notify: true
         },
         trace: {
           type: Object,
           notify: true,
-          reflectToAttribute: true
         },
         obselselector: {
           type: Object,
@@ -52,15 +45,13 @@
         this.observObsels();
       },
       observObsels: function(actionName, func) {
-        // this is a NodeList, not an Array, so no forEach 
+        // this is a NodeList, not an Array, so no forEach
         var obselsNodeList = this.shadowRoot.querySelectorAll(".Samotraces-obsel");
         for (var i = 0; i < obselsNodeList.length; i++) {
           var obsel = obselsNodeList[i];
           console.log(obsel);
-          obsel.addEventListener("click", this.handleClick.bind(this), true); 
+          obsel.addEventListener("click", this.handleClick.bind(this), true);
         }
-        //var obsel = $.data(event.target, 'Samotraces-data');
-        //this.obselSelector.select(obsel);
       },
       handleClick: function(event) {
         console.log("clicked");
@@ -69,5 +60,4 @@
       }
     });
   </script>
-
 </dom-module>
