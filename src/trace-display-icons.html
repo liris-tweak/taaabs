@@ -54,12 +54,10 @@
         var obselsNodeList = this.shadowRoot.querySelectorAll(".Samotraces-obsel");
         for (var i = 0; i < obselsNodeList.length; i++) {
           var obsel = obselsNodeList[i];
-          console.log(obsel);
           obsel.addEventListener("click", this.handleClick.bind(this), true);
         }
       },
       handleClick: function(event) {
-        console.log("clicked");
         var obsel = $.data(event.target, "Samotraces-data");
         this.obselselector.select(obsel);
       }
