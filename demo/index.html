@@ -27,7 +27,12 @@
     </paper-toolbar>
 
     <template is="dom-bind">
-      <trace-display-icons timewindow="{{tw}}" trace="{{tr}}" obselselector="{{selectedObsel}}"></trace-display-icons>
+      <trace-display-icons
+        timewindow="{{tw}}"
+        trace="{{tr}}"
+        obselselector="{{selectedObsel}}"
+        options='{"url": "images/noire.png"}'>
+      </trace-display-icons>
       <window-scale timewindow="{{tw}}"></window-scale>
       <import-trace trace="{{tr}}"></import-trace>
       <obsel-inspector obselselector="{{selectedObsel}}"></obsel-inspector>

@@ -29,13 +29,18 @@
         obselselector: {
           type: Object,
           notify: true
+        },
+        options: {
+          type: Object,
+          notify: true
         }
       },
       attached: function() {
         this.trace = new Samotraces.LocalTrace();
         this.timewindow = new Samotraces.TimeWindow({start: 0, end: 20});
         var widgetElement = this.$$("#my-widget");
-        this.tracedisplayicons = new Samotraces.UI.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow);
+
+        this.tracedisplayicons = new Samotraces.UI.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow, this.options);
         this.addDefaultObsels(); // TODO this must be removed after testing done
       },
       addDefaultObsels: function() {
