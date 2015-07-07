@@ -1,0 +1,155 @@
+
+<link rel="import" href="http://localhost:8080/demo/bower_components/polymer/polymer.html"/>
+<dom-module id="polymer-tracedisplayiconsfix">
+  <link rel="import" type="css" href="../CSS/samotraces.css"/>
+  <template>
+      
+      <div id="traceIcon"></div>
+      
+      
+  </template>
+  <script src="../Widgets/TraceDisplayIconsFix.js"></script>
+  <script src="../Object/TimeWindow.js"></script>
+  <script>
+    Polymer({
+      is: "polymer-tracedisplayiconsfix",
+      properties: {
+       
+        time: {
+         type: Object,
+         notify: true,
+         reflectToAttribute: true,
+         value: function() { return {}; },
+	 observer: '_timeChanged'
+         
+        },
+        timezoom: {
+         type: Object,
+         notify: true,
+         reflectToAttribute: true,
+         value: function() { return {}; }
+         
+        },
+        trace: {
+         type: Object,
+         notify: true,
+         reflectToAttribute: true,
+         value: function() { return {}; }
+         //observer: '_traceChanged'
+         
+        }
+        
+      },
+
+  	 _timeChanged: function(newValue, oldValue) {
+              options = {
+                          url: function(o) {
+                          var path = "../src/Images/";
+                          switch(o["type"]) {
+                                      case 'Ouverture_Page':
+                                      return path+'Orange.png';
+                                      default:
+                                      return path+'help.png';
+                          }
+                        }
+              };
+            //  PolyTraceFix.trace.on('trace:updateData',function() {
+           //PolyTraceFix.time = new Samotraces.TimeWindow({start: new Date(PolyTraceFix.trace.origin).getTime(), end: Date.now()});
+           //PolyTraceFix.timezoom = new Samotraces.TimeWindow({start: new Date(Date()).setHours(new Date (Date()).getHours()-2), end: Date.now()});
+            PolyTraceFix.trace.list_obsels();
+    	    I_TraceDisplayIconsFix = new Samotraces.UI.Widgets.TraceDisplayIconsFix(PolyTraceFix.$.traceIcon,PolyTraceFix.trace,PolyTraceFix.time,PolyTraceFix.timezoom,options);
+        },
+      ready: function() {
+         PolyTraceFix = this;
+      }
+
+
+  	});
+  </script>
+</dom-module>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--link rel="import" href="http://localhost:8080/demo/bower_components/polymer/polymer.html"/>
+
+<dom-module id="Polymer-Base">
+  <template>
+	<h2 style="margin-left: 50%;"> Interface Base </h2>
+	 <div>{{baseSel.id}}</div>
+   	<div id= "URL_Base">{{baseSel.id}}</div>
+     	<div id= "Label_Base">{{baseSel.label}}</div>
+    	
+  	</template>
+<script src="../Object/KTBS.Base.js"></script>	
+  <script>
+    Polymer({
+      is: "Polymer-Base",
+    properties: {
+        baseSel: {
+			type: Object,
+			notify: true,
+			reflectToAttribute: true,
+			value: function() { return {}; }
+		      }
+	
+      },
+ prop1: {
+        type: Number,
+        notify: true,
+        reflectToAttribute: true,
+        value: 0
+      },
+	 
+	
+    });
+  </script>
+</dom-module>
+<!--dom-module id="Polymer-Base">
+  <template>
+    <h2 style="margin-left: 50%;"> Interface Base </h2>
+ 
+     <div id= "URL_Base"> {{prop1.id}} </div>
+     <div id= "Label_Base"> {{prop1.label}}</div>
+     <div id= "ListTrace"> </div>
+     <div id= "ListModel"> </div>
+<content></content>
+  </template>
+<script src="../Object/KTBS.Base.js"></script>	
+  <script>
+    Polymer({
+      is: "Polymer-Base",
+     
+       prop1: {
+			type: Object,
+			notify: true,
+			reflectToAttribute: true,
+			value: new Samotraces.KTBS.Base("http://localhost:8001/base1/")
+		      },
+	 
+
+	 ready: function() {
+			
+			this.prop1 =  new Samotraces.KTBS.Base("http://localhost:8001/base1/");
+			this.addEventListener('eventFromTaabsChangeBase',function() {
+			this.$.URL_Base.appendChild (document.createTextNode("ID : "+this.prop1.get_uri()));
+			this.$.Label_Base.appendChild (document.createTextNode("Label : "+this.prop1.label));
+			})
+			
+		},
+	selector_baseChanged: function() {
+     			console.log("here");
+    }
+    });
+  </script>
+</dom-module>

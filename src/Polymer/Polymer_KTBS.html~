@@ -1,0 +1,61 @@
+<link rel="import" href="http://localhost:8080/demo/bower_components/polymer/polymer.html"/>
+
+
+
+<dom-module id="Polymer-KTBS">
+  <template>
+    <h2 style="margin-left: 20%;"> Interface KTBS </h2>
+	<div id="URL_KTBS"> </div>
+	<div id="ListBase"> </div>
+	<button class="base" on-click = "ClickBase" id="baa/">baa/</button>
+
+  </template>
+<script src="../Widgets/ListBases.js"></script>
+<script src="../Object/KTBS.Base.js"></script>
+  <script>
+    Polymer({
+      is: "Polymer-KTBS",
+      properties: {
+       basesel: {
+			type: Object,
+			notify: true,
+			reflectToAttribute: true,
+			value: function() { return {}; },
+			observer: '_baseselChanged'
+		      },
+	src_ktbs: {
+			type: String,
+			value: ''
+		}
+	
+	
+      },
+
+	ClickBase: function(event) {
+     			this.prop1="10";
+			BaseURL = this.ktbs.id+event.srcElement.innerText;
+			this.basesel =  new Samotraces.KTBS.Base(BaseURL);
+			this.fire('eventFromListBaseClickBase', { baseurl: BaseURL});
+			
+    			},
+	_baseselChanged: function(newValue, oldValue) {
+        console.log("oldValue:" + oldValue);
+        console.log("newValue:" + newValue);
+      },	
+	ready: function() {
+			//ktbs = this.parentElement.ktbsObj;
+			this.ktbs = new Samotraces.KTBS(this.src_ktbs);
+			this.$.URL_KTBS.appendChild (document.createTextNode("ID : "+this.ktbs.id));
+			new Samotraces.UI.Widgets.ktbs.ListBases (this.$.ListBase,this.ktbs,'');
+			//A = document.getElementsByClassName("base");
+			//console.log (A);
+			//for (var i = 0; i < A.length; i++) {A[i].onclick = this.ClickBase;console.log (A[i]);}
+
+			}
+
+
+
+
+    });
+  </script>
+</dom-module>

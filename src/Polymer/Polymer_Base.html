@@ -1,0 +1,164 @@
+
+<link rel="import" href="http://localhost:8080/demo/bower_components/polymer/polymer.html"/>
+<dom-module id="polymer-base">
+  <template>
+      <h2 style="margin-left: 50%;"> Interface Base </h2>
+      <div>{{baseSel.id}}</div>
+      <div id= "URL_Base">{{basesel.id}}</div>
+      <div id= "Label_Base">{{basesel.label}}</div>
+      <h4> Liste des traces </h4>
+      <div id="ListTraces">  </div>
+       <h4> Liste des modèles </h4>
+      <div id="ListModel">  </div>
+  </template>
+  <script src="../Widgets/ListTracesInBases.js"></script>
+  <script src="../Widgets/ListModelInBases.js"></script> 
+  <script src="../Object/KTBS.Trace.js"></script>
+  <script src="../Object/KTBS.Model.js"></script>
+  <script>
+    Polymer({
+      is: "polymer-base",
+      properties: {
+        base: {
+  			 type: Object,
+  			 notify: true,
+  			 reflectToAttribute: true,
+  			 value: function() { return {}; },
+  			 observer: '_baseselChanged'
+  		  },
+        tracesel: {
+         type: Object,
+         notify: true,
+         reflectToAttribute: true,
+         value: function() { return {}; }
+         
+        },
+         modelsel: {
+         type: Object,
+         notify: true,
+         reflectToAttribute: true,
+         value: function() { return {}; }
+         
+        },
+      },
+
+  	  _baseselChanged: function(newValue, oldValue) {
+    			PolyBase.$.ListTraces.innerHTML="";
+          PolyBase.$.ListModel.innerHTML="";
+    			ListTracewidget = new Samotraces.UI.Widgets.ktbs.ListTracesInBases (PolyBase.$.ListTraces,newValue,'');
+    			ListModelwidget = new Samotraces.UI.Widgets.ktbs.ListModelInBases (PolyBase.$.ListModel,newValue,'');
+          
+          ListTracewidget.on("ListTrace",function(){
+            var BaseButton = PolyBase.$.ListTraces.querySelectorAll('.trace')
+            for (var i = 0; i < BaseButton.length; i++) {BaseButton[i].onclick = PolyBase.ClickTrace};
+          })
+
+          ListModelwidget.on("ListModel",function(){
+            var BaseButton = PolyBase.$.ListModel.querySelectorAll('.model')
+            for (var i = 0; i < BaseButton.length; i++) {BaseButton[i].onclick = PolyBase.ClickModel};
+          })
+        },
+
+      ClickTrace: function(event) {
+        TraceURL = PolyBase.base.id+event.srcElement.innerText;
+        PolyBase.tracesel =  new Samotraces.KTBS.Trace(TraceURL);
+      },
+
+      ClickModel: function(event) {
+        ModelURL = PolyBase.base.id+event.srcElement.innerText;
+        PolyBase.modelsel =  new Samotraces.KTBS.Model(ModelURL);
+      },
+      ready: function() {
+         PolyBase = this;
+      }
+
+
+  	});
+  </script>
+</dom-module>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--link rel="import" href="http://localhost:8080/demo/bower_components/polymer/polymer.html"/>
+
+<dom-module id="Polymer-Base">
+  <template>
+	<h2 style="margin-left: 50%;"> Interface Base </h2>
+	 <div>{{baseSel.id}}</div>
+   	<div id= "URL_Base">{{baseSel.id}}</div>
+     	<div id= "Label_Base">{{baseSel.label}}</div>
+    	
+  	</template>
+<script src="../Object/KTBS.Base.js"></script>	
+  <script>
+    Polymer({
+      is: "Polymer-Base",
+    properties: {
+        baseSel: {
+			type: Object,
+			notify: true,
+			reflectToAttribute: true,
+			value: function() { return {}; }
+		      }
+	
+      },
+ prop1: {
+        type: Number,
+        notify: true,
+        reflectToAttribute: true,
+        value: 0
+      },
+	 
+	
+    });
+  </script>
+</dom-module>
+<!--dom-module id="Polymer-Base">
+  <template>
+    <h2 style="margin-left: 50%;"> Interface Base </h2>
+ 
+     <div id= "URL_Base"> {{prop1.id}} </div>
+     <div id= "Label_Base"> {{prop1.label}}</div>
+     <div id= "ListTrace"> </div>
+     <div id= "ListModel"> </div>
+<content></content>
+  </template>
+<script src="../Object/KTBS.Base.js"></script>	
+  <script>
+    Polymer({
+      is: "Polymer-Base",
+     
+       prop1: {
+			type: Object,
+			notify: true,
+			reflectToAttribute: true,
+			value: new Samotraces.KTBS.Base("http://localhost:8001/base1/")
+		      },
+	 
+
+	 ready: function() {
+			
+			this.prop1 =  new Samotraces.KTBS.Base("http://localhost:8001/base1/");
+			this.addEventListener('eventFromTaabsChangeBase',function() {
+			this.$.URL_Base.appendChild (document.createTextNode("ID : "+this.prop1.get_uri()));
+			this.$.Label_Base.appendChild (document.createTextNode("Label : "+this.prop1.label));
+			})
+			
+		},
+	selector_baseChanged: function() {
+     			console.log("here");
+    }
+    });
+  </script>
+</dom-module>

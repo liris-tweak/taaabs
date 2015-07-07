@@ -1,0 +1,45 @@
+<link rel="import" href="http://localhost:8080/demo/bower_components/polymer/polymer.html"/>
+
+
+
+<dom-module id="Polymer-Taabs">
+  <template>
+    <h2> Interface Taabs </h2>	      			
+   <content></content>
+    
+    <content></content>
+  </template>
+  <script>
+    Polymer({
+      is: "Polymer-Taabs",
+     selector_base: {
+        type: Object,
+        notify: true,
+        reflectToAttribute: true,
+        value: function() { return {}; }
+      },
+     id: {
+	type: String,
+	value: ''
+	},
+     src_ktbs: {
+        type: String,
+	value: ''
+       },
+
+	 ready: function() {
+			var that = this;
+			ktbs = new Samotraces.KTBS(that.src_ktbs);
+			this.ktbsObj = ktbs;
+			this.addEventListener('eventFromListBaseClickBase', this.GetObjBaseSelectetd);
+			//this.fire('eventFromTaabsChangeBase');
+			},
+	GetObjBaseSelectetd: function(event) {
+			var that = this;
+			console.log(event.detail);
+			that.selector_base =  new Samotraces.KTBS.Base(event.detail.baseurl);
+			
+    			}
+    });
+  </script>
+</dom-module>

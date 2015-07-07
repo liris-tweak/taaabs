@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <script>
+      window.Polymer = window.Polymer || {};
+      window.Polymer.dom = 'shadow';
+    </script>
+    <!-- Imports custom element -->
+    <link rel="import" href="../src/Polymer/Polymer_taabs.html"/>
+    <link rel="import" href="../src/Polymer/Polymer_KTBS.html"/>
+    <link rel="import" href="../src/Polymer/Polymer_Base.html"/>
+    <link rel="import" href="../src/Polymer/Polymer_Trace.html"/>
+    <link rel="import" href="../src/Polymer/polymer-timeform.html"/>
+    <link rel="import" href="../src/Polymer/polymer-windowscalefix.html"/>
+    <link rel="import" href="../src/Polymer/polymer-tracedisplayiconsfix.html"/>
+    <link rel="import" href="../src/Polymer/polymer-tracedisplayiconszoom.html"/>
+    <!--link rel="import" href="../src/Polymer/Polymer_Model.html"/-->
+
+
+    <!-- Imports CSS File -->
+	 <link rel="stylesheet" href="../src/CSS/samotraces.css"> 
+	 <script src="../src/CSS/bootstrap/bootstrap.min.js"></script> 
+
+   <!-- Imports JS FILE -->
+		<script src="../src/JS/D3/d3.js"></script> 
+    <script src="../src/JS/Jquery/jquery.js"></script> 
+    </head>
+    <body>
+        <template is="dom-bind">
+	         <div class="PolymerKTBS"> 
+	               <polymer-ktbs class="PolymerKTBS" src_ktbs="http://localhost:8001/" basesel="{{data}}" > </polymer-ktbs>
+	         </div>
+	         <div class="PolymerBase"> 
+	               <polymer-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"> </polymer-base> 
+          </div>
+             
+          <div class="PolymerTrace"> 
+
+		<polymer-trace trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >    
+                   
+            		<polymer-timeform  time="{{twzoom}}" > </polymer-timeform>  
+	    		<polymer-windowscalefix  div_id ="scale1" time="{{tw}}" > </polymer-windowscalefix>
+           		<polymer-tracedisplayiconsfix  trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}"> </polymer-tracedisplayiconsfix>
+            		<polymer-tracedisplayiconszoom  trace="{{objtrace}}" time="{{twzoom}}"> </polymer-tracedisplayiconszoom>
+            		<polymer-windowscalefix   div_id ="scale2" time="{{twzoom}}" > </polymer-windowscalefix>
+            		<!--polymer-tracedisplaytext  trace="{{objtrace}}" timezoom="{{twzoom}}"> </polymer-tracedisplaytext-->
+
+		</polymer-trace> 
+           </div>   
+            
+
+		
+          <polymer-model  modelsel="{{objmodel}}"> </polymer-model>     
+    </template>
+  </body>
+</html>
+
+
+
+<!--Polymer-KTBS src_ktbs="http://localhost:8001/"  basesel="{{data}}"> </Polymer-KTBS>
+		<Polymer-Base basesel="{{data}}"> </Polymer-Base-->

@@ -1,0 +1,28 @@
+{
+  "name": "polymer-data-binding",
+  "version": "0.0.1",
+  "homepage": "https://github.com/StatelessCat/polymer-data-binding",
+  "authors": [
+    "Raphael Cazenave-Leveque <raphael.cazenave@gmail.com>"
+  ],
+  "description": "polymer-data-binding",
+  "keywords": [
+    "polymer",
+    "webcomponents",
+    "javascript"
+  ],
+  "license": "GPL-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "paper-item": "PolymerElements/paper-item#^1.0.0",
+    "paper-material": "PolymerElements/paper-material#^1.0.0",
+    "paper-slider": "PolymerElements/paper-slider#^1.0.0"
+  }
+}

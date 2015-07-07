@@ -1,0 +1,55 @@
+<link rel="import" href="http://localhost:8080/demo/bower_components/polymer/polymer.html"/>
+
+
+
+<dom-module id="Polymer-Taabs">
+  <template>
+    	<h2> Interface Taabs </h2>	      			
+   	<content></content>
+  </template>
+	<script src="../JS/Jquery/jquery.js"></script>
+	<script src="../JS/generate_samotraces.js"></script>
+	<script src="../Object/KTBS.js"></script>
+	<script src="../Object/KTBS.Base.js"></script>
+	<script src="../Object/KTBS.Resource.js"></script>
+	
+	<script src="../Object/EventHandler.js"></script>
+	<script src="../Widgets/Widget.js"></script>
+  <script>
+    Polymer({
+      is: "Polymer-Taabs",
+      properties:{
+		 basesel: {
+			type: Object,
+			notify: true,
+			reflectToAttribute: true,
+			value: function() { return {}; }
+		      },
+		src_ktbs: {
+			    type: String,
+			    value: ''
+			}
+
+    
+    
+       },
+	_baseselChanged: function(newValue, oldValue) {
+       		 console.log("oldValue:" + oldValue);
+       		 console.log("newValue:" + newValue);
+      },
+	 ready: function() {
+			
+			ktbs = new Samotraces.KTBS(this.src_ktbs);
+			this.ktbsObj = ktbs;
+			this.addEventListener('eventFromListBaseClickBase', this.GetObjBaseSelectetd);
+			this.basesel =  new Samotraces.KTBS.Base("http://localhost:8001/base1/");
+			},
+	GetObjBaseSelectetd: function(event) {
+			
+			console.log(event.detail);
+			this.basesel =  new Samotraces.KTBS.Base(event.detail.baseurl);
+			//this.fire('eventFromTaabsChangeBase');
+    			}
+    });
+  </script>
+</dom-module>
