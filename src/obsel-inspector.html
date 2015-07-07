@@ -1,0 +1,27 @@
+<link rel="import" href="../demo/bower_components/polymer/polymer.html"/>
+
+<dom-module id="obsel-inspector">
+  
+  <link rel="import" type="css" href="static-samotraces-libs/samotraces.css"/>
+  
+  <template>
+    <div id="obselinspector"></div>
+  </template>
+
+  <script>
+    Polymer({
+      is: "obsel-inspector",
+      properties: {
+        obselselector: {
+          type: Object,
+          notify: true
+        }
+      },
+      attached: function() {
+        this.obselselector = new Samotraces.Selector('Obsel');
+        var widgetElement = this.$$("#obselinspector");
+        new Samotraces.UI.Widgets.ObselInspector(widgetElement, this.obselselector);
+      }
+    });
+  </script>
+</dom-module>

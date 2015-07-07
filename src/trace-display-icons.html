@@ -32,16 +32,15 @@
           type: Object,
           notify: true,
           reflectToAttribute: true
+        },
+        obselselector: {
+          type: Object,
+          notify: true
         }
-      },
-      created: function() {
-        
       },
       attached: function() {
         this.trace = new Samotraces.LocalTrace();
         this.timewindow = new Samotraces.TimeWindow({start: 0, end: 20});
-        console.log("");
-        
         var widgetElement = this.$$("#my-widget");
         this.tracedisplayicons = new Samotraces.UI.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow);
         this.addDefaultObsels(); // TODO this must be removed after testing done
@@ -50,6 +49,23 @@
         this.trace.create_obsel({type: 'click', begin: 1});
         this.trace.create_obsel({type: 'click', begin: 5});
         this.trace.create_obsel({type: 'click', begin: 12});
+        this.observObsels();
+      },
+      observObsels: function(actionName, func) {
+        // this is a NodeList, not an Array, so no forEach 
+        var obselsNodeList = this.shadowRoot.querySelectorAll(".Samotraces-obsel");
+        for (var i = 0; i < obselsNodeList.length; i++) {
+          var obsel = obselsNodeList[i];
+          console.log(obsel);
+          obsel.addEventListener("click", this.handleClick.bind(this), true); 
+        }
+        //var obsel = $.data(event.target, 'Samotraces-data');
+        //this.obselSelector.select(obsel);
+      },
+      handleClick: function(event) {
+        console.log("clicked");
+        var obsel = $.data(event.target, "Samotraces-data");
+        this.obselselector.select(obsel);
       }
     });
   </script>
