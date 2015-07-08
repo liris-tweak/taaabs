@@ -1,9 +1,9 @@
 
 <link rel="import" href="../../demo/bower_components/polymer/polymer.html"/>
-<dom-module id="taaabs-trace">
+<dom-module id="taaabs-samotraceme">
   <link rel="import" type="css" href="../../lib/CSS/samotraces.css"/>
   <template>
-      <h2 style="margin-left: 50%;"> Interface Trace </h2>
+      <h4 style="margin-left: 50%;"> Samo Trace Me </h4>
 
       <div >{{trace.id}}</div>
       <div id="origin"></div>
@@ -16,7 +16,7 @@
 
   <script>
     Polymer({
-      is: "taaabs-trace",
+      is: "taaabs-samotraceme",
       properties: {
 
         trace: {
@@ -47,11 +47,11 @@
 
   	  _traceselChanged: function(newValue, oldValue) {
     		//PolyTrace.$.Trace.innerHTML="";
-            PolyTrace.trace.on('trace:updateData',function(){
+            newValue.on('trace:updateData',function(){
             PolyTrace.$.origin.appendChild (document.createTextNode("Origin : "+PolyTrace.trace.origin));
             PolyTrace.$.type.appendChild (document.createTextNode("type : "+PolyTrace.trace.type));
             PolyTrace.$.model.appendChild (document.createTextNode("model : "+PolyTrace.trace.model_uri));
-	    PolyTrace.timezoom =  new Samotraces.TimeWindow({start: new Date(Date()).setHours(new Date (Date()).getHours()-2), end: Date.now()});
+	          PolyTrace.timezoom =  new Samotraces.TimeWindow({start: new Date(Date()).setHours(new Date (Date()).getHours()-2), end: Date.now()});
             PolyTrace.time = new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()});
 		});
 

@@ -15,12 +15,14 @@
       properties: {
         timewindow: {
           type: Object,
-          notify: true
+          notify: true,
+          reflectToAttribute: true,
+          observer: '_timeChanged'
         },
       },
-      attached: function() {
+      _timeChanged: function(newValue, oldValue) {
         var widgetElement = this.$$("#scale");
-        this.windowscale = new Samotraces.UI.Widgets.WindowScale(widgetElement, this.timewindow);
+        this.windowscale = new Samotraces.UI.Widgets.WindowScale(widgetElement, newValue);
       }
     });
   </script>

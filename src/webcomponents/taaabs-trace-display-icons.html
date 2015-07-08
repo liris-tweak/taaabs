@@ -13,8 +13,8 @@
   <link rel="import" type="css" href="../../lib/CSS/samotraces.css"/>
 
   <template>
-    <h6>TraceDisplayIcons</h6>
-    <div id="my-widget"></div>
+    
+    <div id="mywidget"></div>
   </template>
 
   <script>
@@ -23,28 +23,57 @@
       properties: {
         timewindow: {
           type: String,
-          notify: true
+          reflectToAttribute: true,
+          notify: true,
+          observer: '_timeChanged'
+         
         },
         trace: {
           type: Object,
           notify: true,
+          
         },
         obselselector: {
           type: Object,
+          reflectToAttribute: true,
           notify: true
         },
         options: {
           type: Object,
+          reflectToAttribute: true,
           notify: true
         }
       },
-      attached: function() {
+      /*attached: function() {
         this.trace = new Samotraces.LocalTrace();
         this.timewindow = new Samotraces.TimeWindow({start: 0, end: 20});
         var widgetElement = this.$$("#my-widget");
         this.tracedisplayicons = new Samotraces.UI.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow, this.options);
         this.addDefaultObsels(); // TODO this must be removed after testing done
-      },
+      },*/
+      _timeChanged: function(newValue, oldValue) {
+        var widgetElement = this.$$("#mywidget");
+        options = {
+        url: function(o) {
+          var path = "../../lib/Images/";
+          switch(o["type"]) {
+            case 'Ouverture_Page':
+            return path+'Orange.png';
+            default:
+            return path+'help.png';
+          }
+        }
+      };
+        this.tracedisplayicons = new Samotraces.UI.Widgets.TraceDisplayIcons(widgetElement, this.trace, newValue, options);
+        var T = this;
+        var x = setTimeout(function(){
+
+
+          T.observObsels();
+
+
+        }, 10500);
+       },
       addDefaultObsels: function() {
         this.trace.create_obsel({type: 'click', begin: 1});
         this.trace.create_obsel({type: 'click', begin: 5});
@@ -56,7 +85,7 @@
         var obselsNodeList = this.shadowRoot.querySelectorAll(".Samotraces-obsel");
         for (var i = 0; i < obselsNodeList.length; i++) {
           var obsel = obselsNodeList[i];
-          obsel.addEventListener("click", this.handleClick.bind(this), true);
+          obsel.onclick = this.handleClick;
         }
       },
       handleClick: function(event) {
