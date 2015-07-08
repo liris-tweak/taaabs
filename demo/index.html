@@ -15,12 +15,13 @@
   <link rel="import" href="../src/webcomponents/taaabs-taaabs.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-ktbs.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-base.html"/>
-  <link rel="import" href="../src/webcomponents/taaabs-trace.html"/>
+  <link rel="import" href="../src/webcomponents/taaabs-samotraceme.html"/>
+  <link rel="import" href="../src/webcomponents/taaabs-tracefix.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-timeform.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-windowscalefix.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-tracedisplayiconsfix.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-tracedisplayiconszoom.html"/>
-  <!-- <link rel="import" href="../src/webcomponents/taaabs-Model.html"/> -->
+  <<link rel="import" href="../src/webcomponents/taaabs-model.html"/> 
   <link rel="import" href="../src/webcomponents/taaabs-trace-display-icons.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-window-scale.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-import-trace.html"/>
@@ -53,26 +54,26 @@
         <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"> </taaabs-base>
       </div>
       <div class="PolymerTrace">
-        <taaabs-trace trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >
+        <taaabs-samotraceme trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >
           <taaabs-timeform  time="{{twzoom}}" > </taaabs-timeform>
           <taaabs-windowscalefix  div_id ="scale1" time="{{tw}}" > </taaabs-windowscalefix>
           <taaabs-tracedisplayiconsfix  trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}"> </taaabs-tracedisplayiconsfix>
           <taaabs-tracedisplayiconszoom  trace="{{objtrace}}" time="{{twzoom}}"> </taaabs-tracedisplayiconszoom>
           <taaabs-windowscalefix   div_id ="scale2" time="{{twzoom}}" > </taaabs-windowscalefix>
           <!--taaabs-tracedisplaytext  trace="{{objtrace}}" timezoom="{{twzoom}}"> </taaabs-tracedisplaytext-->
-        </taaabs-trace>
-      </div>
-      <taaabs-model  modelsel="{{objmodel}}"> </taaabs-model>
+        </taaabs-samotraceme>
+     
+      
 
-      <taaabs-trace-display-icons
-        timewindow="{{tw}}"
-        trace="{{objtrace}}"
-        obselselector="{{selectedObsel}}"
-        options='{"url": "images/clef.png"}'>
-      </taaabs-trace-display-icons>
-      <taaabs-window-scale timewindow="{{tw}}"></taaabs-window-scale>
-      <!-- <taaabs-import-trace trace="{{objtrace}}"></taaabs-import-trace> -->
-      <taaabs-obsel-inspector obselselector="{{selectedObsel}}"></taaabs-obsel-inspector>
+         <taaabs-tracefix trace="{{objtrace}}" time="{{tw2}}">
+            <taaabs-trace-display-icons timewindow="{{tw2}}" trace="{{objtrace}}"  obselselector="{{selectedObsel}}" options='{"url": "images/clef.png"}'> </taaabs-trace-display-icons>
+            <taaabs-window-scale timewindow="{{tw2}}"></taaabs-window-scale>
+            <taaabs-obsel-inspector obselselector="{{selectedObsel}}"></taaabs-obsel-inspector>
+         </taaabs-trace>
+          </div>
+          <div class="PolymerModel">
+              <taaabs-model  modelsel="{{objmodel}}"> </taaabs-model>
+         <div class="PolymerTrace">
     </template>
   </paper-scroll-header-panel>
 </body>
