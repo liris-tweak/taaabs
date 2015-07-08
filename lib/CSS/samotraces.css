@@ -1,18 +1,90 @@
+
+
+.brush .extent {
+  stroke: #000;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+.grid-background {
+  fill: #ddd;
+}
+
+.grid line,
+.grid path {
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+.grid .minor.tick line {
+  stroke-opacity: .5;
+}
+.axis text {
+  font: 11px sans-serif;
+}
+
+.axis path {
+  display: none;
+}
+
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.scroll {
+overflow-y: scroll;
+
+}
+
 /**********************
  Widget
  **********************/
 
 div.Widget {
 	border: 1px solid #484;
-	overflow: hidden;
+	/*overflow: hidden;*/
+}
+
+div.PolymerKTBS{
+border: 1px solid #484;
+width: 45%;
+float: left;
+}
+
+div.PolymerTrace{
+border: 1px solid #484;
+width: 100%;
+padding-top: 300px;
+}
+
+div.PolymerBase{
+border: 1px solid #484;
+width: 50%;
+float: right;
+
 }
 
 /**********************
  WidgetWindowScale
  **********************/
+div.Widget-TraceModel {
 
+	margin-top: 10px;
+	overflow-y: scroll;
+	height:200px;
+}
+.Widget-ListBases {
+
+margin-left : 50%;
+}
 div.Widget-WindowScale {
 	width: 100%;
+}
+div.Widget-TraceDisplayText{
+overflow-y:scroll;
+height:530px;
 }
 
 div.Widget-WindowScale svg {
@@ -26,9 +98,20 @@ div.Widget-WindowScale svg path {
 div.Widget-WindowScale svg text {
 	font-size: 10pt;
 }
-
+form {
+margin-bottom: 1em !important;
+padding-top: 10px;
+padding-left: 70px;
+}
+user agent stylesheetform {
+display: block !important;
+margin-top: 0em !important;
+}
+p {
+	margin: 4px 1px !important;
+	}
 div.Widget-WindowScale p {
-	margin: 2px 1px;
+	margin: 2px 1px !important;
 	border-left: solid 1px black;
 	position: relative;
 	top: 0px;
@@ -56,14 +139,37 @@ div.Widget-TraceDisplayIcons svg {
 }
 
 /**********************
+Widget-TraceDisplayObselOccurrence
+ **********************/
+
+div.Widget-ObselOccurrences {
+	width: 100%;
+	height: 20px;
+}
+
+div.Widget-ObselOccurrences svg {
+	width: 100%;
+	height: 100%;
+}
+
+div.Widget-ObselOccurrences rect {
+	stroke: black;
+	stroke-width: 1px;
+	fill: black;
+}
+
+/**********************
  WidgetObselInspector
  **********************/
 
 div.Widget-ObselInspector {
 	margin: auto;
-	width: 500px;
+	width: 60%;
 	border: 1px solid #484;
-	display: none;
+	
+	margin-top:50px;
+	float:right;
+	
 }
 
 div.Widget-ObselInspector span {
@@ -128,3 +234,4 @@ div.Widget-TimeSlider div {
 	display: none;
 	cursor: pointer;
 }
+

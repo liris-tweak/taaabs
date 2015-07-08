@@ -1,0 +1,60 @@
+
+<link rel="import" href="../../demo/bower_components/polymer/polymer.html"/>
+<dom-module id="taaabs-tracedisplayiconszoom">
+  <link rel="import" type="css" href="../../lib/CSS/samotraces.css"/>
+  <template>
+
+    <div id="traceIconzoom"></div>
+
+
+  </template>
+  <script src="../../lib/Widgets/TraceDisplayIconsZoom.js"></script>
+  <script>
+  Polymer({
+    is: "taaabs-tracedisplayiconszoom",
+    properties: {
+
+      time: {
+        type: Object,
+        notify: true,
+        reflectToAttribute: true,
+        value: function() { return {}; },
+        observer: '_timeChanged'
+
+      },
+
+      trace: {
+        type: Object,
+        notify: true,
+        reflectToAttribute: true,
+        value: function() { return {}; }
+        //observer: '_traceChanged'
+
+      }
+
+    },
+
+    _timeChanged: function(newValue, oldValue) {
+      options = {
+        url: function(o) {
+          var path = "../../lib/Images/";
+          switch(o["type"]) {
+            case 'Ouverture_Page':
+            return path+'Orange.png';
+            default:
+            return path+'help.png';
+          }
+        }
+      };
+
+      PolyTraceFixzoom.trace.list_obsels();
+      I_TraceDisplayIconsFixzoom = new Samotraces.UI.Widgets.TraceDisplayIconsZoom(PolyTraceFixzoom.$$("#traceIconzoom"),PolyTraceFixzoom.trace,PolyTraceFixzoom.time,options);
+    },
+    ready: function() {
+      PolyTraceFixzoom = this;
+    }
+
+
+  });
+  </script>
+</dom-module>

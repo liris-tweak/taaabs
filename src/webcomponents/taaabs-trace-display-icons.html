@@ -1,13 +1,16 @@
-<link rel="import" href="../demo/bower_components/polymer/polymer.html"/>
+<link rel="import" href="../../demo/bower_components/polymer/polymer.html"/>
 
-<script type="text/javascript" src="static-samotraces-libs/d3.js"></script>
-<script type="text/javascript" src="static-samotraces-libs/jquery.js"></script>
-<script type="text/javascript" src="static-samotraces-libs/jquery.mousewheel.js"></script>
-<script type="text/javascript" src="static-samotraces-libs/Samotraces.js"></script>
+<script type="text/javascript" src="../../lib/JS/D3/d3.js"></script>
+<script type="text/javascript" src="../../lib/static-samotraces-libs/jquery.js"></script>
+<script type="text/javascript" src="../../lib/static-samotraces-libs/jquery.mousewheel.js"></script>
 
-<dom-module id="trace-display-icons">
+<script type="text/javascript" src="../../lib/Object/LocalTrace.js"></script>
+<script type="text/javascript" src="../../lib/Object/TimeWindow.js"></script>
+<script type="text/javascript" src="../../lib/Widgets/TraceDisplayIcons.js"></script>
 
-  <link rel="import" type="css" href="static-samotraces-libs/samotraces.css"/>
+<dom-module id="taaabs-trace-display-icons">
+
+  <link rel="import" type="css" href="../../lib/CSS/samotraces.css"/>
 
   <template>
     <h6>TraceDisplayIcons</h6>
@@ -16,7 +19,7 @@
 
   <script>
     Polymer({
-      is: "trace-display-icons",
+      is: "taaabs-trace-display-icons",
       properties: {
         timewindow: {
           type: String,
@@ -39,7 +42,6 @@
         this.trace = new Samotraces.LocalTrace();
         this.timewindow = new Samotraces.TimeWindow({start: 0, end: 20});
         var widgetElement = this.$$("#my-widget");
-
         this.tracedisplayicons = new Samotraces.UI.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow, this.options);
         this.addDefaultObsels(); // TODO this must be removed after testing done
       },

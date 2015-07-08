@@ -1,0 +1,67 @@
+
+<link rel="import" href="../../demo/bower_components/polymer/polymer.html"/>
+<dom-module id="taaabs-trace">
+  <link rel="import" type="css" href="../../lib/CSS/samotraces.css"/>
+  <template>
+      <h2 style="margin-left: 50%;"> Interface Trace </h2>
+
+      <div >{{trace.id}}</div>
+      <div id="origin"></div>
+      <div id= "type" ></div>
+      <div id = "model"></div>
+      <content></content>
+  </template>
+  <script src="../../lib/Object/Obsel.js"></script>
+  <script src="../../lib/Object/KTBS.Obsel.js"></script>
+
+  <script>
+    Polymer({
+      is: "taaabs-trace",
+      properties: {
+
+        trace: {
+         type: Object,
+         notify: true,
+         reflectToAttribute: true,
+         value: function() { return {}; },
+         observer: '_traceselChanged'
+        },
+
+        time: {
+         type: Object,
+         notify: true,
+         reflectToAttribute: true,
+         value: function() { return {}; }
+
+        },
+
+        timezoom: {
+         type: Object,
+         notify: true,
+         reflectToAttribute: true,
+         value: function() { return {}; }
+
+        }
+
+      },
+
+  	  _traceselChanged: function(newValue, oldValue) {
+    		//PolyTrace.$.Trace.innerHTML="";
+            PolyTrace.trace.on('trace:updateData',function(){
+            PolyTrace.$.origin.appendChild (document.createTextNode("Origin : "+PolyTrace.trace.origin));
+            PolyTrace.$.type.appendChild (document.createTextNode("type : "+PolyTrace.trace.type));
+            PolyTrace.$.model.appendChild (document.createTextNode("model : "+PolyTrace.trace.model_uri));
+	    PolyTrace.timezoom =  new Samotraces.TimeWindow({start: new Date(Date()).setHours(new Date (Date()).getHours()-2), end: Date.now()});
+            PolyTrace.time = new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()});
+		});
+
+
+        },
+      ready: function() {
+         PolyTrace = this;
+      }
+
+
+  	});
+  </script>
+</dom-module>

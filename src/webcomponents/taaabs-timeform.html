@@ -1,0 +1,35 @@
+
+<link rel="import" href="../../demo/bower_components/polymer/polymer.html"/>
+<dom-module id="taaabs-timeform">
+  <template>
+
+      <div id="time_form"></div>
+
+
+  </template>
+  <script src="../../lib/Widgets/IntervalTimeForm.js"></script>
+   <script src="../../lib/Object/TimeWindow.js"></script>
+  <script>
+    Polymer({
+      is: "taaabs-timeform",
+      properties: {
+
+        time: {
+         type: Object,
+         notify: true,
+         reflectToAttribute: true,
+         value: function() { return {}; },
+         observer: '_timeChanged'
+        }
+
+      },
+
+  	  _timeChanged: function(newValue, oldValue) {
+    	      I_IntervalTimeForm= new Samotraces.UI.Widgets.IntervalTimeForm(PolyTime.$.time_form,PolyTime.time);
+        },
+      ready: function() {
+         PolyTime = this;
+      }
+  	});
+  </script>
+</dom-module>

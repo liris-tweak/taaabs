@@ -1,7 +1,9 @@
-<link rel="import" href="../demo/bower_components/polymer/polymer.html"/>
+<link rel="import" href="../../demo/bower_components/polymer/polymer.html"/>
 
-<dom-module id="window-scale">
-  <link rel="import" type="css" href="static-samotraces-libs/samotraces.css"/>
+<script type="text/javascript" src="../../lib/Widgets/WindowScale.js"></script>
+
+<dom-module id="taaabs-window-scale">
+  <link rel="import" type="css" href="../../lib/CSS/samotraces.css"/>
 
   <template>
     <div id="scale"></div>
@@ -9,7 +11,7 @@
 
   <script>
     Polymer({
-      is: "window-scale",
+      is: "taaabs-window-scale",
       properties: {
         timewindow: {
           type: Object,

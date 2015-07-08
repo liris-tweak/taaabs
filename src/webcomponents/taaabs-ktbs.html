@@ -1,0 +1,46 @@
+<link rel="import" href="../../demo/bower_components/polymer/polymer.html"/>
+<dom-module id="taaabs-ktbs">
+	<template>
+		<h2 style="margin-left: 20%;"> Interface KTBS </h2>
+		<div id="URL_KTBS"> </div>
+		<div id="ListBase"> </div>
+		<!--button class="base" on-click = "ClickBase" id="baa/">baa/</button-->
+
+	</template>
+	<script src="../../lib/Widgets/ListBases.js"></script>
+	<script src="../../lib/Object/KTBS.Base.js"></script>
+	<script>
+	Polymer({
+		is: "taaabs-ktbs",
+		properties: {
+			basesel:{
+				type: Object,
+				notify: true,
+				reflectToAttribute: true,
+				value: function() { return {}; }
+			},
+			src_ktbs:{
+				type: String,
+				value: ''
+			}
+		},
+
+		ClickBase: function(event) {
+			BaseURL = PolyKTBS.ktbs.id+event.srcElement.innerText;
+			PolyKTBS.basesel =  new Samotraces.KTBS.Base(BaseURL);
+		},
+
+		ready: function() {
+			PolyKTBS = this;
+			this.ktbs = new Samotraces.KTBS(this.src_ktbs);
+			this.$.URL_KTBS.appendChild (document.createTextNode("ID : "+this.ktbs.id));
+			ListBasewidget = new Samotraces.UI.Widgets.ktbs.ListBases (this.$.ListBase,this.ktbs,'');
+			ListBasewidget.on("ListBase",function(){
+				var BaseButton = PolyKTBS.$.ListBase.querySelectorAll('.base')
+				for (var i = 0; i < BaseButton.length; i++) {BaseButton[i].onclick = PolyKTBS.ClickBase};
+			})
+
+		}
+	});
+	</script>
+</dom-module>
