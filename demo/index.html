@@ -2,13 +2,11 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <!-- <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"> -->
   <title>Liris-Taaabs</title>
   <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <script>
-  window.Polymer = window.Polymer || {};
-  window.Polymer.dom = 'shadow'; // enable shadow dom on browser that supports it
-  // window.Polymer.dom = 'shady'; // do not use shadow dom, simulate it/
+    window.Polymer = window.Polymer || {};
+    window.Polymer.dom = 'shadow'; // enable shadow dom on browser that supports it
   </script>
 
   <!-- import custom element -->
@@ -21,7 +19,7 @@
   <link rel="import" href="../src/webcomponents/taaabs-windowscalefix.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-tracedisplayiconsfix.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-tracedisplayiconszoom.html"/>
-  <<link rel="import" href="../src/webcomponents/taaabs-model.html"/> 
+  <<link rel="import" href="../src/webcomponents/taaabs-model.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-trace-display-icons.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-window-scale.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-import-trace.html"/>
@@ -35,46 +33,34 @@
   <link rel="stylesheet" href="../lib/CSS/samotraces.css">
 
   <!-- samotraces deps -->
+  <!--TODO WE NEED TO REMOVE THESES DEPS-->
   <script src="../lib/JS/D3/d3.js"></script>
   <script src="../lib/JS/Jquery/jquery.js"></script>
   <script src="../lib/static-samotraces-libs/jquery.mousewheel.js"></script>
 
 </head>
 <body class="fullbleed layout vertical">
-  <paper-scroll-header-panel class="flex">
-    <paper-toolbar>
-      <div class="title">Liris-Taaabs</div>
-    </paper-toolbar>
+<paper-scroll-header-panel class="flex">
+  <paper-toolbar>
+    <div class="title">Liris-Taaabs</div>
+  </paper-toolbar>
 
-    <template is="dom-bind">
-      <div class="PolymerKTBS">
-        <taaabs-ktbs class="PolymerKTBS" src_ktbs="http://localhost:8001/" basesel="{{data}}" > </taaabs-ktbs>
-      </div>
-      <div class="PolymerBase">
-        <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"> </taaabs-base>
-      </div>
-      <div class="PolymerTrace">
-        <taaabs-samotraceme trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >
-          <taaabs-timeform  time="{{twzoom}}" > </taaabs-timeform>
-          <taaabs-windowscalefix  div_id ="scale1" time="{{tw}}" > </taaabs-windowscalefix>
-          <taaabs-tracedisplayiconsfix  trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}"> </taaabs-tracedisplayiconsfix>
-          <taaabs-tracedisplayiconszoom  trace="{{objtrace}}" time="{{twzoom}}"> </taaabs-tracedisplayiconszoom>
-          <taaabs-windowscalefix   div_id ="scale2" time="{{twzoom}}" > </taaabs-windowscalefix>
-          <!--taaabs-tracedisplaytext  trace="{{objtrace}}" timezoom="{{twzoom}}"> </taaabs-tracedisplaytext-->
-        </taaabs-samotraceme>
-     
-      
-
-         <taaabs-tracefix trace="{{objtrace}}" time="{{tw2}}">
-            <taaabs-trace-display-icons timewindow="{{tw2}}" trace="{{objtrace}}"  obselselector="{{selectedObsel}}" options='{"url": "images/clef.png"}'> </taaabs-trace-display-icons>
-            <taaabs-window-scale timewindow="{{tw2}}"></taaabs-window-scale>
-            <taaabs-obsel-inspector obselselector="{{selectedObsel}}"></taaabs-obsel-inspector>
-         </taaabs-trace>
-          </div>
-          <div class="PolymerModel">
-              <taaabs-model  modelsel="{{objmodel}}"> </taaabs-model>
-         <div class="PolymerTrace">
-    </template>
-  </paper-scroll-header-panel>
+  <template is="dom-bind">
+    <taaabs-ktbs class="PolymerKTBS" src_ktbs="http://localhost:8001/" basesel="{{data}}" > </taaabs-ktbs>
+    <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"> </taaabs-base>
+    <taaabs-samotraceme trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >
+      <taaabs-timeform  time="{{twzoom}}" > </taaabs-timeform>
+      <taaabs-windowscalefix  div_id ="scale1" time="{{tw}}" > </taaabs-windowscalefix>
+      <taaabs-tracedisplayiconsfix  trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}"> </taaabs-tracedisplayiconsfix>
+      <taaabs-tracedisplayiconszoom  trace="{{objtrace}}" time="{{twzoom}}"> </taaabs-tracedisplayiconszoom>
+      <taaabs-windowscalefix   div_id ="scale2" time="{{twzoom}}" > </taaabs-windowscalefix>
+    </taaabs-samotraceme>
+    <taaabs-tracefix trace="{{objtrace}}" time="{{tw2}}">
+      <taaabs-trace-display-icons timewindow="{{tw2}}" trace="{{objtrace}}"  obselselector="{{selectedObsel}}" options='{"url": "images/clef.png"}'> </taaabs-trace-display-icons>
+      <taaabs-window-scale timewindow="{{tw2}}"></taaabs-window-scale>
+      <taaabs-obsel-inspector obselselector="{{selectedObsel}}"></taaabs-obsel-inspector>
+    </taaabs-tracefix>
+  </template>
+</paper-scroll-header-panel>
 </body>
 </html>
