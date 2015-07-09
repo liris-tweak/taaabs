@@ -1,6 +1,6 @@
 
 <link rel="import" href="../../demo/bower_components/polymer/polymer.html"/>
-<dom-module id="taaabs-base">
+<dom-module id="taaabs-model">
   <template>
     <h2 style="margin-left: 50%;"> Interface Base </h2>
     <div>{{baseSel.id}}</div>
@@ -11,13 +11,13 @@
     <h4> Liste des modèles </h4>
     <div id="ListModel">  </div>
   </template>
-  <script src="../Widgets/ListTracesInBases.js"></script>
-  <script src="../Widgets/ListModelInBases.js"></script>
-  <script src="../Object/KTBS.Trace.js"></script>
-  <script src="../Object/KTBS.Model.js"></script>
+  <script src="../../lib/Widgets/ListTracesInBases.js"></script>
+  <script src="../../lib/Widgets/ListModelInBases.js"></script>
+  <script src="../../lib/Object/KTBS.Trace.js"></script>
+  <script src="../../lib/Object/KTBS.Model.js"></script>
   <script>
   Polymer({
-    is: "taaabs-base",
+    is: "taaabs-model",
     properties: {
       basesel: {
         type: Object,
