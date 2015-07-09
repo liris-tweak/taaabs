@@ -1,83 +1,72 @@
-
 <link rel="import" href="../../demo/bower_components/polymer/polymer.html"/>
 
 <dom-module id="taaabs-base">
   <template>
     <h2 style="margin-left: 50%;"> Interface Base </h2>
     <div>{{baseSel.id}}</div>
-    <div id= "URL_Base">{{basesel.id}}</div>
-    <div id= "Label_Base">{{basesel.label}}</div>
-       
-    <div id="ListTraces" style="width: 50%;float: left;">  </div>
-    
-    <div id="ListModel">  </div>
+    <div id="base-url">{{basesel.id}}</div>
+    <div id= "base-label">{{basesel.label}}</div>
+    <div id="tracelist" style="width: 50%;float: left;">  </div>
+    <div id="modellist">  </div>
   </template>
+
   <script src="../../lib/samotraces/widgets/ListTracesInBases.js"></script>
   <script src="../../lib/samotraces/widgets/ListModelInBases.js"></script>
   <script src="../../lib/samotraces/objects/KTBS.Trace.js"></script>
   <script src="../../lib/samotraces/objects/KTBS.Model.js"></script>
+
   <script>
-  Polymer({
-    is: "taaabs-base",
-    properties: {
-      base: {
-        type: Object,
-        notify: true,
-        reflectToAttribute: true,
-        value: function() { return {}; },
-        observer: '_baseselChanged'
-      },
-      tracesel: {
-        type: Object,
-        notify: true,
-        reflectToAttribute: true,
-        value: function() { return {}; }
-
-      },
-      modelsel: {
-        type: Object,
-        notify: true,
-        reflectToAttribute: true,
-        value: function() { return {}; }
-
-      },
-    },
-
-    _baseselChanged: function(newValue, oldValue) {
-      PolyBase.$.ListTraces.innerHTML="";
-      PolyBase.$.ListModel.innerHTML="";
-      ListTracewidget = new Samotraces.UI.Widgets.ktbs.ListTracesInBases (PolyBase.$.ListTraces,newValue,'');
-      ListModelwidget = new Samotraces.UI.Widgets.ktbs.ListModelInBases (PolyBase.$.ListModel,newValue,'');
-
-      ListTracewidget.on("ListTrace",function(){
-        var BaseButton = PolyBase.$.ListTraces.querySelectorAll('.trace');
-        for (var i = 0; i < BaseButton.length; i++) {
-          BaseButton[i].onclick = PolyBase.ClickTrace
+    Polymer({
+      is: "taaabs-base",
+      properties: {
+        base: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; },
+          observer: '_baseselChanged'
+        },
+        tracesel: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; }
+        },
+        modelsel: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; }
         }
-      });
-
-      ListModelwidget.on("ListModel",function(){
-        var BaseButton = PolyBase.$.ListModel.querySelectorAll('.model');
+      },
+      _listTrace: function() {
+        var BaseButton = this.$.tracelist.querySelectorAll('.trace');
         for (var i = 0; i < BaseButton.length; i++) {
-          BaseButton[i].onclick = PolyBase.ClickModel
+          BaseButton[i].onclick = this._clickTrace.bind(this);
         }
-      })
-    },
-
-    ClickTrace: function(event) {
-      TraceURL = PolyBase.base.id+event.srcElement.innerText;
-      PolyBase.tracesel =  new Samotraces.KTBS.Trace(TraceURL);
-    },
-
-    ClickModel: function(event) {
-      ModelURL = PolyBase.base.id+event.srcElement.innerText;
-      PolyBase.modelsel =  new Samotraces.KTBS.Model(ModelURL);
-    },
-    ready: function() {
-      PolyBase = this;
-    }
-
-
-  });
+      },
+      _listModel: function(){
+        var BaseButton = this.$.modellist.querySelectorAll('.model');
+        for (var i = 0; i < BaseButton.length; i++) {
+          BaseButton[i].onclick = this._clickModel;
+        }
+      },
+      _clickTrace: function(event) {
+        var traceURL = this.base.id + event.srcElement.innerText;
+        this.tracesel = new Samotraces.KTBS.Trace(traceURL);
+      },
+      _clickModel: function(event) {
+        var modelURL = this.base.id + event.srcElement.innerText;
+        this.modelsel = new Samotraces.KTBS.Model(modelURL);
+      },
+      _baseselChanged: function(newValue, oldValue) {
+        this.$.tracelist.innerHTML = "";
+        this.$.modellist.innerHTML = "";
+        ListTracewidget = new Samotraces.UI.Widgets.ktbs.ListTracesInBases (this.$.tracelist, newValue, '');
+        ListModelwidget = new Samotraces.UI.Widgets.ktbs.ListModelInBases (this.$.modellist, newValue, '');
+        ListTracewidget.on("ListTrace", this._listTrace.bind(this));
+        ListModelwidget.on("ListModel", this._listModel.bind(this));
+      }
+    });
   </script>
 </dom-module>
