@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://rcazenaveleveque@bitbucket.org/rcazenaveleveque/liris-taaabs.git"
+    "url": "https://gforge.liris.cnrs.fr/anonscm/git/taaabs/taaabs.git"
   },
   "keywords": [
     "polymer",
@@ -16,7 +16,17 @@
     "javascript",
     "traces"
   ],
-  "author": "\"Raphael Cazenave-Leveque <raphael.cazenave@gmail.com>",
+  "contributors": [{
+      "name": "Raphael Cazenave-Leveque",
+      "email": "raphael.cazenave@gmail.com",
+      "url": ""
+    },
+    {
+      "name": "Fatma Derbel",
+      "email": "",
+      "url": ""
+    }
+  ],
   "license": "GPL-2.0",
   "bugs": {
     "url": ""
