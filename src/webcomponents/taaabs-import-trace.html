@@ -18,11 +18,11 @@
       trace: {
         type: Object,
         notify: true
-      },
+      }
     },
     attached: function() {
       var widgetElement = this.$$("#importer");
-      this.importtrace = new Samotraces.UI.Widgets.ImportTrace(widgetElement, this.trace);
+      this.importTrace = new Samotraces.UI.Widgets.ImportTrace(widgetElement, this.trace);
     }
   });
   </script>

@@ -1,55 +1,44 @@
 <link rel="import" href="../../demo/bower_components/polymer/polymer.html"/>
 
-
-
 <dom-module id="taaabs-taaabs">
   <template>
-    	<h2> Interface Taabs </h2>
-   	<content></content>
+    <h2> Interface Taabs </h2>
+    <content></content>
   </template>
-	<script src="../../lib/samotraces/JS/Jquery/jquery.js"></script>
-	<script src="../../lib/samotraces/JS/generate_samotraces.js"></script>
-	<script src="../../lib/samotraces/objects/KTBS.js"></script>
-	<script src="../../lib/samotraces/objects/KTBS.Base.js"></script>
-	<script src="../../lib/samotraces/objects/KTBS.Resource.js"></script>
 
-	<script src="../../lib/samotraces/objects/EventHandler.js"></script>
-	<script src="../../lib/samotraces/widgets/Widget.js"></script>
+  <script src="../../lib/samotraces/JS/Jquery/jquery.js"></script>
+  <script src="../../lib/samotraces/JS/generate_samotraces.js"></script>
+  <script src="../../lib/samotraces/objects/KTBS.js"></script>
+  <script src="../../lib/samotraces/objects/KTBS.Base.js"></script>
+  <script src="../../lib/samotraces/objects/KTBS.Resource.js"></script>
+  <script src="../../lib/samotraces/objects/EventHandler.js"></script>
+  <script src="../../lib/samotraces/widgets/Widget.js"></script>
   <script>
     Polymer({
       is: "taaabs-taaabs",
       properties:{
-		 basesel: {
-			type: Object,
-			notify: true,
-			reflectToAttribute: true,
-			value: function() { return {}; }
-		      },
-		src_ktbs: {
-			    type: String,
-			    value: ''
-			}
-
-
-
-       },
-	_baseselChanged: function(newValue, oldValue) {
-       		 console.log("oldValue:" + oldValue);
-       		 console.log("newValue:" + newValue);
+        basesel: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; }
+        },
+        srcKtbs: {
+          type: String,
+          value: ''
+        }
       },
-	 ready: function() {
-
-			ktbs = new Samotraces.KTBS(this.src_ktbs);
-			this.ktbsObj = ktbs;
-			this.addEventListener('eventFromListBaseClickBase', this.GetObjBaseSelectetd);
-			//this.basesel =  new Samotraces.KTBS.Base("http://localhost:8001/base1/");
-			},
-	GetObjBaseSelectetd: function(event) {
-
-			console.log(event.detail);
-			//this.basesel =  new Samotraces.KTBS.Base(event.detail.baseurl);
-			//this.fire('eventFromTaabsChangeBase');
-    			}
+      _baseselChanged: function(newValue, oldValue) {
+        console.log("oldValue:" + oldValue);
+        console.log("newValue:" + newValue);
+      },
+      ready: function() {
+        this.ktbsObj = new Samotraces.KTBS(this.srcKtbs);
+        this.addEventListener('eventFromListBaseClickBase', this.GetObjBaseSelectetd);
+      },
+      GetObjBaseSelectetd: function(event) {
+        console.log(event.detail);
+      }
     });
   </script>
 </dom-module>
