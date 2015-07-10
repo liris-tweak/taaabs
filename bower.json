@@ -18,6 +18,7 @@
   "dependencies": {
     "polymer": "Polymer/polymer#1.0.4",
     "paper-scroll-header-panel": "PolymerElements/paper-scroll-header-panel#^1.0.0",
-    "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0"
+    "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",
+    "samotracesjs": "https://github.com/fderbel/samotraces.js.git#60481fa47c045dc749b05069792d3f00fe2775f2"
   }
 }
