@@ -1,16 +1,17 @@
-
 <link rel="import" href="../../demo/bower_components/polymer/polymer.html"/>
+
 <dom-module id="taaabs-tracefix">
   <link rel="import" type="css" href="../../lib/samotraces/css/samotraces.css"/>
-  <template>
-      <h4 style="margin-left: 50%;"> Display Trace Icon </h4>
 
-      <div >{{trace.id}}</div>
-      <div id="origin"></div>
-      <div id= "type" ></div>
-      <div id = "model"></div>
-      <content></content>
+  <template>
+    <h4 style="margin-left: 50%;"> Display Trace Icon </h4>
+    <div >{{trace.id}}</div>
+    <div id="origin"></div>
+    <div id= "type" ></div>
+    <div id = "model"></div>
+    <content></content>
   </template>
+
   <script src="../../lib/samotraces/objects/Obsel.js"></script>
   <script src="../../lib/samotraces/objects/KTBS.Obsel.js"></script>
 
@@ -18,44 +19,29 @@
     Polymer({
       is: "taaabs-tracefix",
       properties: {
-
         trace: {
-         type: Object,
-         notify: true,
-         reflectToAttribute: true,
-         value: function() { return {}; },
-         observer: '_traceselChanged'
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; },
+          observer: '_traceselChanged'
         },
-
         time: {
-         type: Object,
-         notify: true,
-         reflectToAttribute: true,
-         value: function() { return {}; }
-
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; }
         }
-
-      
-
       },
-
-  	  _traceselChanged: function(newValue, oldValue) {
-    		//PolyTrace.$.Trace.innerHTML="";
-            newValue.on('trace:updateData',function(){
-            Poly.$.origin.appendChild (document.createTextNode("Origin : "+Poly.trace.origin));
-            Poly.$.type.appendChild (document.createTextNode("type : "+Poly.trace.type));
-            Poly.$.model.appendChild (document.createTextNode("model : "+Poly.trace.model_uri));
-	         
-            Poly.time = new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()});
-		});
-
-
-        },
-      ready: function() {
-         Poly = this;
+      _traceUpdateData: function(newValue) {
+        this.$.origin.appendChild (document.createTextNode("Origin : "+this.trace.origin));
+        this.$.type.appendChild (document.createTextNode("type : "+this.trace.type));
+        this.$.model.appendChild (document.createTextNode("model : "+this.trace.model_uri));
+        this.time = new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()});
+      },
+      _traceselChanged: function(newValue, oldValue) {
+        newValue.on('trace:updateData', this._traceUpdateData.bind(this, newValue));
       }
-
-
-  	});
+    });
   </script>
 </dom-module>
