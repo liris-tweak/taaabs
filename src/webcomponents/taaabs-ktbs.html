@@ -3,8 +3,8 @@
 <dom-module id="taaabs-ktbs">
   <template>
     <h2 style="margin-left: 20%;">Interface KTBS</h2>
-    <div id="ktbsurl"></div>
-    <div id="listbase"></div>
+    <div id="ktbs-url"></div>
+    <div id="list-base"></div>
   </template>
 
   <script src="../../lib/samotraces/widgets/ListBases.js"></script>
@@ -21,7 +21,7 @@
           value: function() {
             return {}; }
         },
-        src_ktbs:{
+        srcKtbs:{
           type: String,
           value: ''
         }
@@ -31,15 +31,15 @@
         this.basesel = new Samotraces.KTBS.Base(BaseURL);
       },
       listBaseCallback: function() {
-        var BaseButton = this.$.listbase.querySelectorAll('.base');
+        var BaseButton = this.$["list-base"].querySelectorAll('.base');
         for (var i = 0; i < BaseButton.length; i++) {
           BaseButton[i].onclick = this.clickBase.bind(this);
         }
       },
       ready: function() {
-        this.ktbs = new Samotraces.KTBS(this.src_ktbs);
-        this.$.ktbsurl.appendChild(document.createTextNode("ID : " + this.ktbs.id));
-        var ListBasewidget = new Samotraces.UI.Widgets.ktbs.ListBases (this.$.listbase, this.ktbs, "");
+        this.ktbs = new Samotraces.KTBS(this.srcKtbs);
+        this.$["ktbs-url"].appendChild(document.createTextNode("ID : " + this.ktbs.id));
+        var ListBasewidget = new Samotraces.UI.Widgets.ktbs.ListBases (this.$["list-base"], this.ktbs, "");
         ListBasewidget.on("ListBase", this.listBaseCallback.bind(this));
       }
     });
