@@ -53,11 +53,11 @@
       },
       _clickTrace: function(event) {
         var traceURL = this.base.id + event.srcElement.innerText;
-        new Samotraces.KTBS.Trace(traceURL);
+        this.tracesel = new Samotraces.KTBS.Trace(traceURL);
       },
       _clickModel: function(event) {
         var modelURL = this.base.id + event.srcElement.innerText;
-        new Samotraces.KTBS.Model(modelURL);
+        this.modelsel = new Samotraces.KTBS.Model(modelURL);
       },
       _baseselChanged: function(newValue, oldValue) {
         this.$["trace-list"].innerHTML = "";
