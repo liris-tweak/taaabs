@@ -1,10 +1,12 @@
-
 <link rel="import" href="../../demo/bower_components/polymer/polymer.html"/>
+
 <dom-module id="taaabs-windowscalefix">
   <link rel="import" type="css" href="../../lib/samotraces/css/samotraces.css"/>
+
   <template>
-      <div id={{div_id}}></div>
+    <div id="widget"></div>
   </template>
+
   <script src="../../lib/samotraces/widgets/WindowScaleFix.js"></script>
   <script src="../../lib/samotraces/objects/TimeWindow.js"></script>
 
@@ -12,30 +14,18 @@
     Polymer({
       is: "taaabs-windowscalefix",
       properties: {
-
         time: {
-         type: Object,
-         notify: true,
-         reflectToAttribute: true,
-         value: function() { return {}; },
-         observer: '_timeChanged'
-        },
-
-	div_id: {
-         type: String,
-         value: ''
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; },
+          observer: '_timeChanged'
         }
-
       },
-
-  	_timeChanged: function(newValue, oldValue) {
-    	       I_WindowScaleFix= new Samotraces.UI.Widgets.WindowScaleFix(PolyScale.$$("#"+PolyScale.div_id),newValue);
-        },
-      ready: function() {
-         PolyScale = this;
-
-
+      _timeChanged: function(newValue, oldValue) {
+        var widgetElement = this.$$("#widget");
+        new Samotraces.UI.Widgets.WindowScaleFix(widgetElement, newValue); // dont store it anywhere ?
       }
-  	});
+    });
   </script>
 </dom-module>

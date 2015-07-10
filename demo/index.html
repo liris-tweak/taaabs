@@ -46,17 +46,17 @@
   </paper-toolbar>
 
   <template is="dom-bind">
-    <taaabs-ktbs class="PolymerKTBS" src_ktbs="http://localhost:8001/" basesel="{{data}}" > </taaabs-ktbs>
-    <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"> </taaabs-base>
+    <taaabs-ktbs class="PolymerKTBS" src_ktbs="http://localhost:8001/" basesel="{{data}}"></taaabs-ktbs>
+    <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"></taaabs-base>
     <taaabs-samotraceme trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >
-      <taaabs-timeform  time="{{twzoom}}" > </taaabs-timeform>
-      <taaabs-windowscalefix  div_id ="scale1" time="{{tw}}" > </taaabs-windowscalefix>
-      <taaabs-tracedisplayiconsfix  trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}"> </taaabs-tracedisplayiconsfix>
-      <taaabs-tracedisplayiconszoom  trace="{{objtrace}}" time="{{twzoom}}"> </taaabs-tracedisplayiconszoom>
-      <taaabs-windowscalefix   div_id ="scale2" time="{{twzoom}}" > </taaabs-windowscalefix>
+      <taaabs-timeform  time="{{twzoom}}"></taaabs-timeform>
+      <taaabs-windowscalefix time="{{tw}}"></taaabs-windowscalefix>
+      <taaabs-tracedisplayiconsfix trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}"></taaabs-tracedisplayiconsfix>
+      <taaabs-tracedisplayiconszoom  trace="{{objtrace}}" time="{{twzoom}}"></taaabs-tracedisplayiconszoom>
+      <taaabs-windowscalefix time="{{twzoom}}"></taaabs-windowscalefix>
     </taaabs-samotraceme>
     <taaabs-tracefix trace="{{objtrace}}" time="{{tw2}}">
-      <taaabs-trace-display-icons timewindow="{{tw2}}" trace="{{objtrace}}"  obselselector="{{selectedObsel}}" options='{"url": "images/clef.png"}'> </taaabs-trace-display-icons>
+      <taaabs-trace-display-icons timewindow="{{tw2}}" trace="{{objtrace}}" obselselector="{{selectedObsel}}" options='{"url": "images/clef.png"}'> </taaabs-trace-display-icons>
       <taaabs-window-scale timewindow="{{tw2}}"></taaabs-window-scale>
       <taaabs-obsel-inspector obselselector="{{selectedObsel}}"></taaabs-obsel-inspector>
     </taaabs-tracefix>
