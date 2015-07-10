@@ -22,7 +22,7 @@
     },
     attached: function() {
       var widgetElement = this.$$("#importer");
-      this.importTrace = new Samotraces.UI.Widgets.ImportTrace(widgetElement, this.trace);
+      new Samotraces.UI.Widgets.ImportTrace(widgetElement, this.trace);
     }
   });
   </script>

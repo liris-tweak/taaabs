@@ -13,6 +13,7 @@
   <script src="../../lib/samotraces/objects/KTBS.Resource.js"></script>
   <script src="../../lib/samotraces/objects/EventHandler.js"></script>
   <script src="../../lib/samotraces/widgets/Widget.js"></script>
+
   <script>
     Polymer({
       is: "taaabs-taaabs",
@@ -33,7 +34,7 @@
         console.log("newValue:" + newValue);
       },
       ready: function() {
-        this.ktbsObj = new Samotraces.KTBS(this.srcKtbs);
+        new Samotraces.KTBS(this.srcKtbs);
         this.addEventListener('eventFromListBaseClickBase', this.GetObjBaseSelectetd);
       },
       GetObjBaseSelectetd: function(event) {

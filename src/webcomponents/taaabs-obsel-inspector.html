@@ -15,15 +15,15 @@
     Polymer({
       is: "taaabs-obsel-inspector",
       properties: {
-        obselselector: {
+        obselSelector: {
           type: Object,
           notify: true
         }
       },
       attached: function() {
-        this.obselselector = new Samotraces.Selector('Obsel');
+        this.obselSelector = new Samotraces.Selector('Obsel');
         var widgetElement = this.$$("#obsel-inspector");
-        new Samotraces.UI.Widgets.ObselInspector(widgetElement, this.obselselector);
+        new Samotraces.UI.Widgets.ObselInspector(widgetElement, this.obselSelector);
       }
     });
   </script>

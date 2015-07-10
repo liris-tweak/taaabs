@@ -53,19 +53,19 @@
       },
       _clickTrace: function(event) {
         var traceURL = this.base.id + event.srcElement.innerText;
-        this.tracesel = new Samotraces.KTBS.Trace(traceURL);
+        new Samotraces.KTBS.Trace(traceURL);
       },
       _clickModel: function(event) {
         var modelURL = this.base.id + event.srcElement.innerText;
-        this.modelsel = new Samotraces.KTBS.Model(modelURL);
+        new Samotraces.KTBS.Model(modelURL);
       },
       _baseselChanged: function(newValue, oldValue) {
         this.$["trace-list"].innerHTML = "";
         this.$["model-list"].innerHTML = "";
-        ListTracewidget = new Samotraces.UI.Widgets.ktbs.ListTracesInBases (this.$["trace-list"], newValue, '');
-        ListModelwidget = new Samotraces.UI.Widgets.ktbs.ListModelInBases (this.$["model-list"], newValue, '');
-        ListTracewidget.on("ListTrace", this._listTrace.bind(this));
-        ListModelwidget.on("ListModel", this._listModel.bind(this));
+        var listTracewidget = new Samotraces.UI.Widgets.ktbs.ListTracesInBases(this.$["trace-list"], newValue, '');
+        var listModelwidget = new Samotraces.UI.Widgets.ktbs.ListModelInBases(this.$["model-list"], newValue, '');
+        listTracewidget.on("ListTrace", this._listTrace.bind(this));
+        listModelwidget.on("ListModel", this._listModel.bind(this));
       }
     });
   </script>

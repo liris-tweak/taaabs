@@ -14,11 +14,11 @@
   <link rel="import" href="../src/webcomponents/taaabs-ktbs.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-base.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-samotraceme.html"/>
-  <link rel="import" href="../src/webcomponents/taaabs-tracefix.html"/>
+  <link rel="import" href="../src/webcomponents/taaabs-trace-fix.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-timeform.html"/>
-  <link rel="import" href="../src/webcomponents/taaabs-windowscalefix.html"/>
-  <link rel="import" href="../src/webcomponents/taaabs-tracedisplayiconsfix.html"/>
-  <link rel="import" href="../src/webcomponents/taaabs-tracedisplayiconszoom.html"/>
+  <link rel="import" href="../src/webcomponents/taaabs-window-scale-fix.html"/>
+  <link rel="import" href="../src/webcomponents/taaabs-trace-display-icons-fix.html"/>
+  <link rel="import" href="../src/webcomponents/taaabs-trace-display-icons-zoom.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-model.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-trace-display-icons.html"/>
   <link rel="import" href="../src/webcomponents/taaabs-window-scale.html"/>
@@ -50,10 +50,10 @@
     <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"></taaabs-base>
     <taaabs-samotraceme trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >
       <taaabs-timeform  time="{{twzoom}}"></taaabs-timeform>
-      <taaabs-windowscalefix time="{{tw}}"></taaabs-windowscalefix>
-      <taaabs-tracedisplayiconsfix trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}"></taaabs-tracedisplayiconsfix>
-      <taaabs-tracedisplayiconszoom  trace="{{objtrace}}" time="{{twzoom}}"></taaabs-tracedisplayiconszoom>
-      <taaabs-windowscalefix time="{{twzoom}}"></taaabs-windowscalefix>
+      <taaabs-window-scale-fix time="{{tw}}"></taaabs-window-scale-fix>
+      <taaabs-trace-display-icons-fix trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}"></taaabs-trace-display-icons-fix>
+      <taaabs-trace-display-icons-zoom  trace="{{objtrace}}" time="{{twzoom}}"></taaabs-trace-display-icons-zoom>
+      <taaabs-window-scale-fix time="{{twzoom}}"></taaabs-window-scale-fix>
     </taaabs-samotraceme>
     <taaabs-tracefix trace="{{objtrace}}" time="{{tw2}}">
       <taaabs-trace-display-icons timewindow="{{tw2}}" trace="{{objtrace}}" obselselector="{{selectedObsel}}" options='{"url": "images/clef.png"}'> </taaabs-trace-display-icons>

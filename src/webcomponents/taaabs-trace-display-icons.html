@@ -42,7 +42,7 @@
       },
       _timeChanged: function(newValue, oldValue) {
         var widgetElement = this.$$("#widget");
-        options = {
+        var options = {
           url: function(o) {
             var path = "../../lib/images/";
             switch(o["type"]) {
@@ -56,7 +56,7 @@
         new Samotraces.UI.Widgets.TraceDisplayIcons(widgetElement, this.trace, newValue, options);
         setTimeout(this.observObsels.bind(this), 2000);
       },
-      observObsels: function(actionName, func) {
+      observObsels: function() {
         // this is a NodeList, not an Array, so no forEach
         var obselsNodeList = this.shadowRoot.querySelectorAll(".Samotraces-obsel");
         for (var i = 0; i < obselsNodeList.length; i++) {

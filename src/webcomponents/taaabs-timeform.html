@@ -2,7 +2,7 @@
 
 <dom-module id="taaabs-timeform">
   <template>
-    <div id="time_form"></div>
+    <div id="time-form"></div>
   </template>
 
   <script src="../../lib/samotraces/widgets/IntervalTimeForm.js"></script>
@@ -21,7 +21,7 @@
         }
       },
       _timeChanged: function(newValue, oldValue) {
-        I_IntervalTimeForm= new Samotraces.UI.Widgets.IntervalTimeForm(this.$.time_form, this.time);
+        new Samotraces.UI.Widgets.IntervalTimeForm(this.$["time-form"], this.time);
       }
     });
   </script>
