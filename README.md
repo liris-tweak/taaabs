@@ -15,5 +15,5 @@ This usage will be replaced soon by a semantic tag versioning.
 `npm install -d`
 
 ### Run the demo
-`grunt connect`
+`grunt`
 Then open `localhost:8080/demo` in your favorite web browser
