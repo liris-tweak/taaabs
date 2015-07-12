@@ -15,6 +15,7 @@ module.exports = function(grunt) {
       options : {
         'extract': 'auto',
         'browser': true,
+        'devel': true,
         'curly': true,
         'bitwise': true,
         'eqeqeq': true,
@@ -28,8 +29,8 @@ module.exports = function(grunt) {
         'notypeof': true,
         'shadow': true,
         'undef': true,
-        'singleGroups': true
-        //'unused': true
+        'singleGroups': true,
+        'unused': true
         //'nonew': true,
         //'strict': true,
         //'varstmt': true

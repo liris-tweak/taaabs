@@ -16,6 +16,8 @@
   <script src="../../bower_components/samotracesjs/src/core/KTBS.Obsel.js"></script>
 
   <script>
+    /* global Polymer, Samotraces */
+
     Polymer({
       is: "taaabs-trace-fix",
       properties: {
@@ -39,7 +41,7 @@
         this.$.model.appendChild (document.createTextNode("model : "+this.trace.model_uri));
         this.time = new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()});
       },
-      _traceselChanged: function(newValue, oldValue) {
+      _traceselChanged: function(newValue) {
         newValue.on('trace:updateData', this._traceUpdateData.bind(this, newValue));
       }
     });

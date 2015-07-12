@@ -12,18 +12,20 @@
   </template>
 
   <script>
-  Polymer({
-    is: "taaabs-import-trace",
-    properties: {
-      trace: {
-        type: Object,
-        notify: true
+    /* global Polymer, Samotraces */
+    
+    Polymer({
+      is: "taaabs-import-trace",
+      properties: {
+        trace: {
+          type: Object,
+          notify: true
+        }
+      },
+      attached: function() {
+        var widgetElement = this.$$("#importer");
+        new Samotraces.UI.Widgets.ImportTrace(widgetElement, this.trace);
       }
-    },
-    attached: function() {
-      var widgetElement = this.$$("#importer");
-      new Samotraces.UI.Widgets.ImportTrace(widgetElement, this.trace);
-    }
-  });
+    });
   </script>
 </dom-module>

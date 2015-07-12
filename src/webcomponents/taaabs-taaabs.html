@@ -15,6 +15,8 @@
   <script src="../../bower_components/samotracesjs/src/UI/Widgets/Widget.js"></script>
 
   <script>
+    /* global Polymer, Samotraces */
+
     Polymer({
       is: "taaabs-taaabs",
       properties:{
@@ -28,10 +30,6 @@
           type: String,
           value: ''
         }
-      },
-      _baseselChanged: function(newValue, oldValue) {
-        console.log("oldValue:" + oldValue);
-        console.log("newValue:" + newValue);
       },
       ready: function() {
         new Samotraces.KTBS(this.srcKtbs);

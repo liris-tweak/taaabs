@@ -14,6 +14,8 @@
   </template>
 
   <script>
+    /* global Polymer, Samotraces, $ */
+
     Polymer({
       is: "taaabs-trace-display-icons",
       properties: {
@@ -38,7 +40,7 @@
           notify: true
         }
       },
-      _timeChanged: function(newValue, oldValue) {
+      _timeChanged: function(newValue) {
         var widgetElement = this.$$("#widget");
         var options = {
           url: function(o) {
@@ -63,7 +65,7 @@
         }
       },
       handleClick: function(event) {
-        var obsel = $.data(event.target, "Samotraces-data");
+        var obsel = $.data(event.target, "Samotraces-data"); // TODO we assume jquery is avaible
         this.obselSelector.select(obsel);
       }
     });

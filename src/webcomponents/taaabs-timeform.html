@@ -9,6 +9,8 @@
   <script src="../../bower_components/samotracesjs/src/core/TimeWindow.js"></script>
 
   <script>
+    /* global Polymer, Samotraces */
+
     Polymer({
       is: "taaabs-timeform",
       properties: {
@@ -20,7 +22,7 @@
           observer: '_timeChanged'
         }
       },
-      _timeChanged: function(newValue, oldValue) {
+      _timeChanged: function() {
         new Samotraces.UI.Widgets.IntervalTimeForm(this.$["time-form"], this.time);
       }
     });

@@ -16,6 +16,8 @@
   <script src="../../bower_components/samotracesjs/src/core/KTBS.Model.js"></script>
 
   <script>
+    /* global Polymer, Samotraces */
+
     Polymer({
       is: "taaabs-base",
       properties: {
@@ -59,7 +61,7 @@
         var modelURL = this.base.id + event.srcElement.innerText;
         this.modelsel = new Samotraces.KTBS.Model(modelURL);
       },
-      _baseselChanged: function(newValue, oldValue) {
+      _baseselChanged: function(newValue) {
         this.$["trace-list"].innerHTML = "";
         this.$["model-list"].innerHTML = "";
         var listTracewidget = new Samotraces.UI.Widgets.ktbs.ListTracesInBases(this.$["trace-list"], newValue, '');

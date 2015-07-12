@@ -11,6 +11,8 @@
   <script src="../../bower_components/samotracesjs/src/core/TimeWindow.js"></script>
 
   <script>
+    /* global Polymer, Samotraces */
+
     Polymer({
       is: "taaabs-window-scale-fix",
       properties: {
@@ -22,7 +24,7 @@
           observer: '_timeChanged'
         }
       },
-      _timeChanged: function(newValue, oldValue) {
+      _timeChanged: function(newValue) {
         var widgetElement = this.$$("#widget");
         new Samotraces.UI.Widgets.WindowScaleFix(widgetElement, newValue); // dont store it anywhere ?
       }

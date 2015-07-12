@@ -10,6 +10,8 @@
   </template>
 
   <script>
+    /* global Polymer, Samotraces */
+
     Polymer({
       is: "taaabs-window-scale",
       properties: {
@@ -20,7 +22,7 @@
           observer: '_timeChanged'
         }
       },
-      _timeChanged: function(newValue, oldValue) {
+      _timeChanged: function(newValue) {
         var widgetElement = this.$$("#scale");
         new Samotraces.UI.Widgets.WindowScale(widgetElement, newValue);
       }

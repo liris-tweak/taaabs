@@ -10,6 +10,8 @@
   <script src="../../bower_components/samotracesjs/src/UI/Widgets/TraceDisplayIconsZoom.js"></script>
 
   <script>
+    /* global Polymer, Samotraces */
+
     Polymer({
       is: "taaabs-trace-display-icons-zoom",
       properties: {
@@ -25,7 +27,7 @@
           value: function() { return {}; }
         }
       },
-      _timeChanged: function(newValue, oldValue) {
+      _timeChanged: function() {
         this.options = {
           url: function(o) {
             var path = "../../lib/images/";
