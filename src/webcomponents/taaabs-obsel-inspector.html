@@ -1,8 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html"/>
 
-<script type="text/javascript" src="../../bower_components/samotracesjs/src/core/Selector.js"></script>
-<script type="text/javascript" src="../../bower_components/samotracesjs/src/UI/Widgets/ObselInspector.js"></script>
-
 <dom-module id="taaabs-obsel-inspector">
 
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
@@ -25,7 +22,7 @@
       attached: function() {
         this.obselSelector = new Samotraces.Selector('Obsel');
         var widgetElement = this.$$("#obsel-inspector");
-        new Samotraces.UI.Widgets.ObselInspector(widgetElement, this.obselSelector);
+        new Samotraces.Ui.Widgets.ObselInspector(widgetElement, this.obselSelector);
       }
     });
   </script>

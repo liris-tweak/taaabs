@@ -7,9 +7,6 @@
     <div id="list-base"></div>
   </template>
 
-  <script src="../../bower_components/samotracesjs/src/UI/Widgets/ListBases.js"></script>
-  <script src="../../bower_components/samotracesjs/src/core/KTBS.Base.js"></script>
-
   <script>
     /* global Polymer, Samotraces */
 
@@ -30,7 +27,7 @@
       },
       clickBase: function(event) {
         var BaseURL = this.ktbs.id + event.srcElement.innerText;
-        this.basesel = new Samotraces.KTBS.Base(BaseURL);
+        this.basesel = new Samotraces.Ktbs.Base(BaseURL);
       },
       listBaseCallback: function() {
         var BaseButton = this.$["list-base"].querySelectorAll('.base');
@@ -39,9 +36,9 @@
         }
       },
       ready: function() {
-        this.ktbs = new Samotraces.KTBS(this.srcKtbs);
+        this.ktbs = new Samotraces.Ktbs.Ktbs(this.srcKtbs);
         this.$["ktbs-url"].appendChild(document.createTextNode("ID : " + this.ktbs.id));
-        var ListBasewidget = new Samotraces.UI.Widgets.ktbs.ListBases (this.$["list-base"], this.ktbs, "");
+        var ListBasewidget = new Samotraces.Ui.Widgets.Ktbs.ListBases(this.$["list-base"], this.ktbs, "");
         ListBasewidget.on("ListBase", this.listBaseCallback.bind(this));
       }
     });

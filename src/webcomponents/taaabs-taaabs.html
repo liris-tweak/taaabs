@@ -1,18 +1,13 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html"/>
 
+<script type="text/javascript" src="../../bower_components/samotracesjs/dist/vendors.js"></script>
+<script type="text/javascript" src="../../bower_components/samotracesjs/dist/samotraces.js"></script>
+
 <dom-module id="taaabs-taaabs">
   <template>
     <h2> Interface Taabs </h2>
     <content></content>
   </template>
-
-  <script src="../../bower_components/samotracesjs/lib/jquery.js"></script>
-  <script src="../../bower_components/samotracesjs/src/generate_samotraces.js"></script>
-  <script src="../../bower_components/samotracesjs/src/core/KTBS.js"></script>
-  <script src="../../bower_components/samotracesjs/src/core/KTBS.Base.js"></script>
-  <script src="../../bower_components/samotracesjs/src/core/KTBS.Resource.js"></script>
-  <script src="../../bower_components/samotracesjs/src/core/EventHandler.js"></script>
-  <script src="../../bower_components/samotracesjs/src/UI/Widgets/Widget.js"></script>
 
   <script>
     /* global Polymer, Samotraces */
@@ -32,7 +27,7 @@
         }
       },
       ready: function() {
-        new Samotraces.KTBS(this.srcKtbs);
+        new Samotraces.Ktbs(this.srcKtbs);
         this.addEventListener('eventFromListBaseClickBase', this.GetObjBaseSelectetd);
       },
       GetObjBaseSelectetd: function(event) {

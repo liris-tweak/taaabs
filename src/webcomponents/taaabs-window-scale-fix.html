@@ -7,9 +7,6 @@
     <div id="widget"></div>
   </template>
 
-  <script src="../../bower_components/samotracesjs/src/UI/Widgets/WindowScaleFix.js"></script>
-  <script src="../../bower_components/samotracesjs/src/core/TimeWindow.js"></script>
-
   <script>
     /* global Polymer, Samotraces */
 
@@ -26,7 +23,7 @@
       },
       _timeChanged: function(newValue) {
         var widgetElement = this.$$("#widget");
-        new Samotraces.UI.Widgets.WindowScaleFix(widgetElement, newValue); // dont store it anywhere ?
+        new Samotraces.Ui.Widgets.WindowScaleFix(widgetElement, newValue); // dont store it anywhere ?
       }
     });
   </script>

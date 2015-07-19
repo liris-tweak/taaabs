@@ -1,6 +1,6 @@
 {
   "name": "liris-taaabs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://gforge.liris.cnrs.fr/anonscm/git/taaabs/taaabs.git",
   "authors": [
     "Raphael Cazenave-Leveque <raphael.cazenave@gmail.com>",
@@ -19,6 +19,6 @@
     "polymer": "Polymer/polymer#1.0.4",
     "paper-scroll-header-panel": "PolymerElements/paper-scroll-header-panel#^1.0.0",
     "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",
-    "samotracesjs": "https://github.com/fderbel/samotraces.js.git#0.9.0"
+    "samotracesjs": "https://github.com/fderbel/samotraces.js.git#8eddd58465014fd3d15da317e74df50543e10709"
   }
 }

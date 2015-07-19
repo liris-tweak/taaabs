@@ -6,9 +6,6 @@
     <div id="traceIcon"></div>
   </template>
 
-  <script src="../../bower_components/samotracesjs/src/UI/Widgets/TraceDisplayIconsFix.js"></script>
-  <script src="../../bower_components/samotracesjs/src/core/TimeWindow.js"></script>
-
   <script>
     /* global Polymer, Samotraces */
     Polymer({
@@ -47,7 +44,7 @@
           }
         };
         this.trace.list_obsels();
-        new Samotraces.UI.Widgets.TraceDisplayIconsFix(this.$$("#traceIcon"), this.trace, this.time, this.timezoom, options);
+        new Samotraces.Ui.Widgets.TraceDisplayIconsFix(this.$$("#traceIcon"), this.trace, this.time, this.timezoom, options);
       }
     });
   </script>

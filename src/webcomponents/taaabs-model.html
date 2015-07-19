@@ -12,11 +12,6 @@
     <div id="model-list"></div>
   </template>
 
-  <script src="../../bower_components/samotracesjs/src/UI/Widgets/ListTracesInBases.js"></script>
-  <script src="../../bower_components/samotracesjs/src/UI/Widgets/ListModelInBases.js"></script>
-  <script src="../../bower_components/samotracesjs/src/core/KTBS.Trace.js"></script>
-  <script src="../../bower_components/samotracesjs/src/core/KTBS.Model.js"></script>
-
   <script>
     /* global Polymer, Samotraces */
 
@@ -59,17 +54,17 @@
       },
       _clickTrace: function(event) {
         var traceURL = this.basesel.id + event.srcElement.innerText;
-        new Samotraces.KTBS.Trace(traceURL);
+        new Samotraces.Ktbs.Trace(traceURL);
       },
       _clickModel: function(event) {
         var ModelURL = this.basesel.id + event.srcElement.innerText;
-        new Samotraces.KTBS.Model(ModelURL); // we dont use it ?
+        new Samotraces.Ktbs.Model(ModelURL); // we dont use it ?
       },
       _baseselChanged: function(newValue) {
         this.$["trace-list"].innerHTML="";
         this.$["model-list"].innerHTML="";
-        var listTracewidget = new Samotraces.UI.Widgets.ktbs.ListTracesInBases(this.$["trace-list"], newValue, '');
-        var listModelwidget = new Samotraces.UI.Widgets.ktbs.ListModelInBases(this.$["model-list"], newValue, '');
+        var listTracewidget = new Samotraces.Ui.Widgets.Ktbs.ListTracesInBases(this.$["trace-list"], newValue, '');
+        var listModelwidget = new Samotraces.Ui.Widgets.Ktbs.ListModelInBases(this.$["model-list"], newValue, '');
         listTracewidget.on("ListTrace", this._listTrace.bind(this));
         listModelwidget.on("ListModel", this._listModel.bind(this));
       }

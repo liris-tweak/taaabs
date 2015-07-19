@@ -7,8 +7,6 @@
     <div id="trace-icon-zoom"></div>
   </template>
 
-  <script src="../../bower_components/samotracesjs/src/UI/Widgets/TraceDisplayIconsZoom.js"></script>
-
   <script>
     /* global Polymer, Samotraces */
 
@@ -40,7 +38,7 @@
           }
         };
         this.trace.list_obsels();
-        new Samotraces.UI.Widgets.TraceDisplayIconsZoom(this.$$("#trace-icon-zoom"), this.trace, this.time, this.options);
+        new Samotraces.Ui.Widgets.TraceDisplayIconsZoom(this.$$("#trace-icon-zoom"), this.trace, this.time, this.options);
       }
     });
   </script>

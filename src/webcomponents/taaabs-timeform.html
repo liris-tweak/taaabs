@@ -5,9 +5,6 @@
     <div id="time-form"></div>
   </template>
 
-  <script src="../../bower_components/samotracesjs/src/UI/Widgets/IntervalTimeForm.js"></script>
-  <script src="../../bower_components/samotracesjs/src/core/TimeWindow.js"></script>
-
   <script>
     /* global Polymer, Samotraces */
 
@@ -23,7 +20,7 @@
         }
       },
       _timeChanged: function() {
-        new Samotraces.UI.Widgets.IntervalTimeForm(this.$["time-form"], this.time);
+        new Samotraces.Ui.Widgets.IntervalTimeForm(this.$["time-form"], this.time);
       }
     });
   </script>
