@@ -1,6 +1,9 @@
+Copyright for portions of project polymer-starter-kit are held by [The Polymer Authors, 2015] as part of project Taaabs and are provided under the BSD license.
+All other copyright for project Taaabs are held by [Liris-Tweak, 2015] as part of project Taaabs and are provided under the BSD license..
+
 The MIT License (MIT)
 
-Copyright (c) 2015 liris-tweak
+Copyright (c) 2015 Liris-Tweak
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,4 +22,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
