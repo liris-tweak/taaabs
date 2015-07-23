@@ -1,4 +1,3 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html"/>
 
 <dom-module id="taaabs-model">
   <template>
@@ -16,7 +15,7 @@
     /* global Polymer, Samotraces */
 
     Polymer({
-      is: "taaabs-model",
+      is: 'taaabs-model',
       properties: {
         basesel: {
           type: Object,
@@ -41,13 +40,13 @@
         }
       },
       _listTrace: function() {
-        var BaseButton = this.$["trace-list"].querySelectorAll('.trace');
+        var BaseButton = this.$['trace-list'].querySelectorAll('.trace');
         for (var i = 0; i < BaseButton.length; i++) {
           BaseButton[i].onclick = this._clickTrace.bind(this);
         }
       },
       _listModel: function() {
-        var BaseButton = this.$["model-list"].querySelectorAll('.model');
+        var BaseButton = this.$['model-list'].querySelectorAll('.model');
         for (var i = 0; i < BaseButton.length; i++) {
           BaseButton[i].onclick = this._clickModel.bind(this);
         }
@@ -61,12 +60,12 @@
         new Samotraces.Ktbs.Model(ModelURL); // we dont use it ?
       },
       _baseselChanged: function(newValue) {
-        this.$["trace-list"].innerHTML="";
-        this.$["model-list"].innerHTML="";
-        var listTracewidget = new Samotraces.Ui.Widgets.Ktbs.ListTracesInBases(this.$["trace-list"], newValue, '');
-        var listModelwidget = new Samotraces.Ui.Widgets.Ktbs.ListModelInBases(this.$["model-list"], newValue, '');
-        listTracewidget.on("ListTrace", this._listTrace.bind(this));
-        listModelwidget.on("ListModel", this._listModel.bind(this));
+        this.$['trace-list'].innerHTML='';
+        this.$['model-list'].innerHTML='';
+        var listTracewidget = new Samotraces.Ui.Widgets.Ktbs.ListTracesInBases(this.$['trace-list'], newValue, '');
+        var listModelwidget = new Samotraces.Ui.Widgets.Ktbs.ListModelInBases(this.$['model-list'], newValue, '');
+        listTracewidget.on('ListTrace', this._listTrace.bind(this));
+        listModelwidget.on('ListModel', this._listModel.bind(this));
       }
     });
   </script>

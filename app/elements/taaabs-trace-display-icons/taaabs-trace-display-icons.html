@@ -1,4 +1,3 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html"/>
 
 <dom-module id="taaabs-trace-display-icons">
 
@@ -12,7 +11,7 @@
     /* global Polymer, Samotraces, $ */
 
     Polymer({
-      is: "taaabs-trace-display-icons",
+      is: 'taaabs-trace-display-icons',
       properties: {
         timewindow: {
           type: String,
@@ -36,10 +35,10 @@
         }
       },
       _timeChanged: function(newValue) {
-        var widgetElement = this.$$("#widget");
+        var widgetElement = this.$$('#widget');
         var options = {
           url: function(o) {
-            var path = "../../lib/images/";
+            var path = '../../lib/images/';
             switch(o.type) {
               case 'Ouverture_Page':
                 return path + 'Orange.png';
@@ -53,14 +52,14 @@
       },
       observObsels: function() {
         // this is a NodeList, not an Array, so no forEach
-        var obselsNodeList = this.shadowRoot.querySelectorAll(".Samotraces-obsel");
+        var obselsNodeList = this.shadowRoot.querySelectorAll('.Samotraces-obsel');
         for (var i = 0; i < obselsNodeList.length; i++) {
           var obsel = obselsNodeList[i];
           obsel.onclick = this.handleClick.bind(this);
         }
       },
       handleClick: function(event) {
-        var obsel = $.data(event.target, "Samotraces-data"); // TODO we assume jquery is avaible
+        var obsel = $.data(event.target, 'Samotraces-data'); // TODO we assume jquery is avaible
         this.obselSelector.select(obsel);
       }
     });

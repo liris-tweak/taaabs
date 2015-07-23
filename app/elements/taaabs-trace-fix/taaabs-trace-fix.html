@@ -1,4 +1,3 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html"/>
 
 <dom-module id="taaabs-trace-fix">
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
@@ -16,7 +15,7 @@
     /* global Polymer, Samotraces */
 
     Polymer({
-      is: "taaabs-trace-fix",
+      is: 'taaabs-trace-fix',
       properties: {
         trace: {
           type: Object,
@@ -33,9 +32,9 @@
         }
       },
       _traceUpdateData: function(newValue) {
-        this.$.origin.appendChild (document.createTextNode("Origin : "+this.trace.origin));
-        this.$.type.appendChild (document.createTextNode("type : "+this.trace.type));
-        this.$.model.appendChild (document.createTextNode("model : "+this.trace.model_uri));
+        this.$.origin.appendChild (document.createTextNode('Origin : '+this.trace.origin));
+        this.$.type.appendChild (document.createTextNode('type : '+this.trace.type));
+        this.$.model.appendChild (document.createTextNode('model : '+this.trace.model_uri)); // jshint ignore:line
         this.time = new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()});
       },
       _traceselChanged: function(newValue) {

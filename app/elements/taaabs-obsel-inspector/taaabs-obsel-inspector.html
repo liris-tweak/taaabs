@@ -1,4 +1,3 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html"/>
 
 <dom-module id="taaabs-obsel-inspector">
 
@@ -12,7 +11,7 @@
     /* global Polymer, Samotraces */
 
     Polymer({
-      is: "taaabs-obsel-inspector",
+      is: 'taaabs-obsel-inspector',
       properties: {
         obselSelector: {
           type: Object,
@@ -21,7 +20,7 @@
       },
       attached: function() {
         this.obselSelector = new Samotraces.Selector('Obsel');
-        var widgetElement = this.$$("#obsel-inspector");
+        var widgetElement = this.$$('#obsel-inspector');
         new Samotraces.Ui.Widgets.ObselInspector(widgetElement, this.obselSelector);
       }
     });

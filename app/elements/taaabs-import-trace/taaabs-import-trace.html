@@ -1,4 +1,3 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html"/>
 
 <dom-module id="taaabs-import-trace">
 
@@ -13,16 +12,23 @@
     /* global Polymer, Samotraces */
     
     Polymer({
-      is: "taaabs-import-trace",
+      is: 'taaabs-import-trace',
       properties: {
         trace: {
           type: Object,
-          notify: true
+          notify: true,
+          reflectToAttribute: true,
+          observer: '_traceChanged'
         }
       },
-      attached: function() {
-        var widgetElement = this.$$("#importer");
+      ready: function() {
+        var widgetElement = this.$$('#importer');
+        this.trace = new Samotraces.LocalTrace();
         new Samotraces.Ui.Widgets.ImportTrace(widgetElement, this.trace);
+      },
+      _traceChanged: function() {
+        console.log('trace changed');
+        console.log(this.trace);
       }
     });
   </script>

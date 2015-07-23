@@ -1,4 +1,3 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html"/>
 
 <dom-module id="taaabs-samotraceme">
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
@@ -15,7 +14,7 @@
     /* global Polymer, Samotraces */
 
     Polymer({
-      is: "taaabs-samotraceme",
+      is: 'taaabs-samotraceme',
       properties: {
         trace: {
           type: Object,
@@ -38,9 +37,9 @@
         }
       },
       _onUpdateData: function(newValue) {
-        this.$.origin.appendChild (document.createTextNode("Origin : " + this.trace.origin));
-        this.$.type.appendChild (document.createTextNode("type : " + this.trace.type));
-        this.$.model.appendChild (document.createTextNode("model : " + this.trace.model_uri));
+        this.$.origin.appendChild (document.createTextNode('Origin : ' + this.trace.origin));
+        this.$.type.appendChild (document.createTextNode('type : ' + this.trace.type));
+        this.$.model.appendChild (document.createTextNode('model : ' + this.trace.model_uri)); // jshint ignore:line
         this.timezoom = new Samotraces.TimeWindow({start: new Date(Date()).setHours(new Date (Date()).getHours() - 2), end: Date.now()}); // TODO why -2 ??
         this.time = new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()});
       },

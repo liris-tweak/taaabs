@@ -15,8 +15,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="generator" content="Polymer Starter Kit" />
-  <title>Polymer Starter Kit</title>
+  <meta name="generator" content="Taaabs" />
+  <title>Taaabs</title>
   <!-- Place favicon.ico in the `app/` directory -->
 
   <!-- Chrome for Android theme color -->
@@ -36,7 +36,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- Add to homescreen for Safari on iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Polymer Starter Kit">
+  <meta name="apple-mobile-web-app-title" content="Taaabs">
   <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
 
   <!-- Tile icon for Win8 (144x144) -->
@@ -89,6 +89,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <iron-icon icon="mail"></iron-icon>
             <span>Contact</span>
           </a>
+          
+          <a data-route="hello-taaabs" href="/hellotaaabs">
+            <iron-icon icon="icons:face"></iron-icon>
+            <span>Hello Taaabs</span>
+          </a>
         </paper-menu>
       </paper-scroll-header-panel>
 
@@ -106,12 +111,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <!-- Application name -->
           <div class="middle middle-container center horizontal layout">
-            <div class="app-name">Polymer Starter Kit</div>
+            <div class="app-name">Taaabs</div>
           </div>
 
           <!-- Application sub title -->
           <div class="bottom bottom-container center horizontal layout">
-            <div class="bottom-title paper-font-subhead">The future of the web today</div>
+            <div class="bottom-title paper-font-subhead">The future of interactive visualisation of traces today</div>
           </div>
 
         </paper-toolbar>
@@ -175,6 +180,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-material elevation="1">
                 <h2 class="paper-font-display2">Contact</h2>
                 <p>This is the contact section</p>
+              </paper-material>
+            </section>
+
+            <section data-route="hello-taaabs">
+              <paper-material elevation="1">
+                <h2 class="paper-font-display2">Hello Taaabs</h2>
+                <p>This is an Hello Ta*bs</p>
+              </paper-material>
+              
+              <paper-material elevation="1">
+                <taaabs-import-trace trace="{{objtrace}}"></taaabs-import-trace>
+                <taaabs-ktbs class="PolymerKTBS" src-ktbs="http://localhost:8001/" basesel="{{data}}"></taaabs-ktbs>
+                <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"></taaabs-base>                
+                <taaabs-samotraceme trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >
+                  <taaabs-timeform  time="{{twzoom}}"></taaabs-timeform>
+                  <taaabs-window-scale-fix time="{{tw}}"></taaabs-window-scale-fix>
+                  <taaabs-trace-display-icons-fix trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}"></taaabs-trace-display-icons-fix>
+                  <taaabs-trace-display-icons-zoom  trace="{{objtrace}}" time="{{twzoom}}"></taaabs-trace-display-icons-zoom>
+                  <taaabs-window-scale-fix time="{{twzoom}}"></taaabs-window-scale-fix>
+                </taaabs-samotraceme>
+                <taaabs-trace-fix trace="{{objtrace}}" time="{{tw2}}">
+                  <taaabs-trace-display-icons timewindow="{{tw2}}" trace="{{objtrace}}" obsel-selector="{{selectedObsel}}" options='{"url": "images/clef.png"}'> </taaabs-trace-display-icons>
+                  <taaabs-window-scale timewindow="{{tw2}}"></taaabs-window-scale>
+                  <taaabs-obsel-inspector obsel-selector="{{selectedObsel}}"></taaabs-obsel-inspector>
+                </taaabs-trace-fix>
+                
               </paper-material>
             </section>
 

@@ -1,4 +1,3 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html"/>
 
 <dom-module id="taaabs-timeform">
   <template>
@@ -9,7 +8,7 @@
     /* global Polymer, Samotraces */
 
     Polymer({
-      is: "taaabs-timeform",
+      is: 'taaabs-timeform',
       properties: {
         time: {
           type: Object,
@@ -20,7 +19,7 @@
         }
       },
       _timeChanged: function() {
-        new Samotraces.Ui.Widgets.IntervalTimeForm(this.$["time-form"], this.time);
+        new Samotraces.Ui.Widgets.IntervalTimeForm(this.$['time-form'], this.time);
       }
     });
   </script>
