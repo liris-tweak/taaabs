@@ -1,7 +1,15 @@
 
 <dom-module id="taaabs-ktbs">
+  <style>
+    :host {
+      display: block;
+    }
+    h2 {
+      margin-left: 20%;
+    }
+  </style>
   <template>
-    <h2 style="margin-left: 20%;">Interface KTBS</h2>
+    <h2 id=>Interface KTBS</h2>
     <div id="ktbs-url"></div>
     <div id="list-base"></div>
   </template>
@@ -25,13 +33,13 @@
         }
       },
       clickBase: function(event) {
-        var BaseURL = this.ktbs.id + event.target.innerHTML;
-        this.basesel = new Samotraces.Ktbs.Base(BaseURL);
+        var baseURL = this.ktbs.id + event.target.innerHTML;
+        this.basesel = new Samotraces.Ktbs.Base(baseURL);
       },
       listBaseCallback: function() {
-        var BaseButton = this.$['list-base'].querySelectorAll('.base');
-        for (var i = 0; i < BaseButton.length; i++) {
-          BaseButton[i].onclick = this.clickBase.bind(this);
+        var baseButton = this.$['list-base'].querySelectorAll('.base');
+        for (var i = 0; i < baseButton.length; i++) {
+          baseButton[i].onclick = this.clickBase.bind(this);
         }
       },
       ready: function() {
