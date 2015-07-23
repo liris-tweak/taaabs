@@ -25,7 +25,7 @@
         }
       },
       clickBase: function(event) {
-        var BaseURL = this.ktbs.id + event.srcElement.innerText;
+        var BaseURL = this.ktbs.id + event.target.innerHTML;
         this.basesel = new Samotraces.Ktbs.Base(BaseURL);
       },
       listBaseCallback: function() {
