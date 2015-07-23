@@ -1,0 +1,30 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html"/>
+
+<dom-module id="taaabs-window-scale-fix">
+  <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
+
+  <template>
+    <div id="widget"></div>
+  </template>
+
+  <script>
+    /* global Polymer, Samotraces */
+
+    Polymer({
+      is: "taaabs-window-scale-fix",
+      properties: {
+        time: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; },
+          observer: '_timeChanged'
+        }
+      },
+      _timeChanged: function(newValue) {
+        var widgetElement = this.$$("#widget");
+        new Samotraces.Ui.Widgets.WindowScaleFix(widgetElement, newValue); // dont store it anywhere ?
+      }
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,68 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html"/>
+
+<dom-module id="taaabs-trace-display-icons">
+
+  <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
+
+  <template>
+    <div id="widget"></div>
+  </template>
+
+  <script>
+    /* global Polymer, Samotraces, $ */
+
+    Polymer({
+      is: "taaabs-trace-display-icons",
+      properties: {
+        timewindow: {
+          type: String,
+          reflectToAttribute: true,
+          notify: true,
+          observer: '_timeChanged'
+        },
+        trace: {
+          type: Object,
+          notify: true
+        },
+        obselSelector: {
+          type: Object,
+          reflectToAttribute: true,
+          notify: true
+        },
+        options: {
+          type: Object,
+          reflectToAttribute: true,
+          notify: true
+        }
+      },
+      _timeChanged: function(newValue) {
+        var widgetElement = this.$$("#widget");
+        var options = {
+          url: function(o) {
+            var path = "../../lib/images/";
+            switch(o.type) {
+              case 'Ouverture_Page':
+                return path + 'Orange.png';
+              default:
+                return path + 'help.png';
+            }
+          }
+        };
+        new Samotraces.Ui.Widgets.TraceDisplayIcons(widgetElement, this.trace, newValue, options);
+        setTimeout(this.observObsels.bind(this), 2000);
+      },
+      observObsels: function() {
+        // this is a NodeList, not an Array, so no forEach
+        var obselsNodeList = this.shadowRoot.querySelectorAll(".Samotraces-obsel");
+        for (var i = 0; i < obselsNodeList.length; i++) {
+          var obsel = obselsNodeList[i];
+          obsel.onclick = this.handleClick.bind(this);
+        }
+      },
+      handleClick: function(event) {
+        var obsel = $.data(event.target, "Samotraces-data"); // TODO we assume jquery is avaible
+        this.obselSelector.select(obsel);
+      }
+    });
+  </script>
+</dom-module>

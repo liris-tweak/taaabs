@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html"/>
+
+<dom-module id="taaabs-window-scale">
+  <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
+
+  <template>
+    <div id="scale"></div>
+  </template>
+
+  <script>
+    /* global Polymer, Samotraces */
+
+    Polymer({
+      is: "taaabs-window-scale",
+      properties: {
+        timewindow: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          observer: '_timeChanged'
+        }
+      },
+      _timeChanged: function(newValue) {
+        var widgetElement = this.$$("#scale");
+        new Samotraces.Ui.Widgets.WindowScale(widgetElement, newValue);
+      }
+    });
+  </script>
+</dom-module>

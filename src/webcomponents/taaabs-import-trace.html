@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html"/>
+
+<dom-module id="taaabs-import-trace">
+
+  <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
+
+  <template>
+    <div id="importer"></div>
+    <content></content>
+  </template>
+
+  <script>
+    /* global Polymer, Samotraces */
+    
+    Polymer({
+      is: "taaabs-import-trace",
+      properties: {
+        trace: {
+          type: Object,
+          notify: true
+        }
+      },
+      attached: function() {
+        var widgetElement = this.$$("#importer");
+        new Samotraces.Ui.Widgets.ImportTrace(widgetElement, this.trace);
+      }
+    });
+  </script>
+</dom-module>

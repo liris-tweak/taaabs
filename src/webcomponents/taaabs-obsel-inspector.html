@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html"/>
+
+<dom-module id="taaabs-obsel-inspector">
+
+  <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
+
+  <template>
+    <div id="obsel-inspector"></div>
+  </template>
+
+  <script>
+    /* global Polymer, Samotraces */
+
+    Polymer({
+      is: "taaabs-obsel-inspector",
+      properties: {
+        obselSelector: {
+          type: Object,
+          notify: true
+        }
+      },
+      attached: function() {
+        this.obselSelector = new Samotraces.Selector('Obsel');
+        var widgetElement = this.$$("#obsel-inspector");
+        new Samotraces.Ui.Widgets.ObselInspector(widgetElement, this.obselSelector);
+      }
+    });
+  </script>
+</dom-module>

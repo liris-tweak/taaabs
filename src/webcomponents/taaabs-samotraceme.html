@@ -1,0 +1,52 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html"/>
+
+<dom-module id="taaabs-samotraceme">
+  <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
+  <template>
+    <h4 style="margin-left: 50%;"> Samo Trace Me </h4>
+    <div >{{trace.id}}</div>
+    <div id="origin"></div>
+    <div id= "type" ></div>
+    <div id = "model"></div>
+    <content></content>
+  </template>
+
+  <script>
+    /* global Polymer, Samotraces */
+
+    Polymer({
+      is: "taaabs-samotraceme",
+      properties: {
+        trace: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; },
+          observer: '_traceselChanged'
+        },
+        time: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; }
+        },
+        timezoom: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; }
+        }
+      },
+      _onUpdateData: function(newValue) {
+        this.$.origin.appendChild (document.createTextNode("Origin : " + this.trace.origin));
+        this.$.type.appendChild (document.createTextNode("type : " + this.trace.type));
+        this.$.model.appendChild (document.createTextNode("model : " + this.trace.model_uri));
+        this.timezoom = new Samotraces.TimeWindow({start: new Date(Date()).setHours(new Date (Date()).getHours() - 2), end: Date.now()}); // TODO why -2 ??
+        this.time = new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()});
+      },
+      _traceselChanged: function(newValue) {
+        newValue.on('trace:updateData', this._onUpdateData.bind(this, newValue));
+      }
+    });
+  </script>
+</dom-module>

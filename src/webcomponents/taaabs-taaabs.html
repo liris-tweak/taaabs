@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html"/>
+
+<script type="text/javascript" src="../../bower_components/samotracesjs/dist/vendors.js"></script>
+<script type="text/javascript" src="../../bower_components/samotracesjs/dist/samotraces.js"></script>
+
+<dom-module id="taaabs-taaabs">
+  <template>
+    <h2> Interface Taabs </h2>
+    <content></content>
+  </template>
+
+  <script>
+    /* global Polymer, Samotraces */
+
+    Polymer({
+      is: "taaabs-taaabs",
+      properties:{
+        basesel: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; }
+        },
+        srcKtbs: {
+          type: String,
+          value: ''
+        }
+      },
+      ready: function() {
+        new Samotraces.Ktbs(this.srcKtbs);
+        this.addEventListener('eventFromListBaseClickBase', this.GetObjBaseSelectetd);
+      },
+      GetObjBaseSelectetd: function(event) {
+        console.log(event.detail);
+      }
+    });
+  </script>
+</dom-module>

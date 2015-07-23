@@ -1,0 +1,51 @@
+<link rel="import" href="/bower_components/polymer/polymer.html"/>
+
+<dom-module id="taaabs-trace-display-icons-fix">
+  <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
+  <template>
+    <div id="traceIcon"></div>
+  </template>
+
+  <script>
+    /* global Polymer, Samotraces */
+    Polymer({
+      is: "taaabs-trace-display-icons-fix",
+      properties: {
+        time: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; },
+          observer: '_timeChanged'
+        },
+        timezoom: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; }
+        },
+        trace: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() { return {}; }
+        }
+      },
+      _timeChanged: function() {
+        var options = {
+          url: function(o) {
+            var path = "../../lib/images/";
+            switch(o.type) {
+              case 'Ouverture_Page':
+              return path + 'Orange.png';
+              default:
+              return path + 'help.png';
+            }
+          }
+        };
+        this.trace.list_obsels();
+        new Samotraces.Ui.Widgets.TraceDisplayIconsFix(this.$$("#traceIcon"), this.trace, this.time, this.timezoom, options);
+      }
+    });
+  </script>
+</dom-module>
