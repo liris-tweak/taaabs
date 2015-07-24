@@ -19,7 +19,7 @@
     "polymer": "Polymer/polymer#1.0.4",
     "paper-scroll-header-panel": "PolymerElements/paper-scroll-header-panel#^1.0.0",
     "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",
-    "samotracesjs": "https://github.com/fderbel/samotraces.js.git#^0.9.2",
+    "samotracesjs": "https://github.com/fderbel/samotraces.js.git#^0.9.3",
     "iron-elements": "PolymerElements/iron-elements#1.0.0",
     "paper-elements": "PolymerElements/paper-elements#1.0.1",
     "platinum-elements": "PolymerElements/platinum-elements#1.0.1",
