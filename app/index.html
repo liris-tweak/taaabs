@@ -89,7 +89,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <iron-icon icon="mail"></iron-icon>
             <span>Contact</span>
           </a>
-          
+
           <a data-route="hello-taaabs" href="/hellotaaabs">
             <iron-icon icon="icons:face"></iron-icon>
             <span>Hello Taaabs</span>
@@ -188,11 +188,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <h2 class="paper-font-display2">Hello Taaabs</h2>
                 <p>This is an Hello Ta*bs</p>
               </paper-material>
-              
+
               <paper-material elevation="1">
                 <taaabs-import-trace trace="{{objtrace}}"></taaabs-import-trace>
                 <taaabs-ktbs class="PolymerKTBS" src-ktbs="http://localhost:8001/" basesel="{{data}}"></taaabs-ktbs>
-                <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"></taaabs-base>                
+                <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"></taaabs-base>
                 <taaabs-samotraceme trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >
                   <taaabs-timeform  time="{{twzoom}}"></taaabs-timeform>
                   <taaabs-window-scale-fix time="{{tw}}"></taaabs-window-scale-fix>
@@ -205,7 +205,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <taaabs-window-scale timewindow="{{tw2}}"></taaabs-window-scale>
                   <taaabs-obsel-inspector obsel-selector="{{selectedObsel}}"></taaabs-obsel-inspector>
                 </taaabs-trace-fix>
-                
+
+                <taabs-model modelsel="{{objmodel}}">
+                  <taaabs-display-model modelsel="{{objmodel}}" obseltype="{{selectedObselType}}" ></taaabs-display-model>
+                  <taaabs-obsel-inspector-type obseltype="{{selectedObselType}}" ></taaabs-obsel-inspector-type>
+                </taabs-model>
               </paper-material>
             </section>
 
