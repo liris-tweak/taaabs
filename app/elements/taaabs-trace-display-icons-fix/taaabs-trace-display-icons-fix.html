@@ -15,35 +15,52 @@
           notify: true,
           reflectToAttribute: true,
           value: function() { return {}; },
-          observer: '_timeChanged'
+          observer: 'timeChanged'
         },
         timezoom: {
           type: Object,
           notify: true,
           reflectToAttribute: true,
-          value: function() { return {}; }
+          value: function() { return {}; },
+          observer: 'timeZoomChanged'
         },
         trace: {
           type: Object,
           notify: true,
           reflectToAttribute: true,
-          value: function() { return {}; }
+          value: function() { return {}; },
+          observer: 'traceChanged'
         }
       },
-      _timeChanged: function() {
-        var options = {
-          url: function(o) {
-            var path = '../../lib/images/';
-            switch(o.type) {
-              case 'Ouverture_Page':
-              return path + 'Orange.png';
-              default:
-              return path + 'help.png';
+      traceChanged: function() {
+        this.attachWidget();
+      },
+      timeChanged: function() {
+        this.attachWidget();
+      },
+      timeZoomChanged: function() {
+        this.attachWidget();
+      },
+      attached: function() {
+        this.attachWidget();
+      },
+      attachWidget: function() {
+        if (!! this.trace && !! this.time && !! this.timezoom) {
+          var options = {
+            url: function(o) {
+              var path = '../../lib/images/';
+              switch(o.type) {
+                case 'Ouverture_Page':
+                return path + 'Orange.png';
+                default:
+                return path + 'help.png';
+              }
             }
-          }
-        };
-        this.trace.list_obsels(); // jshint ignore:line
-        new Samotraces.Ui.Widgets.TraceDisplayIconsFix(this.$$('#traceIcon'), this.trace, this.time, this.timezoom, options);
+          };
+          this.trace.list_obsels(); // jshint ignore:line
+          this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIconsFix(this.$$('#traceIcon'), this.trace, this.time, this.timezoom, options);
+          console.log(this.widgetObject);
+        }
       }
     });
   </script>

@@ -18,17 +18,11 @@
           type: Object,
           notify: true,
           reflectToAttribute: true,
-          observer: '_traceChanged'
         }
       },
-      ready: function() {
+      attached: function() {
         var widgetElement = this.$$('#importer');
-        this.trace = new Samotraces.LocalTrace();
         new Samotraces.Ui.Widgets.ImportTrace(widgetElement, this.trace);
-      },
-      _traceChanged: function() {
-        console.log('trace changed');
-        console.log(this.trace);
       }
     });
   </script>
