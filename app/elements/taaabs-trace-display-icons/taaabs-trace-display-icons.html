@@ -59,9 +59,15 @@
       attachWidget: function() {
         if (!! this.trace && !! this.timewindow) {
           var widgetElement = this.$$('#widget');
-
+          var options = {
+              url: function(o) {
+                  return 'images/teapot.png';
+              },
+              width: 34,
+              height: 40,
+          };
           // Create widget
-          this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow);
+          this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow, options);
         }
       }
     });

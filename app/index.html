@@ -195,7 +195,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
               
               <paper-material elevation="1">
-                <!-- <taaabs-import-trace trace="{{objtrace}}"></taaabs-import-trace>
                 <taaabs-ktbs class="PolymerKTBS" src-ktbs="http://localhost:8001/" basesel="{{data}}"></taaabs-ktbs>
                 <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"></taaabs-base>                
                 <taaabs-samotraceme trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >
@@ -209,7 +208,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <taaabs-trace-display-icons timewindow="{{tw2}}" trace="{{objtrace}}" obsel-selector="{{selectedObsel}}" options='{"url": "images/clef.png"}'> </taaabs-trace-display-icons>
                   <taaabs-window-scale timewindow="{{tw2}}"></taaabs-window-scale>
                   <taaabs-obsel-inspector obsel-selector="{{selectedObsel}}"></taaabs-obsel-inspector>
-                </taaabs-trace-fix> -->
+                </taaabs-trace-fix>
                 
               </paper-material>
             </section>
@@ -219,12 +218,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <h2 class="paper-font-display2">local trace</h2>
               </paper-material>
               <paper-material elevation="1">
-                <taaabs-local-trace trace="{{tr}}" timewindow="{{tw}}">
-                  <taaabs-trace-display-icons trace="{{tr}}" timewindow="{{tw}}">
-                  </taaabs-trace-display-icons>
-                  <taaabs-window-scale timewindow="{{tw}}"></taaabs-window-scale>
+                <taaabs-local-trace trace="{{tr}}" timewindow="{{tw}}" timewindowzoom="{{twzoom}}">
                   <taaabs-import-trace trace="{{tr}}">
                   </taaabs-import-trace>
+                  
+                  <paper-tabs selected="{{selected}}">
+                    <paper-tab>Display Icons</paper-tab>
+                    <paper-tab>Display Icons Zoom</paper-tab>
+                  </paper-tabs>
+                  <iron-pages selected="{{selected}}">
+                    <!-- Display Icons: -->
+                    <paper-material elevation="2">
+                      <taaabs-trace-display-icons trace="{{tr}}" timewindow="{{tw}}">
+                      </taaabs-trace-display-icons>
+                      <taaabs-window-scale timewindow="{{tw}}"></taaabs-window-scale>  
+                    </paper-material>
+                    <!-- Display Icons Zoom: -->
+                    <paper-material elevation="2">
+                      <taaabs-trace-display-icons-fix trace="{{tr}}" time="{{tw}}" timezoom="{{twzoom}}"></taaabs-trace-display-icons-fix>
+                      <taaabs-trace-display-icons-zoom trace="{{tr}}" time="{{twzoom}}"></taaabs-trace-display-icons-zoom>    
+                    </paper-material>
+                  </iron-pages>
                 </taaabs-local-trace>
               </paper-material>
             </section>

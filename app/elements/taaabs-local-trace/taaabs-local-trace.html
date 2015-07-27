@@ -21,6 +21,11 @@
           reflectToAttribute: true,
           notify: true
         },
+        timewindowzoom: {
+          type: Object,
+          reflectToAttribute: true,
+          notify: true
+        },
         trace: {
           type: Object,
           notify: true,
@@ -39,6 +44,7 @@
       },
       ready: function() {
         this.timewindow = new Samotraces.TimeWindow({start: 0, end: 20});
+        this.timewindowzoom = new Samotraces.TimeWindow({start: 0, end: 20});
         this.trace = new Samotraces.LocalTrace();
         console.log('taaabs-local-trace: ready to work');
       }
