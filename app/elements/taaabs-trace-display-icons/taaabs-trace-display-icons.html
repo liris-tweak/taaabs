@@ -14,14 +14,15 @@
       is: 'taaabs-trace-display-icons',
       properties: {
         timewindow: {
-          type: String,
+          type: Object,
           reflectToAttribute: true,
           notify: true,
-          observer: '_timeChanged'
+          observer: 'timeChanged'
         },
         trace: {
           type: Object,
-          notify: true
+          notify: true,
+          observer: 'traceChanged'
         },
         obselSelector: {
           type: Object,
@@ -34,21 +35,14 @@
           notify: true
         }
       },
-      _timeChanged: function(newValue) {
-        var widgetElement = this.$$('#widget');
-        var options = {
-          url: function(o) {
-            var path = '../../lib/images/';
-            switch(o.type) {
-              case 'Ouverture_Page':
-                return path + 'Orange.png';
-              default:
-                return path + 'help.png';
-            }
-          }
-        };
-        new Samotraces.Ui.Widgets.TraceDisplayIcons(widgetElement, this.trace, newValue, options);
-        setTimeout(this.observObsels.bind(this), 2000);
+      traceChanged: function(newValue) {
+        this.attachWidget();
+      },
+      timeChanged: function(newValue) {
+        this.attachWidget();
+      },
+      attached: function() {
+        this.attachWidget();
       },
       observObsels: function() {
         // this is a NodeList, not an Array, so no forEach
@@ -61,6 +55,14 @@
       handleClick: function(event) {
         var obsel = $.data(event.target, 'Samotraces-data'); // TODO we assume jquery is avaible
         this.obselSelector.select(obsel);
+      },
+      attachWidget: function() {
+        if (!! this.trace && !! this.timewindow) {
+          var widgetElement = this.$$('#widget');
+
+          // Create widget
+          this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow);
+        }
       }
     });
   </script>

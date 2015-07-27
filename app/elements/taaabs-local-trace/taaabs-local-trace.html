@@ -1,0 +1,47 @@
+
+<dom-module id="taaabs-local-trace">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+    <content></content>
+  </template>
+
+  <script>
+    /* global Polymer, Samotraces */
+
+    Polymer({
+      is: 'taaabs-local-trace',
+      properties: {
+        timewindow: {
+          type: Object,
+          reflectToAttribute: true,
+          notify: true
+        },
+        trace: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+        },
+        obselSelector: {
+          type: Object,
+          reflectToAttribute: true,
+          notify: true
+        },
+        options: {
+          type: Object,
+          reflectToAttribute: true,
+          notify: true
+        },
+      },
+      ready: function() {
+        this.timewindow = new Samotraces.TimeWindow({start: 0, end: 20});
+        this.trace = new Samotraces.LocalTrace();
+        console.log('taaabs-local-trace: ready to work');
+      }
+    });
+  </script>
+</dom-module>
