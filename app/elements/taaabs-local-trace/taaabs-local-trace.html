@@ -31,7 +31,7 @@
           notify: true,
           reflectToAttribute: true,
         },
-        obselSelector: {
+        obselselector: {
           type: Object,
           reflectToAttribute: true,
           notify: true
@@ -46,7 +46,7 @@
         this.timewindow = new Samotraces.TimeWindow({start: 0, end: 20});
         this.timewindowzoom = new Samotraces.TimeWindow({start: 0, end: 20});
         this.trace = new Samotraces.LocalTrace();
-        console.log('taaabs-local-trace: ready to work');
+        this.obselselector = new Samotraces.Selector('Obsel');
       }
     });
   </script>
