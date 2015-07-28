@@ -54,11 +54,11 @@
         }
       },
       _clickTrace: function(event) {
-        var traceURL = this.base.id + event.srcElement.innerText;
+        var traceURL = this.base.id + event.target.innerHTML;
         this.tracesel = new Samotraces.Ktbs.Trace(traceURL);
       },
       _clickModel: function(event) {
-        var modelURL = this.base.id + event.srcElement.innerText;
+        var modelURL = this.base.id + event.target.innerHTML;
         this.modelsel = new Samotraces.Ktbs.Model(modelURL);
       },
       _baseselChanged: function(newValue) {
