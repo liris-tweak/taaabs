@@ -8,7 +8,7 @@
   </template>
 
   <script>
-    /* global Polymer, Samotraces, $ */
+    /* global Polymer, Samotraces */
 
     Polymer({
       is: 'taaabs-trace-display-icons',
@@ -24,7 +24,7 @@
           notify: true,
           observer: 'traceChanged'
         },
-        obselSelector: {
+        obselselector: {
           type: Object,
           reflectToAttribute: true,
           notify: true
@@ -45,16 +45,18 @@
         this.attachWidget();
       },
       observObsels: function() {
-        // this is a NodeList, not an Array, so no forEach
-        var obselsNodeList = this.shadowRoot.querySelectorAll('.Samotraces-obsel');
+        var obsClass = '.Samotraces-obsel';
+        var obselsNodeList = (this.shadowRoot) ? this.shadowRoot.querySelectorAll(obsClass) : this.querySelectorAll(obsClass);
+        // forall obsel Node, attach a click handler
         for (var i = 0; i < obselsNodeList.length; i++) {
           var obsel = obselsNodeList[i];
           obsel.onclick = this.handleClick.bind(this);
         }
       },
       handleClick: function(event) {
-        var obsel = $.data(event.target, 'Samotraces-data'); // TODO we assume jquery is avaible
-        this.obselSelector.select(obsel);
+        var obsel = event.target.__data__;
+        console.log("clicked");
+        this.obselselector.select(obsel);
       },
       attachWidget: function() {
         if (!! this.trace && !! this.timewindow) {
@@ -68,6 +70,14 @@
           };
           // Create widget
           this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow, options);
+          var that = this;
+          this.widgetObject.trace.on('trace:create_obsel', (function (ev) {
+            console.log("create obsel ^^");
+            console.log(ev);
+            this.observObsels(); // TODO very bad complexity, if we import 100 obsels, we do ~100^2 operations, need to add a button
+          }).bind(this));
+          
+          //setTimeout(this.observObsels.bind(this), 2000);
         }
       }
     });

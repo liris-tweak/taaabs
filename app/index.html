@@ -222,7 +222,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <h2 class="paper-font-display2">local trace</h2>
               </paper-material>
               <paper-material elevation="1">
-                <taaabs-local-trace trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}" timewindowzoom="{{localTimeWindowsZoom1}}">
+                <taaabs-local-trace trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}" timewindowzoom="{{localTimeWindowsZoom1}}" obselselector="{{localObselSelector1}}">
                   <taaabs-import-trace trace="{{localTrace1}}">
                   </taaabs-import-trace>
                   
@@ -233,7 +233,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <iron-pages selected="{{selected}}">
                     <!-- Display Icons: -->
                     <paper-material elevation="2">
-                      <taaabs-trace-display-icons trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}">
+                      <taaabs-trace-display-icons trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}" obselselector="{{localObselSelector1}}">
                       </taaabs-trace-display-icons>
                       <taaabs-window-scale timewindow="{{localTimeWindow1}}"></taaabs-window-scale>  
                     </paper-material>
@@ -243,6 +243,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                       <taaabs-trace-display-icons-zoom trace="{{localTrace1}}" time="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-zoom>    
                     </paper-material>
                   </iron-pages>
+                  <paper-material elevation="2">
+                    <taaabs-obsel-inspector obsel-selector="{{localObselSelector1}}"></taaabs-obsel-inspector>
+                  </paper-material>
                 </taaabs-local-trace>
               </paper-material>
             </section>
