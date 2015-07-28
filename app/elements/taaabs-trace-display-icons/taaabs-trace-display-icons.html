@@ -55,7 +55,6 @@
       },
       handleClick: function(event) {
         var obsel = event.target.__data__;
-        console.log("clicked");
         this.obselselector.select(obsel);
       },
       attachWidget: function() {
@@ -72,8 +71,6 @@
           this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow, options);
           var that = this;
           this.widgetObject.trace.on('trace:create_obsel', (function (ev) {
-            console.log("create obsel ^^");
-            console.log(ev);
             this.observObsels(); // TODO very bad complexity, if we import 100 obsels, we do ~100^2 operations, need to add a button
           }).bind(this));
           
