@@ -6,8 +6,6 @@
   </template>
 
   <script>
-    /* global Polymer, Samotraces */
-
     Polymer({
       is: 'taaabs-model',
       properties: {
@@ -15,17 +13,9 @@
           type: Object,
           notify: true,
           reflectToAttribute: true,
-          value: function() { return {}; },
-          observer: '_modelselChanged'
-
+          value: function() { return {}; }
         }
-      },
-      _modelselChanged: function(newValue, oldValue) {
-    
-
-   },
-
-
+      }
     });
   </script>
 </dom-module>

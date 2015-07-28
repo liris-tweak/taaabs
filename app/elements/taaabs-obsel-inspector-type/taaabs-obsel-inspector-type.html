@@ -20,10 +20,10 @@
         }
       },
       _ObselTypeselChanged: function() {
-        var current_obseltype = new Samotraces.Selector('Obsel');
-        current_obseltype.select(this.obseltype);
+        var currentObselType = new Samotraces.Selector('Obsel');
+        currentObselType.select(this.obseltype);
         var widgetElement = this.$$('#obsel-inspector-type');
-        new Samotraces.Ui.Widgets.ObselInspector(widgetElement, current_obseltype);
+        new Samotraces.Ui.Widgets.ObselInspector(widgetElement, currentObselType);
       }
     });
   </script>

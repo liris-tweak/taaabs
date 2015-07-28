@@ -26,11 +26,11 @@
           notify: true
         },
       },
-      _modelselChanged: function(newValue, oldValue) {
-     options = {
+      _modelselChanged: function() {
+     var options = {
        url: function(o) {
-         var path = "../../lib/Images/";
-         switch(o["type"]) {
+         var path = '../../lib/Images/';
+         switch(o.type) {
            case 'Ouverture_Page':
            return path+'Orange.png';
            default:
@@ -39,7 +39,7 @@
        }
      };
 
-     var Mod = new Samotraces.Ui.Widgets.DisplayModel (this.$$("#modeldiv"),this.modelsel,options);
+     new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'),this.modelsel,options);
      //this.observObselsType();
      setTimeout(this.observObselsType.bind(this), 2000);
    },
@@ -53,7 +53,7 @@
      }
    },
    handleClick: function(event) {
-     console.log("click type obsel");
+     console.log('click type obsel');
 
      var obsel = event.target.__data__;
      //$.data(event.target, 'Samotraces-data'); // TODO we assume jquery is avaible
