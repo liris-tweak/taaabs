@@ -1,10 +1,15 @@
 {
-  "name": "liris-taaabs",
-  "version": "0.0.3",
-  "homepage": "https://gforge.liris.cnrs.fr/anonscm/git/taaabs/taaabs.git",
+  "name": "taaabs",
+  "version": "0.9.1",
+  "homepage": "https://github.com/liris-tweak/taaabs",
   "authors": [
-    "Raphael Cazenave-Leveque <raphael.cazenave@gmail.com>",
-    "Fatma Derbel <>"
+    "Amélie Cordier <amelie.cordier@liris.cnrs.fr>",
+    "Pierre-Antoine Champin <pierre-antoine.champin@liris.cnrs.fr>",
+    "Benoit Mathern <bmathern@gmail.com>",
+    "Raphael Cazenave-Lévêque <raphael.cazenave@gmail.com>",
+    "Fatma Derbel <derbelfatma@gmail.com>",
+    "Mehdi Saaydi <saaydi.mehdi@gmail.com>",
+    "Pierre-Loup Barazzutti <pierre-loup.barazzutti@etu.univ-lyon1.fr>"
   ],
   "description": "liris-taaabs",
   "keywords": [
@@ -16,12 +21,12 @@
   "license": "GPL-2.0",
   "ignore": [],
   "dependencies": {
-    "polymer": "Polymer/polymer#1.0.4",
-    "paper-scroll-header-panel": "PolymerElements/paper-scroll-header-panel#^1.0.0",
-    "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",
-    "samotracesjs": "https://github.com/fderbel/samotraces.js.git#^0.9.3",
-    "iron-elements": "PolymerElements/iron-elements#1.0.0",
-    "paper-elements": "PolymerElements/paper-elements#1.0.1",
+    "polymer": "Polymer/polymer#^1.0.8",
+    "paper-scroll-header-panel": "PolymerElements/paper-scroll-header-panel#^1.0.6",
+    "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.4",
+    "samotracesjs": "https://github.com/fderbel/samotraces.js.git#^0.9.4",
+    "iron-elements": "PolymerElements/iron-elements#1.0.3",
+    "paper-elements": "PolymerElements/paper-elements#1.0.2",
     "platinum-elements": "PolymerElements/platinum-elements#1.0.1",
     "neon-elements": "PolymerElements/neon-elements#1.0.0",
     "page": "visionmedia/page.js#~1.6.3"
