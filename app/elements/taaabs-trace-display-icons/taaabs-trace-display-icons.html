@@ -61,7 +61,7 @@
         if (!! this.trace && !! this.timewindow) {
           var widgetElement = this.$$('#widget');
           var options = {
-              url: function(o) {
+              url: function() {
                   return 'images/teapot.png';
               },
               width: 34,
@@ -69,12 +69,9 @@
           };
           // Create widget
           this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow, options);
-          var that = this;
-          this.widgetObject.trace.on('trace:create_obsel', (function (ev) {
+          this.widgetObject.trace.on('trace:create_obsel', (function () {
             this.observObsels(); // TODO very bad complexity, if we import 100 obsels, we do ~100^2 operations, need to add a button
           }).bind(this));
-          
-          //setTimeout(this.observObsels.bind(this), 2000);
         }
       }
     });
