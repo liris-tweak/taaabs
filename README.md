@@ -17,10 +17,16 @@ Then, you must fetch the developers dependencies of the project:
 And now the client-side dependencies:
 ```bower install```
 
-### Demo
 #### Build
 `gulp`
 
-### Run the demo
+### Run the simple webserver
+`gulp simpleserver`
+
+Then open `http://localhost:8080/dist/` in your favorite web browser
+
+### Run the webserver with livereload and some 'bells and whistles'
+If you are not sure to need this one, use the simpleserver instead.
+
 `gulp serve`
-Then open `http://localhost:3000/#!/hellotaaabs` in your favorite web browser
+Then open `http://localhost:3000/` in your favorite web browser

@@ -21,7 +21,8 @@ var path = require('path');
 var fs = require('fs');
 var glob = require('glob');
 var historyApiFallback = require('connect-history-api-fallback');
-
+var connect = require('gulp-connect');
+  
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
   'ie_mob >= 10',
@@ -241,6 +242,13 @@ gulp.task('default', ['clean'], function (cb) {
     'vulcanize',
     cb);
     // Note: add , 'precache' , after 'vulcanize', if your are going to use Service Worker
+});
+
+// a Development Web Server
+gulp.task('simpleserver', function() {
+  connect.server({
+    port: 8080,
+  });
 });
 
 // Load tasks for web-component-tester
