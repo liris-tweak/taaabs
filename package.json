@@ -58,7 +58,7 @@
     {"name": "Raphael Cazenave-Lévêque", "email": "raphael.cazenave@gmail.com"},
     {"name": "Fatma Derbel", "email": "derbelfatma@gmail.com"},
     {"name": "Mehdi Saaydi", "email": "saaydi.mehdi@gmail.com"},
-    {"name": "Pierre-Loup Barazzutti", "email": "pierre-loup.barazzutti@etu.univ-lyon1.fr"},
+    {"name": "Pierre-Loup Barazzutti", "email": "pierre-loup.barazzutti@etu.univ-lyon1.fr"}
   ],
   "license": "GPL-2.0",
   "bugs": {
