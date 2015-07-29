@@ -18,7 +18,7 @@
     "javascript",
     "traces"
   ],
-  "license": "GPL-2.0",
+  "license": "MIT",
   "ignore": [],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.6",

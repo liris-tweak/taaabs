@@ -52,15 +52,36 @@
     "traces"
   ],
   "contributors": [
-    {"name": "Amélie Cordier", "email": "amelie.cordier@liris.cnrs.fr"},
-    {"name": "Pierre-Antoine Champin", "email": "pierre-antoine.champin@liris.cnrs.fr"},
-    {"name": "Benoit Mathern", "email": "bmathern@gmail.com"},
-    {"name": "Raphael Cazenave-Lévêque", "email": "raphael.cazenave@gmail.com"},
-    {"name": "Fatma Derbel", "email": "derbelfatma@gmail.com"},
-    {"name": "Mehdi Saaydi", "email": "saaydi.mehdi@gmail.com"},
-    {"name": "Pierre-Loup Barazzutti", "email": "pierre-loup.barazzutti@etu.univ-lyon1.fr"}
+    {
+      "name": "Amélie Cordier",
+      "email": "amelie.cordier@liris.cnrs.fr"
+    },
+    {
+      "name": "Pierre-Antoine Champin",
+      "email": "pierre-antoine.champin@liris.cnrs.fr"
+    },
+    {
+      "name": "Benoit Mathern",
+      "email": "bmathern@gmail.com"
+    },
+    {
+      "name": "Raphael Cazenave-Lévêque",
+      "email": "raphael.cazenave@gmail.com"
+    },
+    {
+      "name": "Fatma Derbel",
+      "email": "derbelfatma@gmail.com"
+    },
+    {
+      "name": "Mehdi Saaydi",
+      "email": "saaydi.mehdi@gmail.com"
+    },
+    {
+      "name": "Pierre-Loup Barazzutti",
+      "email": "pierre-loup.barazzutti@etu.univ-lyon1.fr"
+    }
   ],
-  "license": "GPL-2.0",
+  "license": "MIT",
   "bugs": {
     "url": ""
   },
