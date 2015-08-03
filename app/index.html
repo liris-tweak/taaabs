@@ -239,8 +239,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </paper-material>
                     <!-- Display Icons Zoom: -->
                     <paper-material elevation="2">
-                      <taaabs-trace-display-icons-fix trace="{{localTrace1}}" time="{{localTimeWindow1}}" timezoom="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-fix>
-                      <taaabs-trace-display-icons-zoom trace="{{localTrace1}}" time="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-zoom>    
+                      <taaabs-samotraceme trace="{{localTrace1}}" time="{{localTimeWindow1}}" timezoom="{{twzoom}}" >
+                        <taaabs-trace-display-icons-fix trace="{{localTrace1}}" time="{{localTimeWindow1}}" timezoom="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-fix>
+                        <taaabs-window-scale-fix time="{{localTimeWindow1}}"></taaabs-window-scale-fix>
+                        <taaabs-trace-display-icons-zoom  trace="{{localTrace1}}" time="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-zoom>
+                        <taaabs-window-scale-fix time="{{localTimeWindowsZoom1}}"></taaabs-window-scale-fix>
+                      </taaabs-samotraceme>
                     </paper-material>
                   </iron-pages>
                   <paper-material elevation="2">
@@ -249,7 +253,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 </taaabs-local-trace>
               </paper-material>
             </section>
-
           </iron-pages>
         </div>
       </paper-scroll-header-panel>
