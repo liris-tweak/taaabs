@@ -8,6 +8,7 @@
       <iron-icon icon="refresh"></iron-icon>
       Refresh
     </paper-button>
+    <paper-checkbox id="checkbox-observ-obsels" on-change="observChangeHandler">Obsels Observation</paper-checkbox>
     <div id="widget"></div>
   </template>
 
@@ -48,16 +49,24 @@
       attached: function() {
         this.attachWidget();
       },
-      observObsels: function() {
+      observChangeHandler: function() {
+        console.log('observChangeHandler');
+        var checkboxObservObsels = this.$$('#checkbox-observ-obsels');
+        var clickHandler = ''; // no click handler by default
+        if (checkboxObservObsels && checkboxObservObsels.checked) {
+          // if the checkbox is checked, we will bind to the clickhandler
+          clickHandler = this.handleClick.bind(this);
+        }
         var obsClass = '.Samotraces-obsel';
         var obselsNodeList = (this.shadowRoot) ? this.shadowRoot.querySelectorAll(obsClass) : this.querySelectorAll(obsClass);
         // forall obsel Node, attach a click handler
         for (var i = 0; i < obselsNodeList.length; i++) {
           var obsel = obselsNodeList[i];
-          obsel.onclick = this.handleClick.bind(this);
-        }
+          obsel.onclick = clickHandler;
+        }  
       },
       handleClick: function(event) {
+        // TODO replace __data__ by a $(event.target).data() after fixing it in Samotraces
         var obsel = event.target.__data__;
         this.obselselector.select(obsel);
       },
@@ -73,9 +82,6 @@
           };
           // Create widget
           this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow, options);
-          this.widgetObject.trace.on('trace:create_obsel', (function () {
-            this.observObsels(); // TODO very bad complexity, if we import 100 obsels, we do ~100^2 operations, need to add a button
-          }).bind(this));
         }
       },
       refreshButtonClick: function() {
