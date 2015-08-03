@@ -2,10 +2,13 @@
 <dom-module id="taaabs-model">
   <template>
     <h2> Show Model </h2>
-   <div id="modeldiv"></div>
+    <div id="modeldiv"></div>
   </template>
 
   <script>
+
+    /* global Polymer */
+
     Polymer({
       is: 'taaabs-model',
       properties: {
@@ -16,6 +19,9 @@
           value: function() { return {}; }
         }
       }
+
+      
+
     });
   </script>
 </dom-module>

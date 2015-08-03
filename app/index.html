@@ -94,7 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <iron-icon icon="icons:face"></iron-icon>
             <span>Hello Taaabs</span>
           </a>
-          
+
           <a data-route="local-trace" href="/localtrace">
             <iron-icon icon="icons:folder-open"></iron-icon>
             <span>Local Trace</span>
@@ -210,10 +210,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <taaabs-obsel-inspector obsel-selector="{{selectedObsel}}"></taaabs-obsel-inspector>
                 </taaabs-trace-fix>
 
+
+              </paper-material>
+              <paper-material elevation="1">
+
                 <taabs-model modelsel="{{objmodel}}">
-                  <taaabs-display-model modelsel="{{objmodel}}" obseltype="{{selectedObselType}}" ></taaabs-display-model>
-                  <taaabs-obsel-inspector-type obseltype="{{selectedObselType}}" ></taaabs-obsel-inspector-type>
+                <taaabs-display-model modelsel="{{objmodel}}" obseltype="{{selectedObselType}}" ></taaabs-display-model>
                 </taabs-model>
+              <paper-material elevation="2">
+                <taaabs-obsel-inspector-type obseltype="{{selectedObselType}}" ></taaabs-obsel-inspector-type>
+              </paper-material>
               </paper-material>
             </section>
 
@@ -225,7 +231,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <taaabs-local-trace trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}" timewindowzoom="{{localTimeWindowsZoom1}}" obselselector="{{localObselSelector1}}">
                   <taaabs-import-trace trace="{{localTrace1}}">
                   </taaabs-import-trace>
-                  
+
                   <paper-tabs selected="{{selected}}">
                     <paper-tab>Display Icons</paper-tab>
                     <paper-tab>Display Icons Zoom</paper-tab>
@@ -235,12 +241,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <paper-material elevation="2">
                       <taaabs-trace-display-icons trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}" obselselector="{{localObselSelector1}}">
                       </taaabs-trace-display-icons>
-                      <taaabs-window-scale timewindow="{{localTimeWindow1}}"></taaabs-window-scale>  
+                      <taaabs-window-scale timewindow="{{localTimeWindow1}}"></taaabs-window-scale>
                     </paper-material>
                     <!-- Display Icons Zoom: -->
                     <paper-material elevation="2">
                       <taaabs-trace-display-icons-fix trace="{{localTrace1}}" time="{{localTimeWindow1}}" timezoom="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-fix>
-                      <taaabs-trace-display-icons-zoom trace="{{localTrace1}}" time="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-zoom>    
+                      <taaabs-trace-display-icons-zoom trace="{{localTrace1}}" time="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-zoom>
                     </paper-material>
                   </iron-pages>
                   <paper-material elevation="2">

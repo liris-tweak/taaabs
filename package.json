@@ -1,7 +1,7 @@
 {
-  "name": "liris-taaabs",
-  "version": "0.0.3",
-  "description": "liris-taaabs",
+  "name": "taaabs",
+  "version": "0.9.1",
+  "description": "taaabs",
   "main": ".",
   "private": true,
   "devDependencies": {
@@ -13,6 +13,7 @@
     "gulp-autoprefixer": "^2.1.0",
     "gulp-cache": "^0.2.8",
     "gulp-changed": "^1.0.0",
+    "gulp-connect": "^2.2.0",
     "gulp-cssmin": "^0.1.7",
     "gulp-flatten": "0.0.4",
     "gulp-if": "^1.2.1",
@@ -43,7 +44,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gforge.liris.cnrs.fr/anonscm/git/taaabs/taaabs.git"
+    "url": "https://github.com/liris-tweak/taaabs.git"
   },
   "keywords": [
     "polymer",
@@ -51,18 +52,37 @@
     "javascript",
     "traces"
   ],
-  "contributors": [{
-      "name": "Raphael Cazenave-Leveque",
-      "email": "raphael.cazenave@gmail.com",
-      "url": ""
+  "contributors": [
+    {
+      "name": "Amélie Cordier",
+      "email": "amelie.cordier@liris.cnrs.fr"
+    },
+    {
+      "name": "Pierre-Antoine Champin",
+      "email": "pierre-antoine.champin@liris.cnrs.fr"
+    },
+    {
+      "name": "Benoit Mathern",
+      "email": "bmathern@gmail.com"
+    },
+    {
+      "name": "Raphael Cazenave-Lévêque",
+      "email": "raphael.cazenave@gmail.com"
     },
     {
       "name": "Fatma Derbel",
-      "email": "",
-      "url": ""
+      "email": "derbelfatma@gmail.com"
+    },
+    {
+      "name": "Mehdi Saaydi",
+      "email": "saaydi.mehdi@gmail.com"
+    },
+    {
+      "name": "Pierre-Loup Barazzutti",
+      "email": "pierre-loup.barazzutti@etu.univ-lyon1.fr"
     }
   ],
-  "license": "GPL-2.0",
+  "license": "MIT",
   "bugs": {
     "url": ""
   },

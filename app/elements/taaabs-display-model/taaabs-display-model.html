@@ -2,7 +2,7 @@
 <dom-module id="taaabs-display-model">
   <template>
     <h2> Show Model </h2>
-   <div id="modeldiv"></div>
+    <div id="modeldiv"></div>
   </template>
 
   <script>
@@ -40,26 +40,25 @@
      };
 
      new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'),this.modelsel,options);
+     this.obselselector = new Samotraces.Selector('Obsel');
      //this.observObselsType();
      setTimeout(this.observObselsType.bind(this), 2000);
    },
    observObselsType: function() {
-     // this is a NodeList, not an Array, so no forEach
-     var obselsNodeList = this.shadowRoot.querySelectorAll('.Samotraces-obsel');
+
+     var obsClass = '.Samotraces-obsel';
+     var obselsNodeList = (this.shadowRoot) ? this.shadowRoot.querySelectorAll(obsClass) : this.querySelectorAll(obsClass);
+     // forall obsel Node, attach a click handler
      for (var i = 0; i < obselsNodeList.length; i++) {
        var obsel = obselsNodeList[i];
-
        obsel.onclick = this.handleClick.bind(this);
      }
    },
    handleClick: function(event) {
      console.log('click type obsel');
-
      var obsel = event.target.__data__;
-     //$.data(event.target, 'Samotraces-data'); // TODO we assume jquery is avaible
-     this.obseltype = obsel;
+     this.obselselector.select(obsel);
    }
-
     });
   </script>
 </dom-module>
