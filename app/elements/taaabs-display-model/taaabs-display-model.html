@@ -27,38 +27,38 @@
         },
       },
       _modelselChanged: function() {
-     var options = {
-       url: function(o) {
-         var path = '../../lib/Images/';
-         switch(o.type) {
-           case 'Ouverture_Page':
-           return path+'Orange.png';
-           default:
-           return path+'help.png';
-         }
-       }
-     };
-
-     new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'),this.modelsel,options);
+        var options = {
+          url: function(o) {
+            var path = '../../lib/Images/';
+            switch(o.type) {
+              case 'Ouverture_Page':
+              return path+'Orange.png';
+              default:
+              return path+'help.png';
+            }
+          }
+        };
+        new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'), this.modelsel, options);
      this.obselselector = new Samotraces.Selector('Obsel');
-     //this.observObselsType();
-     setTimeout(this.observObselsType.bind(this), 2000);
-   },
-   observObselsType: function() {
-
-     var obsClass = '.Samotraces-obsel';
+        //this.observObselsType();
+        setTimeout(this.observObselsType.bind(this), 2000);
+      },
+      observObselsType: function() {
+        // this is a NodeList, not an Array, so no forEach
+        var obselsNodeList = this.shadowRoot.querySelectorAll('.Samotraces-obsel');
      var obselsNodeList = (this.shadowRoot) ? this.shadowRoot.querySelectorAll(obsClass) : this.querySelectorAll(obsClass);
      // forall obsel Node, attach a click handler
-     for (var i = 0; i < obselsNodeList.length; i++) {
-       var obsel = obselsNodeList[i];
-       obsel.onclick = this.handleClick.bind(this);
-     }
-   },
-   handleClick: function(event) {
-     console.log('click type obsel');
-     var obsel = event.target.__data__;
-     this.obselselector.select(obsel);
-   }
+        for (var i = 0; i < obselsNodeList.length; i++) {
+          var obsel = obselsNodeList[i];
+          obsel.onclick = this.handleClick.bind(this);
+        }
+      },
+      handleClick: function(event) {
+        console.log('click type obsel');
+        var obsel = event.target.__data__;
+        //$.data(event.target, 'Samotraces-data'); // TODO we assume jquery is avaible
+        this.obseltype = obsel;
+      }
     });
   </script>
 </dom-module>

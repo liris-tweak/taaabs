@@ -2,6 +2,10 @@
 <dom-module id="taaabs-trace-display-icons-fix">
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
   <template>
+    <paper-button raised on-click="refreshButtonClick">
+      <iron-icon icon="refresh"></iron-icon>
+      Refresh
+    </paper-button>
     <div id="traceIcon"></div>
   </template>
 
@@ -48,7 +52,7 @@
         if (!! this.trace && !! this.time && !! this.timezoom) {
           var options = {
             url: function(o) {
-              var path = '../../lib/images/';
+              var path = '../../images/';
               switch(o.type) {
                 case 'Ouverture_Page':
                 return path + 'Orange.png';
@@ -58,9 +62,16 @@
             }
           };
           this.trace.list_obsels(); // jshint ignore:line
-          this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIconsFix(this.$$('#traceIcon'), this.trace, this.time, this.timezoom, options);
-          console.log(this.widgetObject);
+          if (!this.widgetObject) {
+            this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIconsFix(this.$$('#traceIcon'), this.trace, this.time, this.timezoom, options);            
+          }
         }
+      },
+      refreshButtonClick: function() {
+        var coeff = Math.pow(0.8, 1);
+        this.timezoom.zoom(coeff);
+        this.widgetObject.addbrush();
+        this.widgetObject.refresh_x(); // jshint ignore:line
       }
     });
   </script>

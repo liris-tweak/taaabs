@@ -19,9 +19,10 @@
         }
       },
     attached: function()  {
-      this.obselSelector = new Samotraces.Selector('Obsel');
+        var currentObseltype = new Samotraces.Selector('Obsel');
+        currentObseltype.select(this.obseltype);
       var widgetElement = this.$$('#obsel-inspector-type');
-      new Samotraces.Ui.Widgets.ObselTypeInspector(widgetElement, this.obselSelector);
+        new Samotraces.Ui.Widgets.ObselInspector(widgetElement, currentObseltype);
 
       }
     });
