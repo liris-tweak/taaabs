@@ -1,26 +1,33 @@
 
 <dom-module id="taaabs-model">
   <template>
-    <h2> Show Model </h2>
     <div id="modeldiv"></div>
+    <content></content>
   </template>
 
   <script>
-    /* global Polymer */
-    /* global Polymer */
+    /* global Polymer, Samotraces */
 
     Polymer({
       is: 'taaabs-model',
       properties: {
-        modelsel: {
+        obselTypeSelector: {
+          type: Object,
+          notify: true
+        },
+        obselType: {
           type: Object,
           notify: true,
-          reflectToAttribute: true,
-          value: function() { return {}; }
+          observer: '_obselTypeChanged'
         }
-      }
-      _modelselChanged: function() {
       },
+      _obselTypeChanged: function(newObselType) {
+        console.log('_obselTypeChanged');
+        this.obselTypeSelector.select(newObselType);
+      },
+      ready: function() {
+        this.obselTypeSelector = new Samotraces.Selector('Obsel');
+      }
     });
   </script>
 </dom-module>

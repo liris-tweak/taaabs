@@ -197,7 +197,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-material elevation="1">
                 <taaabs-ktbs class="PolymerKTBS" src-ktbs="http://localhost:8001/" basesel="{{data}}"></taaabs-ktbs>
                 <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"></taaabs-base>
-                <taaabs-samotraceme trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >
+                <!-- <taaabs-samotraceme trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >
                   <taaabs-timeform  time="{{twzoom}}"></taaabs-timeform>
                   <taaabs-window-scale-fix time="{{tw}}"></taaabs-window-scale-fix>
                   <taaabs-trace-display-icons-fix trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}"></taaabs-trace-display-icons-fix>
@@ -208,19 +208,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <taaabs-trace-display-icons timewindow="{{tw2}}" trace="{{objtrace}}" obsel-selector="{{selectedObsel}}" options='{"url": "images/clef.png"}'> </taaabs-trace-display-icons>
                   <taaabs-window-scale timewindow="{{tw2}}"></taaabs-window-scale>
                   <taaabs-obsel-inspector obsel-selector="{{selectedObsel}}"></taaabs-obsel-inspector>
-                </taaabs-trace-fix>
-
-
+                </taaabs-trace-fix> -->
               </paper-material>
-              <paper-material elevation="1">
-
-                <taabs-model modelsel="{{objmodel}}">
-                <taaabs-display-model modelsel="{{objmodel}}" obseltype="{{selectedObselType}}" ></taaabs-display-model>
-                </taabs-model>
-              <paper-material elevation="2">
-                <taaabs-obsel-inspector-type obseltype="{{selectedObselType}}" ></taaabs-obsel-inspector-type>
-              </paper-material>
-              </paper-material>
+              <taaabs-model 
+                obsel-type-selector="{{distantObselSelector}}"
+                obsel-type="{{distantObselType}}">
+                <paper-material elevation="1">
+                  <taaabs-display-model 
+                    model-sel="{{objmodel}}"
+                    obsel-type="{{distantObselType}}">
+                  </taaabs-display-model>
+                </paper-material>
+                <paper-material elevation="2">
+                  <taaabs-obsel-inspector-type obsel-type-selector="{{distantObselSelector}}"></taaabs-obsel-inspector-type>
+                </paper-material>
+              </taaabs-model>
             </section>
 
             <section data-route="local-trace">

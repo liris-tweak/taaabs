@@ -13,17 +13,14 @@
     Polymer({
       is: 'taaabs-obsel-inspector-type',
       properties: {
-        obseltype: {
+        obselTypeSelector: {
           type: Object,
           notify: true
         }
       },
-    attached: function()  {
-        var currentObseltype = new Samotraces.Selector('Obsel');
-        currentObseltype.select(this.obseltype);
-      var widgetElement = this.$$('#obsel-inspector-type');
-        new Samotraces.Ui.Widgets.ObselInspector(widgetElement, currentObseltype);
-
+      attached: function()  {
+        var widgetElement = this.$$('#obsel-inspector-type');
+        new Samotraces.Ui.Widgets.ObselTypeInspector(widgetElement, this.obselTypeSelector);
       }
     });
   </script>
