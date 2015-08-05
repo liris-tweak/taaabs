@@ -6,7 +6,6 @@
       <iron-icon icon="refresh"></iron-icon>
       Refresh
     </paper-button>
-    <div id="traceIcon"></div>
   </template>
 
   <script>
@@ -34,6 +33,13 @@
           reflectToAttribute: true,
           value: function() { return {}; },
           observer: 'traceChanged'
+        },
+        selected: {
+          type: Number,
+          observer: '_selectedChanged'
+        },
+        pageNum: {
+          type: Number,
         }
       },
       traceChanged: function() {
@@ -49,7 +55,7 @@
         this.attachWidget();
       },
       attachWidget: function() {
-        if (!! this.trace && !! this.time && !! this.timezoom) {
+        if (!! this.trace && !! this.time && !! this.timezoom && this.pageNum === this.selected) {
           var options = {
             url: function(o) {
               var path = '../../images/';
@@ -63,6 +69,9 @@
           };
           this.trace.list_obsels(); // jshint ignore:line
           if (!this.widgetObject) {
+            var element = document.createElement('div');
+            element.setAttribute('id', 'traceIcon');
+            Polymer.dom(this.root).appendChild(element);
             this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIconsFix(this.$$('#traceIcon'), this.trace, this.time, this.timezoom, options);            
           }
         }
@@ -72,6 +81,19 @@
         this.timezoom.zoom(coeff);
         this.widgetObject.addbrush();
         this.widgetObject.refresh_x(); // jshint ignore:line
+      },
+      _selectedChanged: function(newSelectedValue) {
+        console.log('maybe I\'m selected');
+        
+        if (newSelectedValue === this.pageNum) { // TODO ugly ugly ugly **burk**
+          console.log('I\'m selected !');
+          setTimeout(this.attachWidget.bind(this), 1000);
+        } 
+        else {
+          console.log('i\'m unselected !');  
+          Polymer.dom(this.root).removeChild(this.$$('#traceIcon'));
+          this.set('widgetObject', null);
+        }
       }
     });
   </script>
