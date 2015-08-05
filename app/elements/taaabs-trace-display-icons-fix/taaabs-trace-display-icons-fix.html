@@ -57,14 +57,8 @@
       attachWidget: function() {
         if (!! this.trace && !! this.time && !! this.timezoom && this.pageNum === this.selected) {
           var options = {
-            url: function(o) {
-              var path = '../../images/';
-              switch(o.type) {
-                case 'Ouverture_Page':
-                return path + 'Orange.png';
-                default:
-                return path + 'help.png';
-              }
+            url: function() {
+              return 'images/teapot.png';
             }
           };
           this.trace.list_obsels(); // jshint ignore:line
