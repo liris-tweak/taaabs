@@ -9,7 +9,6 @@
       Refresh
     </paper-button>
     <paper-checkbox id="checkbox-observ-obsels" on-change="observChangeHandler">Obsels Observation</paper-checkbox>
-    <div id="widget"></div>
   </template>
 
   <script>
@@ -38,6 +37,13 @@
           type: Object,
           reflectToAttribute: true,
           notify: true
+        },
+        selected: {
+          type: Number,
+          observer: '_selectedChanged'
+        },
+        pageNum: {
+          type: Number,
         }
       },
       traceChanged: function() {
@@ -50,7 +56,6 @@
         this.attachWidget();
       },
       observChangeHandler: function() {
-        console.log('observChangeHandler');
         var checkboxObservObsels = this.$$('#checkbox-observ-obsels');
         var clickHandler = ''; // no click handler by default
         if (checkboxObservObsels && checkboxObservObsels.checked) {
@@ -63,7 +68,7 @@
         for (var i = 0; i < obselsNodeList.length; i++) {
           var obsel = obselsNodeList[i];
           obsel.onclick = clickHandler;
-        }  
+        }
       },
       handleClick: function(event) {
         // TODO replace __data__ by a $(event.target).data() after fixing it in Samotraces
@@ -71,8 +76,7 @@
         this.obselselector.select(obsel);
       },
       attachWidget: function() {
-        if (!! this.trace && !! this.timewindow) {
-          var widgetElement = this.$$('#widget');
+        if (!! this.trace && !! this.timewindow && this.pageNum === this.selected) {
           var options = {
               url: function() {
                   return 'images/teapot.png';
@@ -81,12 +85,28 @@
               height: 40,
           };
           // Create widget
-          this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIcons(widgetElement, this.trace, this.timewindow, options);
+          if (!this.widgetObject) {
+            var element = document.createElement('div');
+            element.setAttribute('id', 'widget');
+            Polymer.dom(this.root).appendChild(element);
+            this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIcons(this.$$('#widget'), this.trace, this.timewindow, options);
+          }
         }
       },
       refreshButtonClick: function() {
         var coeff = Math.pow(0.8, 1);
         this.timewindow.zoom(coeff);
+      },
+      _selectedChanged: function(newSelectedValue) {
+        if (newSelectedValue === this.pageNum) {
+          setTimeout(this.attachWidget.bind(this), 1000);
+        }
+        else {
+          if (!! this.$$('#widget')) {
+            Polymer.dom(this.root).removeChild(this.$$('#widget'));
+            this.set('widgetObject', null);
+          }
+        }
       }
     });
   </script>

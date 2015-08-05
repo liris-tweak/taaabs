@@ -245,21 +245,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <taaabs-import-trace trace="{{localTrace1}}">
                     </taaabs-import-trace>
                     
-                    <paper-tabs selected="{{selected}}">
+                    <paper-tabs selected="{{localSelected}}">
                       <paper-tab>Display Icons</paper-tab>
                       <paper-tab>Display Icons Zoom</paper-tab>
                     </paper-tabs>
-                    <iron-pages selected="{{selected}}">
+                    <iron-pages selected="{{localSelected}}">
                       <!-- Display Icons: -->
                       <paper-material elevation="2">
-                        <taaabs-trace-display-icons trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}" obselselector="{{localObselSelector1}}">
+                        <taaabs-trace-display-icons page-num=0 selected="{{localSelected}}" trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}" obselselector="{{localObselSelector1}}">
                         </taaabs-trace-display-icons>
                         <taaabs-window-scale timewindow="{{localTimeWindow1}}"></taaabs-window-scale>
                       </paper-material>
                       <!-- Display Icons Zoom: -->
                       <paper-material elevation="2">
                         <taaabs-samotraceme trace="{{localTrace1}}" time="{{localTimeWindow1}}" timezoom="{{twzoom}}" >
-                          <taaabs-trace-display-icons-fix trace="{{localTrace1}}" time="{{localTimeWindow1}}" timezoom="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-fix>
+                          <taaabs-trace-display-icons-fix page-num=1 selected="{{localSelected}}" trace="{{localTrace1}}" time="{{localTimeWindow1}}" timezoom="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-fix>
                           <taaabs-window-scale-fix time="{{localTimeWindow1}}"></taaabs-window-scale-fix>
                           <taaabs-trace-display-icons-zoom  trace="{{localTrace1}}" time="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-zoom>
                           <taaabs-window-scale-fix time="{{localTimeWindowsZoom1}}"></taaabs-window-scale-fix>

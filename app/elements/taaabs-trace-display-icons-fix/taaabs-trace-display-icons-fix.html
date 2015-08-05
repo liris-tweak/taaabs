@@ -77,16 +77,14 @@
         this.widgetObject.refresh_x(); // jshint ignore:line
       },
       _selectedChanged: function(newSelectedValue) {
-        console.log('maybe I\'m selected');
-        
-        if (newSelectedValue === this.pageNum) { // TODO ugly ugly ugly **burk**
-          console.log('I\'m selected !');
+        if (newSelectedValue === this.pageNum) {
           setTimeout(this.attachWidget.bind(this), 1000);
         } 
         else {
-          console.log('i\'m unselected !');  
-          Polymer.dom(this.root).removeChild(this.$$('#traceIcon'));
-          this.set('widgetObject', null);
+          if (!! this.$$('#traceIcon')) {
+            Polymer.dom(this.root).removeChild(this.$$('#traceIcon'));
+            this.set('widgetObject', null);
+          }
         }
       }
     });
