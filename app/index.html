@@ -205,13 +205,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <paper-material elevation="2">
                           <taaabs-samotraceme trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}" >
                             <taaabs-timeform  time="{{twzoom}}"></taaabs-timeform>
-                            <taaabs-window-scale-fix time="{{tw}}"></taaabs-window-scale-fix>
+                            <taaabs-window-scale-fix page-num=0 selected="{{distantSelected}}" time="{{tw}}"></taaabs-window-scale-fix>
                             <taaabs-trace-display-icons-fix page-num=0 selected="{{distantSelected}}" trace="{{objtrace}}" time="{{tw}}" timezoom="{{twzoom}}"></taaabs-trace-display-icons-fix>
                             <taaabs-trace-display-icons-zoom  trace="{{objtrace}}" time="{{twzoom}}"></taaabs-trace-display-icons-zoom>
                             <taaabs-window-scale-fix time="{{twzoom}}"></taaabs-window-scale-fix>
                           </taaabs-samotraceme>
                           <taaabs-trace-fix trace="{{objtrace}}" time="{{tw2}}">
-                            <taaabs-trace-display-icons timewindow="{{tw2}}" trace="{{objtrace}}" obsel-selector="{{selectedObsel}}" options='{"url": "images/clef.png"}'> </taaabs-trace-display-icons>
+                            <taaabs-trace-display-icons page-num=0 selected="{{distantSelected}}" timewindow="{{tw2}}" trace="{{objtrace}}" obsel-selector="{{selectedObsel}}" options='{"url": "images/clef.png"}'> </taaabs-trace-display-icons>
                             <taaabs-window-scale timewindow="{{tw2}}"></taaabs-window-scale>
                             <taaabs-obsel-inspector obsel-selector="{{selectedObsel}}"></taaabs-obsel-inspector>
                           </taaabs-trace-fix>
@@ -254,13 +254,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                       <paper-material elevation="2">
                         <taaabs-trace-display-icons page-num=0 selected="{{localSelected}}" trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}" obselselector="{{localObselSelector1}}">
                         </taaabs-trace-display-icons>
-                        <taaabs-window-scale timewindow="{{localTimeWindow1}}"></taaabs-window-scale>
+                        <taaabs-window-scale page-num=0 selected="{{localSelected}}" timewindow="{{localTimeWindow1}}"></taaabs-window-scale>
                       </paper-material>
                       <!-- Display Icons Zoom: -->
                       <paper-material elevation="2">
                         <taaabs-samotraceme trace="{{localTrace1}}" time="{{localTimeWindow1}}" timezoom="{{twzoom}}" >
                           <taaabs-trace-display-icons-fix page-num=1 selected="{{localSelected}}" trace="{{localTrace1}}" time="{{localTimeWindow1}}" timezoom="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-fix>
-                          <taaabs-window-scale-fix time="{{localTimeWindow1}}"></taaabs-window-scale-fix>
+                          <taaabs-window-scale-fix page-num=1 selected="{{localSelected}}" time="{{localTimeWindow1}}"></taaabs-window-scale-fix>
                           <taaabs-trace-display-icons-zoom  trace="{{localTrace1}}" time="{{localTimeWindowsZoom1}}"></taaabs-trace-display-icons-zoom>
                           <taaabs-window-scale-fix time="{{localTimeWindowsZoom1}}"></taaabs-window-scale-fix>
                         </taaabs-samotraceme>

@@ -3,7 +3,6 @@
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
 
   <template>
-    <div id="widget"></div>
   </template>
 
   <script>
@@ -16,13 +15,40 @@
           type: Object,
           notify: true,
           reflectToAttribute: true,
-          value: function() { return {}; },
           observer: '_timeChanged'
+        },
+        selected: {
+          type: Number,
+          observer: '_selectedChanged'
+        },
+        pageNum: {
+          type: Number,
         }
       },
-      _timeChanged: function(newValue) {
-        var widgetElement = this.$$('#widget');
-        new Samotraces.Ui.Widgets.WindowScaleFix(widgetElement, newValue); // dont store it anywhere ?
+      attached: function() {
+        this.attachWidget();
+      },
+      _timeChanged: function() {
+        this.attachWidget();
+      },
+      attachWidget: function() {
+        if ( !! this.time && this.pageNum === this.selected && !(this.widgetObject) ) {
+          var element = document.createElement('div');
+          element.setAttribute('id', 'traceIcon');
+          Polymer.dom(this.root).appendChild(element);
+          this.widgetObject = new Samotraces.Ui.Widgets.WindowScaleFix(element, this.time);
+        }
+      },
+      _selectedChanged: function(newSelectedValue) {
+        if (newSelectedValue === this.pageNum) {
+          setTimeout(this.attachWidget.bind(this), 1000);
+        }
+        else {
+          if (!! this.$$('#widget')) {
+            Polymer.dom(this.root).removeChild(this.$$('#widget'));
+            this.set('widgetObject', null);
+          }
+        }
       }
     });
   </script>
