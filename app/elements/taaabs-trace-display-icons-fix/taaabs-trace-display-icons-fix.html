@@ -1,3 +1,4 @@
+<link rel="import" href="../../behaviors/taaabs-lazy-loading.html">
 
 <dom-module id="taaabs-trace-display-icons-fix">
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
@@ -5,9 +6,12 @@
   </template>
 
   <script>
-    /* global Polymer, Samotraces */
+    /* global Polymer, Samotraces, TaaabsBehaviors */
     Polymer({
       is: 'taaabs-trace-display-icons-fix',
+      behaviors: [
+        TaaabsBehaviors.LazyLoading
+      ],
       properties: {
         time: {
           type: Object,
@@ -29,52 +33,27 @@
           reflectToAttribute: true,
           value: function() { return {}; },
           observer: 'traceChanged'
-        },
-        selected: {
-          type: Number,
-          observer: '_selectedChanged'
-        },
-        pageNum: {
-          type: Number,
         }
       },
       traceChanged: function() {
-        this.attachWidget();
+        this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);
       },
       timeChanged: function() {
-        this.attachWidget();
+        this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);
       },
       timeZoomChanged: function() {
-        this.attachWidget();
+        this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);
       },
-      attached: function() {
-        this.attachWidget();
-      },
-      attachWidget: function() {
-        if (!! this.trace && !! this.time && !! this.timezoom && this.pageNum === this.selected) {
-          var options = {
-            url: function() {
-              return 'images/teapot.png';
-            }
-          };
+      ready: function() {
+        this.WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsFix;
+        this.options = {
+          url: function() {
+            return 'images/teapot.png';
+          }
+        };
+        if (this.trace) {
           this.trace.list_obsels(); // jshint ignore:line
-          if (!this.widgetObject) {
-            var element = document.createElement('div');
-            element.setAttribute('id', 'traceIcon');
-            Polymer.dom(this.root).appendChild(element);
-            this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIconsFix(this.$$('#traceIcon'), this.trace, this.time, this.timezoom, options);            
-          }
-        }
-      },
-      _selectedChanged: function(newSelectedValue) {
-        if (newSelectedValue === this.pageNum) {
-          setTimeout(this.attachWidget.bind(this), 1000);
-        } 
-        else {
-          if (!! this.$$('#traceIcon')) {
-            Polymer.dom(this.root).removeChild(this.$$('#traceIcon'));
-            this.set('widgetObject', null);
-          }
+          this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);
         }
       }
     });
