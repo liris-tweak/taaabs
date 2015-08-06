@@ -8,12 +8,15 @@
   </template>
 
   <script>
-    /* global Polymer, Samotraces */
+    /* global Polymer, Samotraces, TaaabsBehaviors */
 
     Polymer({
       is: 'taaabs-trace-display-icons',
+      behaviors: [
+        TaaabsBehaviors.LazyLoading
+      ],
       properties: {
-        timewindow: {
+        timeWindow: {
           type: Object,
           reflectToAttribute: true,
           notify: true,
@@ -33,23 +36,22 @@
           type: Object,
           reflectToAttribute: true,
           notify: true
-        },
-        selected: {
-          type: Number,
-          observer: '_selectedChanged'
-        },
-        pageNum: {
-          type: Number,
         }
       },
+      ready: function () {
+        this.WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIcons;
+        this.options = { // TODO remove this and use a behavior for options
+            url: function() {
+                return 'images/teapot.png';
+            }
+        };
+        this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
+      },
       traceChanged: function() {
-        this.attachWidget();
+        this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
       },
       timeChanged: function() {
-        this.attachWidget();
-      },
-      attached: function() {
-        this.attachWidget();
+        this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
       },
       observChangeHandler: function() {
         var checkboxObservObsels = this.$$('#checkbox-observ-obsels');
@@ -71,33 +73,6 @@
         var obsel = event.target.__data__;
         this.obselselector.select(obsel);
       },
-      attachWidget: function() {
-        if (!! this.trace && !! this.timewindow && this.pageNum === this.selected) {
-          var options = {
-              url: function() {
-                  return 'images/teapot.png';
-              }
-          };
-          // Create widget
-          if (!this.widgetObject) {
-            var element = document.createElement('div');
-            element.setAttribute('id', 'widget');
-            Polymer.dom(this.root).appendChild(element);
-            this.widgetObject = new Samotraces.Ui.Widgets.TraceDisplayIcons(this.$$('#widget'), this.trace, this.timewindow, options);
-          }
-        }
-      },
-      _selectedChanged: function(newSelectedValue) {
-        if (newSelectedValue === this.pageNum) {
-          setTimeout(this.attachWidget.bind(this), 1000);
-        }
-        else {
-          if (!! this.$$('#widget')) {
-            Polymer.dom(this.root).removeChild(this.$$('#widget'));
-            this.set('widgetObject', null);
-          }
-        }
-      }
     });
   </script>
 </dom-module>

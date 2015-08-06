@@ -1,0 +1,69 @@
+
+<script>
+  /* global TaaabsBehaviors:true */
+  /* exported TaaabsBehaviors */
+
+  var TaaabsBehaviors = TaaabsBehaviors || {};
+
+  /**
+   * @demo no demo availaible yet
+   * @polymerBehavior
+   */
+  TaaabsBehaviors.LazyLoading = {
+    properties: {
+      selected: {
+        type: Number,
+        observer: '_selectedChanged'
+      },
+      pageNum: {
+        type: Number,
+      }
+    },
+    _attachWidget: function(WidgetConstructor, widgetConsArgs) {
+      if (!!WidgetConstructor && !!widgetConsArgs) {
+        this.WidgetConstructor = WidgetConstructor;
+        this.widgetConsArgs = widgetConsArgs;
+      }
+      console.log('widgetConsArgs:', this.widgetConsArgs);
+      console.log('this:', this);
+
+      function Construct(constructor, args) {
+        function F() {
+          return constructor.apply(this, args);
+        }
+        F.prototype = constructor.prototype;
+        return new F();
+      }
+
+      // true if all args are defined, false if one ore more args are undefined
+      var allArgsDefined = widgetConsArgs.every(function(arg) {
+        return !!arg;
+      });
+
+      if ( allArgsDefined && this.pageNum === this.selected && !(this.widgetObject) ) {
+        var element = document.createElement('div');
+        element.setAttribute('id', 'widget');
+        Polymer.dom(this.root).appendChild(element);
+        // add the HTML element at the fist position of the arg array
+        var widgetConsArgsClone = this.widgetConsArgs.slice(0);
+        widgetConsArgsClone.unshift(element);
+        // construct the Widget
+        this.widgetObject = Construct(this.WidgetConstructor, widgetConsArgsClone);
+      }
+    },
+    _detachWidget: function() {
+      Polymer.dom(this.root).removeChild(this.$$('#widget'));
+      this.set('widgetObject', null);
+    },
+    _selectedChanged: function(newSelectedValue) {
+      if (newSelectedValue === this.pageNum) {
+        setTimeout(this._attachWidget.bind(this, this.WidgetConstructor, this.widgetConsArgs), 1000);
+      }
+      else {
+        if (!! this.$$('#widget')) {
+          this._detachWidget();
+        }
+      }
+    }
+  };
+</script>
