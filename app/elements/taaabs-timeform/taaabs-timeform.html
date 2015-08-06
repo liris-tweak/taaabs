@@ -1,14 +1,17 @@
+<link rel="import" href="../../behaviors/taaabs-lazy-loading.html">
 
 <dom-module id="taaabs-timeform">
   <template>
-    <div id="time-form"></div>
   </template>
 
   <script>
-    /* global Polymer, Samotraces */
+    /* global Polymer, Samotraces, TaaabsBehaviors */
 
     Polymer({
       is: 'taaabs-timeform',
+      behaviors: [
+        TaaabsBehaviors.LazyLoading
+      ],
       properties: {
         time: {
           type: Object,
@@ -19,7 +22,9 @@
         }
       },
       _timeChanged: function() {
-        new Samotraces.Ui.Widgets.IntervalTimeForm(this.$['time-form'], this.time);
+        // TODO do the same thing on the ready lifecycle callback ?
+        var WidgetConstructor = Samotraces.Ui.Widgets.IntervalTimeForm;
+        this._attachWidget(WidgetConstructor, [this.time]);
       }
     });
   </script>
