@@ -3,7 +3,6 @@
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
 
   <template>
-    <div id="scale"></div>
   </template>
 
   <script>
@@ -16,12 +15,40 @@
           type: Object,
           notify: true,
           reflectToAttribute: true,
-          observer: '_timeChanged'
+          observer: '_timeWindowChanged'
+        },
+        selected: {
+          type: Number,
+          observer: '_selectedChanged'
+        },
+        pageNum: {
+          type: Number,
         }
       },
-      _timeChanged: function(newValue) {
-        var widgetElement = this.$$('#scale');
-        new Samotraces.Ui.Widgets.WindowScale(widgetElement, newValue);
+      attached: function() {
+        this.attachWidget();
+      },
+      _timeWindowChanged: function() {
+        this.attachWidget();
+      },
+      attachWidget: function() {
+        if ( !! this.timewindow && this.pageNum === this.selected && !(this.widgetObject) ) {
+          var element = document.createElement('div');
+          element.setAttribute('id', 'widget');
+          Polymer.dom(this.root).appendChild(element);
+          new Samotraces.Ui.Widgets.WindowScale(element, this.timewindow);
+        }
+      },
+      _selectedChanged: function(newSelectedValue) {
+        if (newSelectedValue === this.pageNum) {
+          setTimeout(this.attachWidget.bind(this), 1000);
+        }
+        else {
+          if (!! this.$$('#widget')) {
+            Polymer.dom(this.root).removeChild(this.$$('#widget'));
+            this.set('widgetObject', null);
+          }
+        }
       }
     });
   </script>
