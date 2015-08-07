@@ -3,6 +3,7 @@
 <dom-module id="taaabs-trace-display-icons-fix">
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
   <template>
+    <paper-spinner active="{{loading}}"></paper-spinner>
   </template>
 
   <script>
@@ -30,11 +31,20 @@
           notify: true,
           reflectToAttribute: true,
           observer: 'traceChanged'
+        },
+        loading: {
+          type: Boolean
         }
       },
       traceChanged: function() {
+        this.set('loading', true);
         this._detachWidget();
         this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);
+
+        // disable the paper-spinner when the trace is fully loaded:
+        this.trace.on('trace:updateCompleted', (function() {
+          this.set('loading', false);
+        }).bind(this));
       },
       timeChanged: function() {
         this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);

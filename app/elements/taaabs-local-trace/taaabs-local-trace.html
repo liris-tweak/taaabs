@@ -47,18 +47,16 @@
         }
       },
       ready: function() {
-        this.set('loading', true);
         this.trace = new Samotraces.LocalTrace();
         this.obselselector = new Samotraces.Selector('Obsel');
 
         this.trace.on('beforLoadFile', (function(){
-          this.set('loading', true);
           this.timewindow = new Samotraces.TimeWindow({start: 0, end: 0});
           this.timewindowzoom = new Samotraces.TimeWindow({start: 0, end: 20});
+          this.set('loading', true);
         }).bind(this));
 
         this.trace.on('firstObselLocal', (function(e){
-          this.set('loading', true);
           this.timewindow.set_start(e.data.begin); // jshint ignore:line
         }).bind(this));
 

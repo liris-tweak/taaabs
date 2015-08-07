@@ -66,11 +66,18 @@
                 return 'images/teapot.png';
             }
         };
+
         this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
       },
       traceChanged: function() {
+        this.set('loading', true);
         this._detachWidget();
         this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
+
+        // disable the paper-spinner when the trace is fully loaded:
+        this.trace.on('trace:updateCompleted', (function() {
+          this.set('loading', false);
+        }).bind(this));
       },
       timeChanged: function() {
         this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
