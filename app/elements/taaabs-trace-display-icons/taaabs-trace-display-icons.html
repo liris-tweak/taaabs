@@ -65,6 +65,7 @@
         this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
       },
       traceChanged: function() {
+        this._detachWidget();
         this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
       },
       timeChanged: function() {

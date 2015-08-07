@@ -33,6 +33,7 @@
         }
       },
       traceChanged: function() {
+        this._detachWidget();
         this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);
       },
       timeChanged: function() {
