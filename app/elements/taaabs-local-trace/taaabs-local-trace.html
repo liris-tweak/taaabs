@@ -41,21 +41,31 @@
           reflectToAttribute: true,
           notify: true
         },
+        loading: {
+          type: Boolean,
+          notify: true
+        }
       },
       ready: function() {
+        this.set('loading', true);
         this.trace = new Samotraces.LocalTrace();
         this.obselselector = new Samotraces.Selector('Obsel');
-        var that = this ;
-        this.trace.on('beforLoadFile',function(){
-          that.timewindow = new Samotraces.TimeWindow({start: 0, end: 0});
-          that.timewindowzoom = new Samotraces.TimeWindow({start: 0, end: 20});
-        });
-        this.trace.on('firstObselLocal',function(e){
-          that.timewindow.set_start(e.data.begin); // jshint ignore:line
-        });
-        this.trace.on('LastObselLocal',function(e){
-          that.timewindow.set_end(e.data.begin); // jshint ignore:line
-        });
+
+        this.trace.on('beforLoadFile', (function(){
+          this.set('loading', true);
+          this.timewindow = new Samotraces.TimeWindow({start: 0, end: 0});
+          this.timewindowzoom = new Samotraces.TimeWindow({start: 0, end: 20});
+        }).bind(this));
+
+        this.trace.on('firstObselLocal', (function(e){
+          this.set('loading', true);
+          this.timewindow.set_start(e.data.begin); // jshint ignore:line
+        }).bind(this));
+
+        this.trace.on('LastObselLocal', (function(e){
+          this.timewindow.set_end(e.data.begin); // jshint ignore:line
+          this.set('loading', false);
+        }).bind(this));
       }
     });
   </script>

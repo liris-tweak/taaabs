@@ -245,7 +245,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <h2 class="paper-font-display2">local trace</h2>
                 </paper-material>
                 <paper-material elevation="1">
-                  <taaabs-local-trace trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}" timewindowzoom="{{localTimeWindowsZoom1}}" obselselector="{{localObselSelector1}}">
+                  <taaabs-local-trace trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}" timewindowzoom="{{localTimeWindowsZoom1}}" obselselector="{{localObselSelector1}}" loading="{{localTraceLoading}}">
                     <taaabs-import-trace trace="{{localTrace1}}">
                     </taaabs-import-trace>
 
@@ -256,7 +256,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <iron-pages selected="{{localSelected}}">
                       <!-- Display Icons: -->
                       <paper-material elevation="2">
-                        <taaabs-trace-display-icons page-num=0 selected="{{localSelected}}" trace="{{localTrace1}}" time-window="{{localTimeWindow1}}" obselselector="{{localObselSelector1}}">
+                        <taaabs-trace-display-icons page-num=0 selected="{{localSelected}}" trace="{{localTrace1}}" time-window="{{localTimeWindow1}}" obselselector="{{localObselSelector1}}" loading="{{localTraceLoading}}">
                         </taaabs-trace-display-icons>
                         <taaabs-window-scale page-num=0 selected="{{localSelected}}" timewindow="{{localTimeWindow1}}"></taaabs-window-scale>
                       </paper-material>

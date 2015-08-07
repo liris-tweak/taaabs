@@ -8,6 +8,7 @@
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
 
   <template>
+    <paper-spinner active="{{loading}}"></paper-spinner>
     <paper-checkbox id="checkbox-observ-obsels" on-change="observChangeHandler">Obsels Observation</paper-checkbox>
   </template>
 
@@ -53,6 +54,9 @@
           type: Object,
           reflectToAttribute: true,
           notify: true
+        },
+        loading: {
+          type: Boolean
         }
       },
       ready: function () {
