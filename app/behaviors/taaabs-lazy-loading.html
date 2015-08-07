@@ -52,17 +52,17 @@
       }
     },
     _detachWidget: function() {
-      Polymer.dom(this.root).removeChild(this.$$('#widget'));
-      this.set('widgetObject', null);
+      if (this.$$('#widget')) {
+        Polymer.dom(this.root).removeChild(this.$$('#widget'));
+        this.set('widgetObject', null);
+      }
     },
     _selectedChanged: function(newSelectedValue) {
       if (newSelectedValue === this.pageNum) {
         setTimeout(this._attachWidget.bind(this, this.WidgetConstructor, this.widgetConsArgs), 1000);
       }
       else {
-        if (!! this.$$('#widget')) {
-          this._detachWidget();
-        }
+        this._detachWidget();
       }
     }
   };
