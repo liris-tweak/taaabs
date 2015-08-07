@@ -1,6 +1,6 @@
 {
   "name": "taaabs",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "homepage": "https://github.com/liris-tweak/taaabs",
   "authors": [
     "Amélie Cordier <amelie.cordier@liris.cnrs.fr>",
@@ -24,7 +24,7 @@
     "polymer": "Polymer/polymer#1.0.6",
     "paper-scroll-header-panel": "PolymerElements/paper-scroll-header-panel#^1.0.6",
     "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.4",
-    "samotracesjs": "https://github.com/fderbel/samotraces.js.git#0.9.5",
+    "samotracesjs": "https://github.com/fderbel/samotraces.js.git#0.10.0",
     "iron-elements": "PolymerElements/iron-elements#1.0.3",
     "iron-component-page": "PolymerElements/iron-component-page#1.0.3",
     "paper-elements": "PolymerElements/paper-elements#1.0.2",
