@@ -44,7 +44,7 @@
           notify: true,
           observer: 'traceChanged'
         },
-        obselselector: {
+        obselSelector: {
           type: Object,
           reflectToAttribute: true,
           notify: true
@@ -88,7 +88,7 @@
       handleClick: function(event) {
         // TODO replace __data__ by a $(event.target).data() after fixing it in Samotraces
         var obsel = event.target.__data__;
-        this.obselselector.select(obsel);
+        this.obselSelector.select(obsel);
       },
     });
   </script>
