@@ -57,10 +57,8 @@
     },
     _selectedChanged: function(newSelectedValue) {
       if (newSelectedValue === this.pageNum) {
-        setTimeout(this._attachWidget.bind(this, this.WidgetConstructor, this.widgetConsArgs), 1000);
-      }
-      else {
         this._detachWidget();
+        setTimeout(this._attachWidget.bind(this, this.WidgetConstructor, this.widgetConsArgs), 1000);
       }
     }
   };
