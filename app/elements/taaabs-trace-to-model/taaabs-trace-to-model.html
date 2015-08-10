@@ -1,0 +1,156 @@
+
+<!-- for JSONLD -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jsonld/0.3.15/jsonld.js"></script>
+
+<!-- http://underscorejs.org/
+for functional filtering, uniq... -->
+<script src="../../bower_components/underscore/underscore-min.js"></script>
+
+<dom-module id="taaabs-trace-to-model">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <div>{{model}}</div>
+  </template>
+
+  <script>
+    (function () {
+      /* global Polymer, _, jsonld */
+
+      Polymer({
+        is: 'taaabs-trace-to-model',
+        properties: {
+          model: {
+            type: Object,
+            notify: true
+          },
+          trace: {
+            type: Object,
+            observer: '_traceChanged',
+          },
+          baseUri: {
+            type: String,
+          },
+          method: {
+            type: String,
+            value: 'POST',
+          }
+        },
+        _traceChanged: function(trace) {
+          // Start to fetch the server to get obsels
+          trace.list_obsels(); // jshint ignore:line
+
+          trace.on('trace:updateCompleted', (function() {
+            // We now have all obsels, we can get the obsel list
+            var obsels = trace.obsel_list; // jshint ignore:line
+
+            // Keep only the type property
+            obsels = _.map(obsels, function(obsel) {
+              return {
+                'type': obsel.type,
+              };
+            });
+
+            // Filtering obsels to get only thoses with != types
+            obsels = _.uniq(obsels, function(obsel) {
+              return obsel.type;
+            });
+            console.log(obsels);
+
+            // Define the proper JSONLD context
+            var context = 'http://liris.cnrs.fr/silex/2011/ktbs-jsonld-context';
+
+            // Parse informations about trace uri, traceName
+            var parsedTraceInformations = this._traceUriParser(trace.get_uri()); // jshint ignore:line
+            var baseUri = parsedTraceInformations.baseUri;
+            var traceName = parsedTraceInformations.traceName;
+            this.baseUri = baseUri;
+
+            // create a virtual Uri for the generated model to be able tu PUT it to the KTBS if needed
+            var modelIri = baseUri + traceName + '-' + 'model';
+            this.modelIri = modelIri;
+            var doc = [{
+              '@id': modelIri,
+              '@type': 'TraceModel',
+              'inBase': './'
+            }];
+
+            // for each unique obsel type
+            // we add it in the graph
+            _.each(obsels, function(obsel) {
+              var jsonldObsel = {
+                '@id': '#' + obsel.type,
+                '@type': 'ObselType'
+              };
+              doc.push(jsonldObsel);
+            });
+
+            var that = this;
+
+            // flatten a document
+            // see: http://json-ld.org/spec/latest/json-ld/#flattened-document-form
+            jsonld.flatten(doc, context, function(err, flattened) {
+              _.each(flattened['@graph'], function(obsType) {
+                if (obsType['@type'] === 'TraceModel') {
+                  obsType.inBase = './';
+                }
+              });
+              console.log(JSON.stringify(flattened, null, 2));
+              that.model = JSON.stringify(flattened, null, 2);
+
+              setTimeout(function() {
+                that._postModel();
+              }, 1000);
+            });
+          }).bind(this));
+        },
+        _traceUriParser: function(traceUri) {
+          var traceUriArray = traceUri.split('/');
+          var baseUri = '';
+          var traceName = '';
+
+          if (traceUriArray.slice(-1)[0] === '') {
+            // http://localhost:8001/base1/t01/ (with '/' suffix)
+            baseUri = traceUriArray.slice(0, traceUriArray.length - 2);
+            traceName = traceUriArray[traceUriArray.length - 2];
+          } else {
+            // http://localhost:8001/base1/t01 (without '/' suffix)
+            baseUri = traceUriArray.slice(0, traceUriArray.length - 1);
+            traceName = traceUriArray[traceUriArray.length - 1];
+          }
+          return {
+            'baseUri': baseUri.join('/') + '/',
+            'traceName': traceName
+          };
+        },
+        _postModel: function() {
+          var ironAjax = document.createElement('iron-ajax');
+          ironAjax.url = this.baseUri;
+          ironAjax.method = 'POST';
+          ironAjax.contentType = 'application/ld+json';
+          ironAjax.body = this.model;
+          var req = ironAjax.generateRequest();
+
+          req.completes.then(function() {
+            // OK
+            console.log('OK after POST');
+          }).catch(function() {
+            // do PUT instead
+            // console.log('put ?');
+            // that.method = 'PUT';
+            // return that.$$('iron-ajax').generateRequest();
+
+          }).then(function() {
+            // OK after PUT
+            console.log('OK after PUT');
+          });
+          console.log();
+        }
+      });
+    })();
+  </script>
+
+</dom-module>
