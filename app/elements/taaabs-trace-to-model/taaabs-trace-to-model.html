@@ -24,7 +24,7 @@ for functional filtering, uniq... -->
         is: 'taaabs-trace-to-model',
         properties: {
           model: {
-            type: Object,
+            type: String,
             notify: true
           },
           trace: {
@@ -40,27 +40,6 @@ for functional filtering, uniq... -->
             // We now have all obsels, we can get the obsel list
             var obsels = trace.obsel_list; // jshint ignore:line
 
-            // Keep only the type property
-            var obselsTypes = _.map(obsels, function(obsel) {
-              return {
-                'type': obsel.type,
-              };
-            });
-            // Filtering obsels to get only thoses with != types
-            obselsTypes = _.uniq(obselsTypes, function(obsel) {
-              return obsel.type;
-            });
-            console.log(obselsTypes);
-
-            // Keep only subproperties of obsels
-            var obselsProperties = _.map(obsels, function(obsel) {
-              return Object.keys(obsel.attributes);
-            });
-            obselsProperties = _.flatten(obselsProperties);
-            obselsProperties = _.uniq(obselsProperties);
-            console.log(obselsProperties);
-            // TODO 11-08-2015 ADD THEM to the RDF graph
-
             // Define the proper JSONLD context
             var context = 'http://liris.cnrs.fr/silex/2011/ktbs-jsonld-context';
 
@@ -70,37 +49,62 @@ for functional filtering, uniq... -->
             var traceName = parsedTraceInformations.traceName;
             this.baseUrl = baseUrl;
 
-            // create a virtual Uri for the generated model to be able tu PUT it to the KTBS if needed
+            // Create a virtual Uri for the generated model to be able tu PUT it to the KTBS if needed
             var modelUrl = baseUrl + traceName + '-' + 'model';
             this.modelUrl = modelUrl;
-            var doc = [{
-              '@id': modelUrl,
-              '@type': 'TraceModel',
-              'inBase': './'
-            }];
+            var doc = {
+              '@context': 'http://liris.cnrs.fr/silex/2011/ktbs-jsonld-context',
+              '@graph': [{
+                '@id': modelUrl,
+                '@type': 'TraceModel',
+                'inBase': './',
+                'hasUnit': 'millisecond'
+              }]
+            };
 
-            // for each unique obsel type
-            // we add it in the graph
-            _.each(obselsTypes, function(obsel) {
-              var jsonldObsel = {
-                '@id': '#' + obsel.type,
-                '@type': 'ObselType'
+            // Keep only useful information for the model
+            var obselInformations = _.map(obsels, function(obsel) {
+              return {
+                'obselType': obsel.type,
+                'obselAttributes': _.map(Object.keys(obsel.attributes),
+                    function(obselAttribute) {
+                  return {
+                    'obselAttribute': obselAttribute,
+                    'hasAttributeDatatype': 'xsd:string' // TODO HARDCODED datatype
+                    // TODO label ??
+                  };
+                })
               };
-              doc.push(jsonldObsel);
+            });
+            // Remove duplicates
+            obselInformations = _.uniq(obselInformations, function(e) {
+              return e.obselType;
+            });
+
+            _.each(obselInformations, function(obselInformation) {
+              doc['@graph'].push({
+                '@id': '#' + obselInformation.obselType,
+                '@type': 'ObselType'
+              });
+              _.each(obselInformation.obselAttributes,
+                  function(obselAttributeObject) {
+                doc['@graph'].push({
+                  '@id': '#' + obselAttributeObject.obselAttribute,
+                  '@type': 'AttributeType',
+                  'hasAttributeObselType': '#' + obselInformation.obselType,
+                  'hasAttributeDatatype': obselAttributeObject.hasAttributeDatatype
+                  // TODO label ??
+                });
+              });
             });
 
             var that = this;
 
-            // flatten a document
-            // see: http://json-ld.org/spec/latest/json-ld/#flattened-document-form
-            jsonld.flatten(doc, context, function(err, flattened) {
-              _.each(flattened['@graph'], function(obsType) {
-                if (obsType['@type'] === 'TraceModel') {
-                  obsType.inBase = './';
-                }
-              });
-              console.log(JSON.stringify(flattened, null, 2));
-              that.model = JSON.stringify(flattened, null, 2);
+            // This is not technically required
+            // We use this to do JSON-LD validation:
+            jsonld.promises.compact(doc, context).then(function(compact) {
+              // console.log(JSON.stringify(compact, null, 2));
+              that.model = JSON.stringify(compact, null, 2);
 
               setTimeout(function() {
                 var request = that._deleteModel();
@@ -126,7 +130,7 @@ for functional filtering, uniq... -->
           }).bind(this));
         },
         _requestFactory: function(args) {
-          if (!! args.method && !! args.contentType && !! args.url && !! args.body) {
+          if (!!args.method && !!args.contentType && !!args.url && !!args.body) {
             var ironAjax = document.createElement('iron-ajax');
             ironAjax.url = args.url;
             ironAjax.method = args.method;
