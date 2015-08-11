@@ -1,0 +1,225 @@
+<!-- for JSONLD -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jsonld/0.3.15/jsonld.js"></script>
+
+<!-- http://underscorejs.org/
+for functional filtering, uniq... -->
+<script src="../../bower_components/underscore/underscore-min.js"></script>
+
+<script>
+  /* global TaaabsBehaviors:true */
+  /* exported TaaabsBehaviors */
+
+  var TaaabsBehaviors = TaaabsBehaviors || {};
+
+  /**
+   * @demo no demo availaible yet
+   * @polymerBehavior
+   */
+  TaaabsBehaviors.ModelToTrace = {
+    /* global _, jsonld */
+
+    properties: {
+      /**
+       * A String holding a String representation of the Model according to
+       * <http://liris.cnrs.fr/silex/2011/ktbs-jsonld-context>
+       */
+      model: {
+        type: String,
+        notify: true
+      },
+
+      /**
+       * An Object holding a representation of the Trace according to
+       * KTBS.Trace.js of the Samotraces lib
+       * <https://github.com/liris-tweak/samotraces.js/blob/master/src/core/KTBS.Trace.js>
+       */
+      trace: {
+        type: Object,
+        observer: '_traceChanged',
+      }
+    },
+
+    /**
+     * When the trace instance changes, we get the Obsels list, then we Parse
+     * it to extract a model from it.
+     * the model will be available on `this.model` property
+     */
+    _traceChanged: function(trace) {
+      // Start to fetch the server to get obsels
+      trace.list_obsels(); // jshint ignore:line
+
+      trace.on('trace:updateCompleted', (function() {
+        // We now have all obsels, we can get the obsel list
+        var obsels = trace.obsel_list; // jshint ignore:line
+
+        // Define the proper JSONLD context
+        var context = 'http://liris.cnrs.fr/silex/2011/ktbs-jsonld-context';
+
+        // Parse informations about trace uri, traceName
+        var parsedTraceInformations = this._traceUriParser(trace.get_uri()); // jshint ignore:line
+        var baseUrl = parsedTraceInformations.baseUrl;
+        var traceName = parsedTraceInformations.traceName;
+        this.baseUrl = baseUrl;
+
+        // Create a virtual Uri for the generated model to be able tu PUT it to the KTBS if needed
+        var modelUrl = baseUrl + traceName + '-' + 'model';
+        this.modelUrl = modelUrl;
+        var doc = {
+          '@context': 'http://liris.cnrs.fr/silex/2011/ktbs-jsonld-context',
+          '@graph': [{
+            '@id': modelUrl,
+            '@type': 'TraceModel',
+            'inBase': './',
+            'hasUnit': 'millisecond'
+          }]
+        };
+
+        // Keep only useful information for the model
+        var obselInformations = _.map(obsels, function(obsel) {
+          return {
+            'obselType': obsel.type,
+            'obselAttributes': _.map(Object.keys(obsel.attributes),
+                function(obselAttribute) {
+              return {
+                'obselAttribute': obselAttribute,
+                'hasAttributeDatatype': 'xsd:string' // TODO HARDCODED datatype
+                // TODO label ??
+              };
+            })
+          };
+        });
+        // Remove duplicates
+        obselInformations = _.uniq(obselInformations, function(e) {
+          return e.obselType;
+        });
+
+        _.each(obselInformations, function(obselInformation) {
+          doc['@graph'].push({
+            '@id': '#' + obselInformation.obselType,
+            '@type': 'ObselType'
+          });
+          _.each(obselInformation.obselAttributes,
+              function(obselAttributeObject) {
+            doc['@graph'].push({
+              '@id': '#' + obselAttributeObject.obselAttribute,
+              '@type': 'AttributeType',
+              'hasAttributeObselType': '#' + obselInformation.obselType,
+              'hasAttributeDatatype': obselAttributeObject.hasAttributeDatatype
+              // TODO label ??
+            });
+          });
+        });
+
+        var that = this;
+
+        // This is not technically required
+        // We use this to do JSON-LD validation:
+        jsonld.promises.compact(doc, context).then(function(compact) {
+          // console.log(JSON.stringify(compact, null, 2));
+          that.model = JSON.stringify(compact, null, 2);
+
+          setTimeout(function() {
+            var request = that._deleteModel();
+            request.then(function() {
+              // OK
+              console.log('OK after DELETE');
+
+              // in any preceding case, we can POST
+              that._postModel().then(function() {
+                console.log('OK after POST');
+              });
+            }).catch(function() {
+              // do PUT instead
+              console.log('cannot delete ?');
+
+              // in any preceding case, we can POST
+              that._postModel().then(function() {
+                console.log('OK after POST');
+              });
+            });
+          }, 1000);
+        });
+      }).bind(this));
+    },
+
+    /**
+     * Return a promise that resolves when the `xhr` response comes back, or rejects
+     * @return {Promise}
+     * @param {{
+     *   url: string,
+     *   method: string,
+     *   body: (ArrayBuffer|ArrayBufferView|Blob|Document|FormData|null|string|undefined|Object),
+     *   contentType: (String)
+     * }}
+     * args -
+     *     url The url to which the request is sent.
+     *     method The HTTP method to use, default is GET.
+     *     body The content for the request body for POST method.
+     *     contentType The given content type of the @body args
+     */
+    _requestFactory: function(args) {
+      if (!!args.method && !!args.contentType && !!args.url && !!args.body) {
+        var ironAjax = document.createElement('iron-ajax');
+        ironAjax.url = args.url;
+        ironAjax.method = args.method;
+        ironAjax.contentType = args.contentType;
+        ironAjax.body = args.body;
+        return ironAjax.generateRequest().completes;
+      } else {
+        return new Promise(function (resolve, reject) {
+          reject('Missing args');
+        });
+      }
+    },
+
+    /**
+     * Perform an HTTP DELETE on the `this.modelUrl` ressource
+     */
+    _deleteModel: function() {
+      var req = this._requestFactory({
+        'url': this.modelUrl,
+        'method': 'DELETE',
+        'contentType': 'application/ld+json',
+        'body': this.model,
+      });
+      return req;
+    },
+
+    /**
+     * Perform an HTTP POST on the `this.modelUrl` ressource
+     */
+    _postModel: function() {
+      var req = this._requestFactory({
+        'url': this.baseUrl,
+        'method': 'POST',
+        'contentType': 'application/ld+json',
+        'body': this.model,
+      });
+      return req;
+    },
+
+    /**
+     * @return {Object} an Object holding informations about base url
+     * and trace name, in both case if the URL finish by `/` or not.
+     */
+    _traceUriParser: function(traceUri) {
+      var traceUriArray = traceUri.split('/');
+      var baseUrl = '';
+      var traceName = '';
+
+      if (traceUriArray.slice(-1)[0] === '') {
+        // http://localhost:8001/base1/t01/ (with '/' suffix)
+        baseUrl = traceUriArray.slice(0, traceUriArray.length - 2);
+        traceName = traceUriArray[traceUriArray.length - 2];
+      } else {
+        // http://localhost:8001/base1/t01 (without '/' suffix)
+        baseUrl = traceUriArray.slice(0, traceUriArray.length - 1);
+        traceName = traceUriArray[traceUriArray.length - 1];
+      }
+      return {
+        'baseUrl': baseUrl.join('/') + '/',
+        'traceName': traceName
+      };
+    }
+  };
+</script>
