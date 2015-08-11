@@ -1,3 +1,4 @@
+<link rel="import" href="../../behaviors/taaabs-stylesheet.html">
 
 <dom-module id="taaabs-display-model">
   <template>
@@ -6,10 +7,13 @@
   </template>
 
   <script>
-    /* global Polymer, Samotraces */
+    /* global Polymer, Samotraces, TaaabsBehaviors  */
 
     Polymer({
       is: 'taaabs-display-model',
+      behaviors: [
+        TaaabsBehaviors.Stylesheet
+      ],
       properties: {
         modelSel: {
           type: Object,
@@ -23,12 +27,7 @@
       },
       _modelSelChanged: function(newModelSel) {
         console.log('_modelselChanged');
-        var options = {
-          url: function() {
-            var path = '../../lib/Images/';
-            return path + 'help.png';
-          }
-        };
+        var options = this._parseFeuilleDeStyle();
         new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'), newModelSel, options);
         setTimeout(this.observObselsType.bind(this), 2000);
       },

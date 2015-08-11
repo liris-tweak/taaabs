@@ -1,4 +1,6 @@
 <link rel="import" href="../../behaviors/taaabs-lazy-loading.html">
+<link rel="import" href="../../behaviors/taaabs-stylesheet.html">
+
 
 <!--
 -->
@@ -31,7 +33,8 @@
     Polymer({
       is: 'taaabs-trace-display-icons',
       behaviors: [
-        TaaabsBehaviors.LazyLoading
+        TaaabsBehaviors.LazyLoading,
+        TaaabsBehaviors.Stylesheet
       ],
       properties: {
         timeWindow: {
@@ -50,22 +53,13 @@
           reflectToAttribute: true,
           notify: true
         },
-        options: {
-          type: Object,
-          reflectToAttribute: true,
-          notify: true
-        },
         loading: {
           type: Boolean
         }
       },
       ready: function () {
+        this.options =  this._parseFeuilleDeStyle();
         this.WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIcons;
-        this.options = { // TODO remove this and use a behavior for options
-            url: function() {
-                return 'images/teapot.png';
-            }
-        };
 
         this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
       },

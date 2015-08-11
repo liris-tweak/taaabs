@@ -1,4 +1,6 @@
 <link rel="import" href="../../behaviors/taaabs-lazy-loading.html">
+<link rel="import" href="../../behaviors/taaabs-stylesheet.html">
+
 
 <dom-module id="taaabs-trace-display-icons-fix">
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
@@ -11,7 +13,9 @@
     Polymer({
       is: 'taaabs-trace-display-icons-fix',
       behaviors: [
-        TaaabsBehaviors.LazyLoading
+        TaaabsBehaviors.LazyLoading,
+        TaaabsBehaviors.Stylesheet
+
       ],
       properties: {
         time: {
@@ -54,11 +58,7 @@
       },
       ready: function() {
         this.WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsFix;
-        this.options = {
-          url: function() {
-            return 'images/teapot.png';
-          }
-        };
+        this.options =  this._parseFeuilleDeStyle();
         if (this.trace) {
           this.trace.list_obsels(); // jshint ignore:line
           this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);

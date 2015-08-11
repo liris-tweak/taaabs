@@ -1,4 +1,5 @@
 <link rel="import" href="../../behaviors/taaabs-lazy-loading.html">
+<link rel="import" href="../../behaviors/taaabs-stylesheet.html">
 
 <dom-module id="taaabs-trace-display-icons-zoom">
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
@@ -13,7 +14,8 @@
     Polymer({
       is: 'taaabs-trace-display-icons-zoom',
       behaviors: [
-        TaaabsBehaviors.LazyLoading
+        TaaabsBehaviors.LazyLoading,
+        TaaabsBehaviors.Stylesheet
       ],
       properties: {
         time: {
@@ -29,12 +31,14 @@
       },
       timeChanged: function() {
         var WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsZoom;
-        this._attachWidget(WidgetConstructor, [this.trace, this.time, {}]);
+        this.options = this._parseFeuilleDeStyle();
+        this._attachWidget(WidgetConstructor, [this.trace, this.time, this.options]);
       },
       traceChanged: function() {
         this._detachWidget();
+        this.options = this._parseFeuilleDeStyle();
         var WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsZoom;
-        this._attachWidget(WidgetConstructor, [this.trace, this.time, {}]);
+        this._attachWidget(WidgetConstructor, [this.trace, this.time, this.options]);
       },
     });
   </script>
