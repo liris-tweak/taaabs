@@ -101,6 +101,7 @@
         // TODO replace __data__ by a $(event.target).data() after fixing it in Samotraces
         var obsel = event.target.__data__;
         this.obselSelector.select(obsel);
+        this.set('obselSelector._changed', !this.obselSelector._changed ); // just notify that that this.obselSelector changes his value, the this.obselSelector._changed has no meaning
       },
     });
   </script>

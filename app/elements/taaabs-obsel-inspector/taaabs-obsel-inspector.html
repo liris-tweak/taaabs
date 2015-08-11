@@ -2,9 +2,25 @@
 <dom-module id="taaabs-obsel-inspector">
 
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
+  <style>
+    paper-toast {
+      z-index: 9999; /* TODO related to this issue https://github.com/PolymerElements/paper-toast/issues/14 remove this hask when Polymer fix this behavior*/
+    }
+  </style>
 
   <template>
-    <div id="obsel-inspector"></div>
+    <h4>Obsel Inspector</h4>
+    <paper-icon-item>
+      <div>Auto Hide</div>
+      <paper-toggle-button checked="{{autoHide}}"></paper-toggle-button>
+    </paper-icon-item>
+    <paper-icon-item>
+      <div>Auto Hide Delay</div>
+      <paper-slider editable min="1000" max="20000" value="{{autoHideDelay}}"></paper-slider>
+    </paper-icon-item>
+    <paper-toast id="toast1" text="Your draft has been discarded." duration="{{autoHideDelay}}">
+      <div id="widget"></div>
+    </paper-toast>
   </template>
 
   <script>
@@ -16,11 +32,45 @@
         obselSelector: {
           type: Object,
           notify: true
+        },
+        autoHide: {
+          type: Boolean,
+          value: true,
+          observer: '_autoHideChanged'
+        },
+        autoHideDelay: {
+          type: Number,
+          value: 5000
+        }
+      },
+      observers: [
+        '_obselSelectorChanged(obselSelector._changed.*)'
+      ],
+      _obselSelectorChanged: function() {
+        if (this.autoHide) {
+          var toast = this.$$('#toast1');
+          toast.show();
+        } else {
+
+        }
+      },
+      _autoHideChanged: function(autoHideValue) {
+        console.log('changed');
+        console.log(autoHideValue);
+        if (!autoHideValue) {
+          var element = document.createElement('div');
+          element.setAttribute('id', 'widget-fix');
+          new Samotraces.Ui.Widgets.ObselInspector(element, this.obselSelector);
+          Polymer.dom(this.root).appendChild(element);
+        } else {
+          if (this.$$('#widget-fix')) {
+            Polymer.dom(this.root).removeChild(this.$$('#widget-fix'));
+          }
         }
       },
       attached: function() {
         this.obselSelector = new Samotraces.Selector('Obsel');
-        var widgetElement = this.$$('#obsel-inspector');
+        var widgetElement = this.$$('#widget');
         new Samotraces.Ui.Widgets.ObselInspector(widgetElement, this.obselSelector);
       }
     });
