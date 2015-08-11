@@ -1,0 +1,44 @@
+<link rel="import" href="../../behaviors/taaabs-trace-to-model.html">
+
+<dom-module id="taaabs-trace-to-model">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <paper-button on-click="_deleteClick" raised>DELETE</paper-button>
+    <paper-button on-click="_postClick" raised>POST</paper-button>
+    <pre><div>{{model}}</div></pre>
+  </template>
+
+  <script>
+    (function () {
+      /* global Polymer, TaaabsBehaviors*/
+
+      Polymer({
+        is: 'taaabs-trace-to-model',
+        behaviors: [
+          TaaabsBehaviors.ModelToTrace
+        ],
+        _deleteClick: function() {
+          var request = this._deleteModel();
+          request.then(function() {
+            console.log('OK after DELETE');
+          }).catch(function() {
+            console.log('cannot DELETE');
+          });
+        },
+        _postClick: function() {
+          var request = this._postModel();
+          request.then(function() {
+            console.log('OK POST');
+          }).catch(function() {
+            console.log('cannot POST');
+          });
+        }
+      });
+    })();
+  </script>
+
+</dom-module>
