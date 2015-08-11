@@ -1,3 +1,4 @@
+<link rel="import" href="../../behaviors/taaabs-stylesheet.html">
 
 <dom-module id="taaabs-trace-display-icons-zoom">
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
@@ -11,6 +12,9 @@
 
     Polymer({
       is: 'taaabs-trace-display-icons-zoom',
+      behaviors: [
+        TaaabsBehaviors.Stylesheet
+      ],
       properties: {
         time: {
           type: Object,
@@ -32,6 +36,7 @@
         this.attachWidget();
       },
       attachWidget: function() {
+        this.options =  this._parseFeuilleDeStyle();
         if (!! this.trace && !! this.time) {
           this.trace.list_obsels(); // jshint ignore:line
           new Samotraces.Ui.Widgets.TraceDisplayIconsZoom(this.$$('#trace-icon-zoom'), this.trace, this.time, this.options);

@@ -1,0 +1,54 @@
+
+<script>
+ /* global TaaabsBehaviors:true */
+ /* exported TaaabsBehaviors */
+
+ var TaaabsBehaviors = TaaabsBehaviors || {};
+
+ /**
+  * @demo no demo availaible yet
+  * @polymerBehavior
+  */
+ TaaabsBehaviors.Stylesheet = {
+   properties: {
+     mode: {
+       type: String
+     },
+     url: {
+         type: String,
+         value: ''
+       }
+   },
+   _getMode: function (){
+     console.log('TaaabsBehaviors.Stylesheet::_getMode');
+
+
+   },
+   _getOptions : function() {
+
+
+   },
+
+   _setFeuilleDeStyle: function() {
+
+   },
+   _parseFeuilleDeStyle:function (){
+     var stylesheet = {
+         'Ouverture_Page': {
+            'icon': 'images/rouge.png',
+            'width':16,
+            'height':16,
+            'y'     :17
+          },
+          'default': {
+            'icon': 'images/help.png',
+            'width':16,
+            'height':16,
+            'y'     :17
+
+          }
+        };
+     return stylesheet ;
+   }
+ };
+</script>
