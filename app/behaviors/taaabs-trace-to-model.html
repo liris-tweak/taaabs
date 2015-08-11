@@ -117,27 +117,6 @@ for functional filtering, uniq... -->
         jsonld.promises.compact(doc, context).then(function(compact) {
           // console.log(JSON.stringify(compact, null, 2));
           that.model = JSON.stringify(compact, null, 2);
-
-          setTimeout(function() {
-            var request = that._deleteModel();
-            request.then(function() {
-              // OK
-              console.log('OK after DELETE');
-
-              // in any preceding case, we can POST
-              that._postModel().then(function() {
-                console.log('OK after POST');
-              });
-            }).catch(function() {
-              // do PUT instead
-              console.log('cannot delete ?');
-
-              // in any preceding case, we can POST
-              that._postModel().then(function() {
-                console.log('OK after POST');
-              });
-            });
-          }, 1000);
         });
       }).bind(this));
     },

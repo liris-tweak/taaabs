@@ -7,6 +7,8 @@
     }
   </style>
   <template>
+    <paper-button on-click="_deleteClick" raised>DELETE</paper-button>
+    <paper-button on-click="_postClick" raised>POST</paper-button>
     <div>{{model}}</div>
   </template>
 
@@ -18,7 +20,23 @@
         is: 'taaabs-trace-to-model',
         behaviors: [
           TaaabsBehaviors.ModelToTrace
-        ]
+        ],
+        _deleteClick: function() {
+          var request = this._deleteModel();
+          request.then(function() {
+            console.log('OK after DELETE');
+          }).catch(function() {
+            console.log('cannot DELETE');
+          });
+        },
+        _postClick: function() {
+          var request = this._postModel();
+          request.then(function() {
+            console.log('OK POST');
+          }).catch(function() {
+            console.log('cannot POST');
+          });
+        }
       });
     })();
   </script>
