@@ -55,8 +55,11 @@ for functional filtering, uniq... -->
         // Define the proper JSONLD context
         var context = 'http://liris.cnrs.fr/silex/2011/ktbs-jsonld-context';
 
+        // Fix trace url (Samotrace wrote URL like this: "http://localhost:8001/base42/./t4242/")
+        var traceUrl = trace.get_uri().replace('./', ''); // jshint ignore:line
+
         // Parse informations about trace uri, traceName
-        var parsedTraceInformations = this._traceUriParser(trace.get_uri()); // jshint ignore:line
+        var parsedTraceInformations = this._traceUriParser(traceUrl); // jshint ignore:line
         var baseUrl = parsedTraceInformations.baseUrl;
         var traceName = parsedTraceInformations.traceName;
         this.baseUrl = baseUrl;
