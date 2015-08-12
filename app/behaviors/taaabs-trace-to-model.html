@@ -118,66 +118,147 @@ for functional filtering, uniq... -->
         // This is not technically required
         // We use this to do JSON-LD validation:
         jsonld.promises.compact(doc, context).then(function(compact) {
-          // console.log(JSON.stringify(compact, null, 2));
           that.model = JSON.stringify(compact, null, 2);
         });
       }).bind(this));
     },
 
     /**
-     * Return a promise that resolves when the `xhr` response comes back, or rejects
-     * @return {Promise}
-     * @param {{
-     *   url: string,
-     *   method: string,
-     *   body: (ArrayBuffer|ArrayBufferView|Blob|Document|FormData|null|string|undefined|Object),
-     *   contentType: (String)
-     * }}
-     * args -
-     *     url The url to which the request is sent.
-     *     method The HTTP method to use, default is GET.
-     *     body The content for the request body for POST method.
-     *     contentType The given content type of the @body args
-     */
-    _requestFactory: function(args) {
-      if (!!args.method && !!args.contentType && !!args.url && !!args.body) {
-        var ironAjax = document.createElement('iron-ajax');
-        ironAjax.url = args.url;
-        ironAjax.method = args.method;
-        ironAjax.contentType = args.contentType;
-        ironAjax.body = args.body;
-        return ironAjax.generateRequest().completes;
-      } else {
-        return new Promise(function (resolve, reject) {
-          reject('Missing args');
-        });
-      }
-    },
-
-    /**
      * Perform an HTTP DELETE on the `this.modelUrl` ressource
      */
-    _deleteModel: function() {
-      var req = this._requestFactory({
-        'url': this.modelUrl,
-        'method': 'DELETE',
-        'contentType': 'application/ld+json',
-        'body': this.model,
+    deleteModel: function() {
+      var that = this;
+      return new Promise(function(resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('DELETE', that.modelUrl, true);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if(xhr.status === 204) {
+              resolve(xhr);
+            } else {
+              reject(xhr);
+            }
+          }
+        };
+        xhr.onerror = function() {
+          reject(Error('There was a network error.'));
+        };
+        xhr.send(null);
       });
-      return req;
+    },
+
+    _getModel: function(options) {
+      return new Promise(function(resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', options.modelUrl, true);
+        xhr.setRequestHeader('Accept', 'application/ld+json');
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if(xhr.status === 200) {
+              if(!!xhr.getResponseHeader('etag')) {
+                resolve({
+                  'etag': xhr.getResponseHeader('etag'),
+                  'modelUrl': options.modelUrl
+                });
+              } else {
+                reject(xhr);
+              }
+            } else {
+              reject(xhr);
+            }
+          }
+        };
+        xhr.onerror = function() {
+          reject(Error('There was a network error.'));
+        };
+        xhr.send(null);
+      });
     },
 
     /**
-     * Perform an HTTP POST on the `this.modelUrl` ressource
+     * Perform an HTTP POST on the `this.baseUrl` ressource
      */
     _postModel: function() {
-      var req = this._requestFactory({
-        'url': this.baseUrl,
-        'method': 'POST',
-        'contentType': 'application/ld+json',
-        'body': this.model,
+      // KTBS only accept an empty model on POST
+      var emptyModel = {
+        '@context': 'http://liris.cnrs.fr/silex/2011/ktbs-jsonld-context',
+        '@graph': [
+          {
+            '@id': this.modelUrl,
+            'inBase': './',
+            '@type': 'TraceModel',
+            'hasUnit': 'millisecond'
+          }
+        ]
+      };
+
+      var that = this;
+      return new Promise(function(resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', that.baseUrl, true);
+        xhr.setRequestHeader('Content-type', 'application/ld+json');
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if(xhr.status === 201) {
+              resolve(xhr);
+            } else {
+              reject(xhr);
+            }
+          }
+        };
+        xhr.onerror = function() {
+          reject(Error('There was a network error.'));
+        };
+        xhr.send(JSON.stringify(emptyModel));
       });
-      return req;
+    },
+
+    putModel: function(info) {
+      var that = this;
+      return new Promise(function(resolve, reject) {
+        // PUT
+        var xhr = new XMLHttpRequest();
+        xhr.open('PUT', info.modelUrl, true);
+        xhr.setRequestHeader('Content-Type', 'application/ld+json');
+        xhr.setRequestHeader('If-Match', info.etag);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if(xhr.status === 200) {
+              console.log('OKOKOK');
+              resolve(xhr);
+            } else {
+              reject(xhr);
+            }
+          }
+        };
+        xhr.onerror = function() {
+          reject(Error('There was a network error.'));
+        };
+        xhr.send(that.model);
+      });
+    },
+
+    postModel: function() {
+      var that = this;
+
+      return new Promise(function(resolve, reject) {
+        that._postModel().then(function(xhr) {
+          var newModelUrl = xhr.responseText.replace(/<|>/g, '');
+          return that._getModel({
+            'modelUrl': newModelUrl
+          });
+        }).then(function(info) {
+          that.putModel({
+            'modelUrl': info.modelUrl,
+            'etag': info.etag
+          }).catch(function (err) {
+            reject(err);
+          });
+        }).catch(function (err) {
+          console.error(err.statusText);
+          reject(err.statusText);
+        });
+      });
     },
 
     /**

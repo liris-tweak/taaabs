@@ -22,19 +22,19 @@
           TaaabsBehaviors.ModelToTrace
         ],
         _deleteClick: function() {
-          var request = this._deleteModel();
+          var request = this.deleteModel();
           request.then(function() {
-            console.log('OK after DELETE');
+            console.log('DELETE Success');
           }).catch(function() {
-            console.log('cannot DELETE');
+            console.log('DELETE Failure');
           });
         },
         _postClick: function() {
-          var request = this._postModel();
+          var request = this.postModel();
           request.then(function() {
-            console.log('OK POST');
+            console.log('POST Success');
           }).catch(function() {
-            console.log('cannot POST');
+            console.log('POST Failure');
           });
         }
       });
