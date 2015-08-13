@@ -58,7 +58,7 @@
         }
       },
       ready: function () {
-        this.options =  this._parseFeuilleDeStyle();
+        this.options = this._getStylesheet();
         this.WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIcons;
 
         this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);

@@ -30,13 +30,14 @@
         }
       },
       timeChanged: function() {
+
         var WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsZoom;
-        this.options = this._parseFeuilleDeStyle();
+        this.options = this._getStylesheet();
         this._attachWidget(WidgetConstructor, [this.trace, this.time, this.options]);
       },
       traceChanged: function() {
         this._detachWidget();
-        this.options = this._parseFeuilleDeStyle();
+        this.options = this._getStylesheet();
         var WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsZoom;
         this._attachWidget(WidgetConstructor, [this.trace, this.time, this.options]);
       },

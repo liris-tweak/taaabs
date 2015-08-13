@@ -1,6 +1,7 @@
 <link rel="import" href="../../behaviors/taaabs-stylesheet.html">
 
 <dom-module id="taaabs-display-model">
+
   <template>
     <h2> Show Model </h2>
     <div id="modeldiv"></div>
@@ -27,8 +28,8 @@
       },
       _modelSelChanged: function(newModelSel) {
         console.log('_modelselChanged');
-        var options = this._parseFeuilleDeStyle();
-        new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'), newModelSel, options);
+        this.options = this._getStylesheet();
+        new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'), newModelSel, this.options);
         setTimeout(this.observObselsType.bind(this), 2000);
       },
       observObselsType: function() {

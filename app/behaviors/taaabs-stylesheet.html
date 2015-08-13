@@ -1,4 +1,4 @@
-
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 <script>
  /* global TaaabsBehaviors:true */
  /* exported TaaabsBehaviors */
@@ -14,41 +14,41 @@
      mode: {
        type: String
      },
-     url: {
+     urlFileStylesheet: {
          type: String,
-         value: ''
+         value: 'setting/stylesheet.json'
        }
    },
    _getMode: function (){
-     console.log('TaaabsBehaviors.Stylesheet::_getMode');
+     var mode ;
+     if (localStorage["stylesheetTaabs"]){
+       mode = "L";
+     }
+     else mode ="R";
+     return mode;
 
 
    },
-   _getOptions : function() {
 
 
-   },
+   _getStylesheet : function() {
+     if (this._getMode() === "R"){
+       $.ajax({
+        url:this.urlFileStylesheet,
+        async: false,
+        success:function(data) {
+           result = data.OsbelType;
+        }
+     });
+      return result;
+      }
 
-   _setFeuilleDeStyle: function() {
 
-   },
-   _parseFeuilleDeStyle:function (){
-     var stylesheet = {
-         'Ouverture_Page': {
-            'icon': 'images/rouge.png',
-            'width':16,
-            'height':16,
-            'y'     :17
-          },
-          'default': {
-            'icon': 'images/help.png',
-            'width':16,
-            'height':16,
-            'y'     :17
+    },
 
-          }
-        };
-     return stylesheet ;
+
+   _PutStylesheet: function() {
+
    }
  };
 </script>

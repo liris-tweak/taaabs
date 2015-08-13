@@ -58,7 +58,7 @@
       },
       ready: function() {
         this.WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsFix;
-        this.options =  this._parseFeuilleDeStyle();
+        this.options = this._getStylesheet();
         if (this.trace) {
           this.trace.list_obsels(); // jshint ignore:line
           this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);
