@@ -200,6 +200,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <paper-tabs selected="{{distantSelected}}">
                     <paper-tab>Trace Visualization</paper-tab>
                     <paper-tab>Obsel Types</paper-tab>
+                    <paper-tab>Stylesheet</paper-tab>
                   </paper-tabs>
                   <iron-pages selected="{{distantSelected}}">
                     <paper-material elevation="2">
@@ -229,6 +230,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                           <taaabs-obsel-inspector-type obsel-type-selector="{{distantObselSelector}}"></taaabs-obsel-inspector-type>
                         </paper-material>
                       </taaabs-model>
+                    </paper-material>
+                    <paper-material elevation="2">
+                      <taabs-stylesheet trace="{{objtrace}}"> </taabs-stylesheet>
                     </paper-material>
                   </iron-pages>
                 </paper-material>

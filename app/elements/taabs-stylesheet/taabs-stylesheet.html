@@ -1,0 +1,86 @@
+<link rel="import" href="../../behaviors/taaabs-trace-to-model.html">
+<link rel="import" href="../../behaviors/taaabs-stylesheet.html">
+
+
+<dom-module id="taabs-stylesheet">
+  <template>
+     <h1> Obsel Type Liste : </h1>
+
+           <template is="dom-repeat" items="{{obselTypes}}">
+             <div id = {{item.type}} name ={{item.type}} >
+              <h2>{{item.type}}</h2>
+              <paper-input name="icon" label="Icon" value={{item.icon}} ></paper-input>
+              <paper-input name="width" label="width" value={{item.width}} ></paper-input>
+              <paper-input name="height" label="Height" value={{item.height}} ></paper-input>
+              <paper-input name="y" label="Y" value={{item.y}} ></paper-input>
+            </div>
+              <!--div># <span>{{index}}</span></div-->
+          </template>
+     <paper-button  on-click="_Submit" raised>Submit</paper-button>
+
+
+   </template>
+
+  <script>
+    (function () {
+      /* global Polymer, TaaabsBehaviors*/
+
+      Polymer({
+        is: 'taabs-stylesheet',
+        behaviors: [
+          TaaabsBehaviors.TraceToModel,
+          TaaabsBehaviors.Stylesheet
+        ],
+
+        properties: {
+          trace: {
+            type: Object,
+            notify: true,
+            observer: 'traceChanged'
+          }
+        },
+        traceChanged: function(newValue) {
+          var that = this ;
+          newValue.on("trace:model",function() {
+            var model = new Samotraces.Ktbs.Model(newValue.get_model());
+            model.on('Model:listeType', function(e) {console.log (e.data)
+
+              var arrayObselTypes = e.data;
+              var Stylesheet = that._getStylesheet();
+              for (var attrname in arrayObselTypes){
+                if (Stylesheet[arrayObselTypes[attrname].type]){
+                    for (var attrname2 in Stylesheet[arrayObselTypes[attrname].type]){
+                      arrayObselTypes[attrname][attrname2] = Stylesheet[arrayObselTypes[attrname].type][attrname2];
+
+                    }
+                }
+                if (Number (attrname) === arrayObselTypes.length-1)
+                {that.obselTypes = arrayObselTypes;}
+              }
+            })
+
+          })
+       },
+      _Submit: function () {
+        var objStyle = {};
+        objStyle.TraceURI= this.trace.get_uri();
+        objStyle.ObselType = {};
+        var allDiv = this.shadowRoot.querySelectorAll('div');
+        for (var i=0 ;  i < allDiv.length; i++){
+          var obselType = allDiv[i].id ;
+          var objAttribut = {};
+          var allInput = allDiv[i].querySelectorAll('paper-input');
+          for (var j=0 ; j< allInput.length ; j++) {
+              var input = allInput[j];
+              objAttribut[input.name]=input.value;
+          }
+          objStyle.ObselType[obselType] = objAttribut;
+        }
+        console.log (objStyle);
+        //this.shadowRoot.querySelectorAll
+        }
+     });
+    })();
+  </script>
+
+</dom-module>

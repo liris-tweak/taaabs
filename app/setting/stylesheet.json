@@ -1,7 +1,7 @@
 {
-  "TraceURI" :  "",
+  "TraceURI" :"",
   "ModelURI" :"",
-  "OsbelType" : {
+  "ObselType" : {
     "Ouverture_Page":{
       "icon": "images/Orange.png",
       "width":16,
