@@ -80,9 +80,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Home</span>
           </a>
 
-          <a data-route="raph" href="/raph" on-click="onDataRouteClick">
-            <iron-icon icon="info"></iron-icon>
-            <span>Raph</span>
+          <a data-route="remoteresources" href="/remoteresources">
+            <iron-icon icon="cloud"></iron-icon>
+            <span>Remote Resources</span>
+          </a>
+
+          <a data-route="ktbs" href="/ktbs">
+            <iron-icon icon="cloud"></iron-icon>
+            <span>Ktbs</span>
           </a>
 
           <a data-route="users" href="/users">
@@ -169,9 +174,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             </section>
 
-            <section data-route="raph">
+            <section data-route="remoteresources">
               <paper-material elevation="1">
-                <raph-custom></raph-custom>
+                <taaabs-remote-ressources></taaabs-remote-ressources>
+              </paper-material>
+            </section>
+
+            <section data-route="ktbs">
+              <paper-material elevation="1">
+                <taaabs-ktbs class="PolymerKTBS" encoded-ktbs-url="{{params.url}}"></taaabs-ktbs>
               </paper-material>
             </section>
 
@@ -206,7 +217,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 </paper-material>
 
                 <paper-material elevation="1">
-                  <taaabs-ktbs class="PolymerKTBS" src-ktbs="http://localhost:8001/" basesel="{{data}}"></taaabs-ktbs>
+                  <taaabs-ktbs class="PolymerKTBS" ktbs-url="http://localhost:8001/" basesel="{{data}}"></taaabs-ktbs>
                   <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"></taaabs-base>
                   <paper-tabs selected="{{distantSelected}}">
                     <paper-tab>Trace Visualization</paper-tab>

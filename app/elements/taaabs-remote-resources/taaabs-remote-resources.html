@@ -1,0 +1,39 @@
+<dom-module id="taaabs-remote-ressources">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <h1 class="paper-font-display1"><span>Hello StatelessCat</span></h1>
+    <paper-input label="localRoute" auto-validate pattern="/[a-zA-Z]*/" char-counter value="{{localRoute}}" error-message="/<localRoute>/ please"></paper-input>
+    <paper-input label="route params" auto-validate char-counter type="url" value="{{remoteUrl}}" error-message="Valid URL please"></paper-input>
+    <a href="{{encodedLink}}">{{encodedLink}}</a>
+  </template>
+
+  <script>
+    (function () {
+      Polymer({
+        is: 'taaabs-remote-ressources',
+        properties: {
+          localRoute: {
+            type: String,
+            value: '/ktbs/'
+          },
+          remoteUrl: {
+            type: String,
+            value: 'http://localhost:8001/'
+          },
+          encodedLink: {
+            type: String,
+            computed: 'computeEncodedLink(localRoute, remoteUrl)'
+          }
+        },
+        computeEncodedLink: function(localRoute, remoteUrl) {
+          return localRoute + '\?url=' + encodeURIComponent(remoteUrl);
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

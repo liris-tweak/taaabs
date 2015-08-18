@@ -1,3 +1,4 @@
+<link rel="import" href="../../behaviors/taaabs-lazy-loading.html">
 
 <dom-module id="taaabs-ktbs">
   <style>
@@ -9,27 +10,31 @@
     }
   </style>
   <template>
-    <h2 id=>Interface KTBS</h2>
-    <div id="ktbs-url"></div>
-    <div id="list-base"></div>
+    <h1 class="paper-font-display1"><span>Interface KTBS</span></h1>
+    <h2 class="paper-font-display2"><span>Ktbs URL:</span><span>{{ktbsUrl}}</span></h1>
   </template>
 
   <script>
-    /* global Polymer, Samotraces */
+    /* global Polymer, Samotraces, TaaabsBehaviors */
 
     Polymer({
       is: 'taaabs-ktbs',
+      behaviors: [
+        TaaabsBehaviors.LazyLoading
+      ],
       properties: {
         basesel:{
           type: Object,
           notify: true,
-          reflectToAttribute: true,
-          value: function() {
-            return {}; }
+          reflectToAttribute: true
         },
-        srcKtbs:{
+        encodedKtbsUrl: {
           type: String,
-          value: ''
+          observer: '_encodedKtbsUrlChanged'
+        },
+        ktbsUrl: {
+          type: String,
+          observer: '_ktbsUrlChanged'
         }
       },
       clickBase: function(event) {
@@ -37,16 +42,24 @@
         this.basesel = new Samotraces.Ktbs.Base(baseURL);
       },
       listBaseCallback: function() {
-        var baseButton = this.$['list-base'].querySelectorAll('.base');
+        var baseButton = Polymer.dom(this.root).querySelectorAll('.base');
         for (var i = 0; i < baseButton.length; i++) {
           baseButton[i].onclick = this.clickBase.bind(this);
         }
       },
-      ready: function() {
-        this.ktbs = new Samotraces.Ktbs.Ktbs(this.srcKtbs);
-        this.$['ktbs-url'].appendChild(document.createTextNode('ID : ' + this.ktbs.id));
-        var ListBasewidget = new Samotraces.Ui.Widgets.Ktbs.ListBases(this.$['list-base'], this.ktbs, '');
-        ListBasewidget.on('ListBase', this.listBaseCallback.bind(this));
+      _ktbsUrlChanged: function(ktbsUrl) {
+        this.ktbs = new Samotraces.Ktbs.Ktbs(ktbsUrl);
+
+        // Using the TaaabsBehaviors.LazyLoading we reattach a new Widget instance
+        var WidgetConstructor = Samotraces.Ui.Widgets.Ktbs.ListBases;
+        this._detachWidget();
+        this._attachWidget(WidgetConstructor, [this.ktbs, {}]);
+
+        // the TaaabsBehaviors.LazyLoading has exposed this.widgetObject as the Samotraces Widget instance, we can use it
+        this.widgetObject.on('ListBase', this.listBaseCallback.bind(this));
+      },
+      _encodedKtbsUrlChanged: function(url) {
+        this.set('ktbsUrl', decodeURIComponent(url));
       }
     });
   </script>

@@ -8,8 +8,10 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<script src='../../bower_components/qs/dist/qs.min.js'></script>
 <script src="../../bower_components/page/page.js"></script>
 <script>
+  /* global QS */
   window.addEventListener('WebComponentsReady', function() {
 
     // We use Page.js for routing. This is a Micro
@@ -19,8 +21,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.route = 'home';
     });
 
-    page('/raph', function () {
-      app.route = 'raph';
+    page('/remoteresources', function () {
+      app.route = 'remoteresources';
+    });
+
+    page('/ktbs', function (ctx) {
+      // get the 'url' field in the querystring (note the url field below)
+      // http://localhost:5000/#!/ktbs/?url=https%3A%2F%2Fwww.example.co/ktbs/
+      //                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+      app.params = {'url': QS(ctx.path).get('url')};
+      app.route = 'ktbs';
     });
 
     page('/users', function () {
