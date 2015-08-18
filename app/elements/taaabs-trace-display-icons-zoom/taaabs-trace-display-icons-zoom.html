@@ -32,12 +32,15 @@
       timeChanged: function() {
 
         var WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsZoom;
+        if (this.trace.get_uri)
+        {this.options = this._getStylesheet(this.trace.get_uri());}
+        else
         this.options = this._getStylesheet();
         this._attachWidget(WidgetConstructor, [this.trace, this.time, this.options]);
       },
       traceChanged: function() {
         this._detachWidget();
-        this.options = this._getStylesheet();
+      //  this.options = this._getStylesheet();
         var WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsZoom;
         this._attachWidget(WidgetConstructor, [this.trace, this.time, this.options]);
       },

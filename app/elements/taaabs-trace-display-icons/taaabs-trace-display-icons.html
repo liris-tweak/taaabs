@@ -58,14 +58,17 @@
         }
       },
       ready: function () {
-        this.options = this._getStylesheet();
         this.WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIcons;
 
-        this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
+      //  this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
       },
-      traceChanged: function() {
+      traceChanged: function(newValue) {
         this.set('loading', true);
         this._detachWidget();
+        if (newValue.get_uri)
+        {this.options = this._getStylesheet(newValue.get_uri());}
+        else
+        this.options = this._getStylesheet();
         this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
 
         // disable the paper-spinner when the trace is fully loaded:

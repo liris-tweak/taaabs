@@ -23,7 +23,7 @@
 
   <script>
     (function () {
-      /* global Polymer, TaaabsBehaviors*/
+      /* global Polymer, TaaabsBehaviors, Samotraces*/
 
       Polymer({
         is: 'taabs-stylesheet',
@@ -41,12 +41,15 @@
         },
         traceChanged: function(newValue) {
           var that = this ;
-          newValue.on("trace:model",function() {
+          newValue.on('trace:model',function() {
             var model = new Samotraces.Ktbs.Model(newValue.get_model());
-            model.on('Model:listeType', function(e) {console.log (e.data)
-
+            model.on('Model:listeType', function(e) {
               var arrayObselTypes = e.data;
-              var Stylesheet = that._getStylesheet();
+              var Stylesheet = that._getStylesheet(newValue.get_uri());
+              var objDefault = {};
+              obj = Stylesheet.default
+              objDefault.type ="default";
+              arrayObselTypes.push(objDefault);
               for (var attrname in arrayObselTypes){
                 if (Stylesheet[arrayObselTypes[attrname].type]){
                     for (var attrname2 in Stylesheet[arrayObselTypes[attrname].type]){
@@ -55,29 +58,33 @@
                     }
                 }
                 if (Number (attrname) === arrayObselTypes.length-1)
-                {that.obselTypes = arrayObselTypes;}
-              }
-            })
+                {
 
-          })
+                  that.obselTypes = arrayObselTypes;
+                }
+              }
+            });
+          });
        },
       _Submit: function () {
-        var objStyle = {};
-        objStyle.TraceURI= this.trace.get_uri();
-        objStyle.ObselType = {};
-        var allDiv = this.shadowRoot.querySelectorAll('div');
-        for (var i=0 ;  i < allDiv.length; i++){
-          var obselType = allDiv[i].id ;
-          var objAttribut = {};
-          var allInput = allDiv[i].querySelectorAll('paper-input');
-          for (var j=0 ; j< allInput.length ; j++) {
-              var input = allInput[j];
-              objAttribut[input.name]=input.value;
+          var objStyle = {};
+          objStyle.TraceURI= this.trace.get_uri();
+          objStyle.ObselType = {};
+          var allDiv = this.shadowRoot.querySelectorAll('div');
+          for (var i=0 ;  i < allDiv.length; i++){
+            var obselType = allDiv[i].id ;
+            var objAttribut = {};
+            var allInput = allDiv[i].querySelectorAll('paper-input');
+            for (var j=0 ; j< allInput.length ; j++) {
+                var input = allInput[j];
+                objAttribut[input.name]=input.value;
+            }
+            objStyle.ObselType[obselType] = objAttribut;
           }
-          objStyle.ObselType[obselType] = objAttribut;
-        }
-        console.log (objStyle);
-        //this.shadowRoot.querySelectorAll
+          console.log (objStyle);
+          // add to localStorage
+          this._PutStylesheet(this.trace.get_uri(), objStyle);
+
         }
      });
     })();

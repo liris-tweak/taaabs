@@ -19,18 +19,29 @@
          value: 'setting/stylesheet.json'
        }
    },
-   _getMode: function (){
+   _getMode: function (traceURI){
      var mode ;
      if (localStorage["stylesheetTaabs"]){
-       mode = "L";
+        if (JSON.parse (localStorage.getItem("stylesheetTaabs")).indexOf(traceURI)== -1){
+          mode ="R";
+        }
+        else{
+           mode = "L";
+        }
+
      }
      else mode ="R";
      return mode;
    },
 
 
-   _getStylesheet : function() {
-     if (this._getMode() === "R"){
+   _getStylesheet : function(traceURI) {
+     if (traceURI) {
+       var mode = this._getMode(traceURI) ;
+     }
+     else mode = "R";
+
+     if (mode === "R"){
        $.ajax({
         url:this.urlFileStylesheet,
         async: false,
@@ -38,14 +49,32 @@
            result = data.ObselType;
         }
      });
-      return result;
+
+      }
+      else {
+          result = JSON.parse(localStorage.getItem("stylesheetTaabs."+traceURI)).ObselType
       }
 
-
+      return result;
     },
+   _PutStylesheet: function(traceURI, objStyle) {
+     if (localStorage["stylesheetTaabs"]){
+       // add URI Trace to array
+       if (JSON.parse (localStorage.getItem("stylesheetTaabs")).indexOf(traceURI)== -1){
+         var arrayTraceUri =  JSON.parse (localStorage.getItem("stylesheetTaabs"));
+         arrayTraceUri.push (traceURI);
+         localStorage.setItem("stylesheetTaabs",JSON.stringify(arrayTraceUri));
+         localStorage.setItem("stylesheetTaabs."+traceURI,JSON.stringify(objStyle));
+       }
 
+     }
+     else {
+       var arrayTraceUri = [];
+       arrayTraceUri.push (traceURI);
+       localStorage.setItem("stylesheetTaabs",JSON.stringify(arrayTraceUri));
+       localStorage.setItem("stylesheetTaabs."+traceURI,JSON.stringify(objStyle));
 
-   _PutStylesheet: function() {
+     }
 
    }
  };
