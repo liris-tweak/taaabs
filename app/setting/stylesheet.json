@@ -2,20 +2,20 @@
   "TraceURI" :"",
   "ObselType" : {
     "Ouverture_Page":{
-      "icon": "images/Orange.png",
+      "icon": "/images/Orange.png",
       "width":16,
       "height":16,
       "y"     :17
     },
     "Recherche-Google":{
-      "icon": "images/rouge.png",
+      "icon": "/images/rouge.png",
       "width":16,
       "height":16,
       "y"     :15
     },
 
     "default": {
-      "icon": "images/help.png",
+      "icon": "/images/help.png",
       "width":16,
       "height":16,
       "y"     :17
