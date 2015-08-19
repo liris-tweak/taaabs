@@ -30,17 +30,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       // http://localhost:5000/#!/ktbs/?url=https%3A%2F%2Fwww.example.co/ktbs/
       //                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-      app.params = {'url': QS(ctx.path).get('url')};
+      app.params = {'ktbsUrl': QS(ctx.path).get('url')};
       app.route = 'ktbs';
     });
 
     page('/ktbs-base', function (ctx) {
-      app.params = {'url': QS(ctx.path).get('url')};
+      app.params = {'ktbsBaseUrl': QS(ctx.path).get('url')};
       app.route = 'ktbs-base';
     });
 
     page('/ktbs-trace', function (ctx) {
-      app.params = {'url': QS(ctx.path).get('url')};
+      app.params = {'ktbsTraceUrl': QS(ctx.path).get('url')};
       app.route = 'ktbs-trace';
     });
 
