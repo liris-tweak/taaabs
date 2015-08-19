@@ -19,21 +19,15 @@
         trace: {
           type: Object,
           notify: true,
-          reflectToAttribute: true,
-          value: function() { return {}; },
           observer: '_traceselChanged'
         },
         time: {
           type: Object,
-          notify: true,
-          reflectToAttribute: true,
-          value: function() { return {}; }
+          notify: true
         },
         timezoom: {
           type: Object,
           notify: true,
-          reflectToAttribute: true,
-          value: function() { return {}; }
         },
         origin: String,
         type: String,
