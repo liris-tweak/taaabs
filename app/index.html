@@ -90,14 +90,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Ktbs</span>
           </a>
 
-          <a data-route="users" href="/users">
-            <iron-icon icon="info"></iron-icon>
-            <span>Users</span>
+          <a data-route="ktbs-base" href="/ktbs-base">
+            <iron-icon icon="cloud"></iron-icon>
+            <span>Ktbs Base</span>
           </a>
 
-          <a data-route="contact" href="/contact">
-            <iron-icon icon="mail"></iron-icon>
-            <span>Contact</span>
+          <a data-route="ktbs-trace" href="/ktbs-trace">
+            <iron-icon icon="cloud"></iron-icon>
+            <span>Ktbs Trace</span>
           </a>
 
           <a data-route="hello-taaabs" href="/hellotaaabs">
@@ -183,6 +183,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <section data-route="ktbs">
               <paper-material elevation="1">
                 <taaabs-ktbs class="PolymerKTBS" encoded-ktbs-url="{{params.url}}"></taaabs-ktbs>
+              </paper-material>
+            </section>
+
+            <section data-route="ktbs-base">
+              <paper-material elevation="1">
+                <taaabs-base encoded-ktbs-base-url="{{params.url}}"></taaabs-base>
+              </paper-material>
+            </section>
+
+            <section data-route="ktbs-trace">
+              <paper-material elevation="1">
+                <taaabs-visualization encoded-ktbs-trace-url="{{params.url}}"></taaabs-visualization>
               </paper-material>
             </section>
 

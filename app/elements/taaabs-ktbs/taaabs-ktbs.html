@@ -15,7 +15,7 @@
   </template>
 
   <script>
-    /* global Polymer, Samotraces, TaaabsBehaviors */
+    /* global Polymer, Samotraces, TaaabsBehaviors, page */
 
     Polymer({
       is: 'taaabs-ktbs',
@@ -23,11 +23,6 @@
         TaaabsBehaviors.LazyLoading
       ],
       properties: {
-        basesel:{
-          type: Object,
-          notify: true,
-          reflectToAttribute: true
-        },
         encodedKtbsUrl: {
           type: String,
           observer: '_encodedKtbsUrlChanged'
@@ -37,14 +32,15 @@
           observer: '_ktbsUrlChanged'
         }
       },
-      clickBase: function(event) {
+      _clickBase: function(event) {
         var baseURL = this.ktbs.id + event.target.innerHTML;
-        this.basesel = new Samotraces.Ktbs.Base(baseURL);
+        // we do the navigation using page.js
+        page('/ktbs-base/?url=' + encodeURIComponent(baseURL));
       },
-      listBaseCallback: function() {
-        var baseButton = Polymer.dom(this.root).querySelectorAll('.base');
-        for (var i = 0; i < baseButton.length; i++) {
-          baseButton[i].onclick = this.clickBase.bind(this);
+      _listBaseCallback: function() {
+        var baseButtons = Polymer.dom(this.root).querySelectorAll('.base');
+        for (var i = 0; i < baseButtons.length; i++) {
+          baseButtons[i].onclick = this._clickBase.bind(this);
         }
       },
       _ktbsUrlChanged: function(ktbsUrl) {
@@ -56,7 +52,7 @@
         this._attachWidget(WidgetConstructor, [this.ktbs, {}]);
 
         // the TaaabsBehaviors.LazyLoading has exposed this.widgetObject as the Samotraces Widget instance, we can use it
-        this.widgetObject.on('ListBase', this.listBaseCallback.bind(this));
+        this.widgetObject.on('ListBase', this._listBaseCallback.bind(this));
       },
       _encodedKtbsUrlChanged: function(url) {
         this.set('ktbsUrl', decodeURIComponent(url));

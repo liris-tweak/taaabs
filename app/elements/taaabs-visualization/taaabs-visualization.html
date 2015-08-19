@@ -1,0 +1,90 @@
+<dom-module id="taaabs-visualization">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <h1 class="paper-font-display1"><span>taaabs-trace</span></h1>
+    <h2 class="paper-font-display2"><span>{{ktbsTraceUrl}}</span></h2>
+
+    <paper-tabs selected="{{outterSelected}}">
+      <paper-tab>Trace Visualization</paper-tab>
+      <paper-tab>Model Visualization</paper-tab>
+      <paper-tab>Setting Visualization</paper-tab>
+      <paper-tab>Stylesheet Visualization</paper-tab>
+    </paper-tabs>
+    <iron-pages selected="{{outterSelected}}">
+      <paper-material elevation="2" class="trace-visualization">
+        <paper-tabs selected="{{innerSelected}}">
+          <paper-tab>Trace Visualization</paper-tab>
+          <paper-tab>Obsel Types</paper-tab>
+        </paper-tabs>
+        <iron-pages selected="{{innerSelected}}">
+          <paper-material elevation="2">
+            <taaabs-samotraceme trace="{{trace}}" time="{{tw}}" timezoom="{{twzoom}}" >
+              <taaabs-timeform  time="{{twzoom}}"></taaabs-timeform>
+              <taaabs-window-scale-fix page-num=0 selected="{{innerSelected}}" time="{{tw}}"></taaabs-window-scale-fix>
+              <taaabs-trace-display-icons-fix page-num=0 selected="{{innerSelected}}" trace="{{trace}}" time="{{tw}}" timezoom="{{twzoom}}" loading="true"></taaabs-trace-display-icons-fix>
+              <taaabs-trace-display-icons-zoom page-num=0 selected="{{innerSelected}}" trace="{{trace}}" time="{{twzoom}}"></taaabs-trace-display-icons-zoom>
+              <taaabs-window-scale-fix page-num=0 selected="{{innerSelected}}" time="{{twzoom}}"></taaabs-window-scale-fix>
+            </taaabs-samotraceme>
+            <taaabs-trace-fix trace="{{trace}}" time="{{tw2}}">
+              <paper-material elevation="2">
+                <taaabs-trace-display-icons page-num=0 selected="{{innerSelected}}" time-window="{{tw2}}" trace="{{trace}}" obsel-selector="{{selectedObsel}}"> </taaabs-trace-display-icons>
+                <taaabs-window-scale page-num=0 selected="{{innerSelected}}" timewindow="{{tw2}}"></taaabs-window-scale>
+              </paper-material>
+              <paper-material elevation="2">
+                <taaabs-obsel-inspector obsel-selector="{{selectedObsel}}"></taaabs-obsel-inspector>
+              </paper-material>
+            </taaabs-trace-fix>
+          </paper-material>
+          <paper-material elevation="2">
+            <taaabs-model obsel-type-selector="{{distantObselSelector}}" obsel-type="{{distantObselType}}">
+              <paper-material elevation="1">
+                <taaabs-display-model model-sel="{{objmodel}}" obsel-type="{{distantObselType}}"></taaabs-display-model>
+              </paper-material>
+              <paper-material elevation="2">
+                <taaabs-obsel-inspector-type obsel-type-selector="{{distantObselSelector}}"></taaabs-obsel-inspector-type>
+              </paper-material>
+            </taaabs-model>
+          </paper-material>
+        </iron-pages>
+      </paper-material>
+      <paper-material elevation="2"></paper-material> <!--statiques-->
+      <paper-material elevation="2"></paper-material> <!--statiques-->
+      <paper-material elevation="2"></paper-material> <!--statiques-->
+    </iron-pages>
+  </template>
+
+  <script>
+    (function () {
+      /* global Polymer, Samotraces */
+
+      Polymer({
+        is: 'taaabs-visualization',
+        properties: {
+          encodedKtbsTraceUrl: {
+            type: String,
+            observer: '_encodedKtbsTraceUrlChanged'
+          },
+          ktbsTraceUrl: {
+            type: String,
+            observer: '_ktbsTraceUrlChanged'
+          },
+          trace: {
+            type: Object
+          }
+        },
+        _encodedKtbsTraceUrlChanged: function(encodedKtbsTraceUrl) {
+          this.set('ktbsTraceUrl', decodeURIComponent(encodedKtbsTraceUrl));
+        },
+        _ktbsTraceUrlChanged: function(ktbsTraceUrl) {
+          this.set('trace', new Samotraces.Ktbs.Trace(ktbsTraceUrl));
+        },
+
+      });
+    })();
+  </script>
+
+</dom-module>
