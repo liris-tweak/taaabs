@@ -34,7 +34,7 @@
       }
 
       // true if all args are defined, false if one ore more args are undefined
-      var allArgsDefined = widgetConsArgs.every(function(arg) {
+      var allArgsDefined = !!widgetConsArgs && widgetConsArgs.every(function(arg) {
         return !!arg;
       });
 

@@ -8,8 +8,10 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<script src='../../bower_components/qs/dist/qs.min.js'></script>
 <script src="../../bower_components/page/page.js"></script>
 <script>
+  /* global QS */
   window.addEventListener('WebComponentsReady', function() {
 
     // We use Page.js for routing. This is a Micro
@@ -17,6 +19,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // More info: https://visionmedia.github.io/page.js/
     page('/', function () {
       app.route = 'home';
+    });
+
+    page('/remoteresources', function () {
+      app.route = 'remoteresources';
+    });
+
+    page('/ktbs', function (ctx) {
+      // get the 'url' field in the querystring (note the url field below)
+      // http://localhost:5000/#!/ktbs/?url=https%3A%2F%2Fwww.example.co/ktbs/
+      //                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+      app.params = {'url': QS(ctx.path).get('url')};
+      app.route = 'ktbs';
+    });
+
+    page('/ktbs-base', function (ctx) {
+      app.params = {'url': QS(ctx.path).get('url')};
+      app.route = 'ktbs-base';
+    });
+
+    page('/ktbs-trace', function (ctx) {
+      app.params = {'url': QS(ctx.path).get('url')};
+      app.route = 'ktbs-trace';
     });
 
     page('/users', function () {

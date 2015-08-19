@@ -30,11 +30,12 @@
     "paper-elements": "PolymerElements/paper-elements#1.0.2",
     "platinum-elements": "PolymerElements/platinum-elements#1.0.1",
     "neon-elements": "PolymerElements/neon-elements#1.0.0",
-    "page": "visionmedia/page.js#~1.6.3",
+    "page": "https://github.com/bquarks/page.js.git#3d319c8625fb725b7c03261c116b63e931ebcebb",
     "underscore": "~1.8.3",
     "jsonld": "~0.3.24",
     "paper-item": "PolymerElements/paper-item#~1.0.2",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "qs": "~0.3.9"
   },
   "devDependencies": {
     "web-component-tester": "*",

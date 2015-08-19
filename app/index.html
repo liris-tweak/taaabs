@@ -46,8 +46,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild-->
 
-  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
   <!-- endbuild -->
 
   <script>
@@ -80,14 +80,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Home</span>
           </a>
 
-          <a data-route="users" href="/users">
-            <iron-icon icon="info"></iron-icon>
-            <span>Users</span>
+          <a data-route="remoteresources" href="/remoteresources">
+            <iron-icon icon="cloud"></iron-icon>
+            <span>Remote Resources</span>
           </a>
 
-          <a data-route="contact" href="/contact">
-            <iron-icon icon="mail"></iron-icon>
-            <span>Contact</span>
+          <a data-route="ktbs" href="/ktbs">
+            <iron-icon icon="cloud"></iron-icon>
+            <span>Ktbs</span>
+          </a>
+
+          <a data-route="ktbs-base" href="/ktbs-base">
+            <iron-icon icon="cloud"></iron-icon>
+            <span>Ktbs Base</span>
+          </a>
+
+          <a data-route="ktbs-trace" href="/ktbs-trace">
+            <iron-icon icon="cloud"></iron-icon>
+            <span>Ktbs Trace</span>
           </a>
 
           <a data-route="hello-taaabs" href="/hellotaaabs">
@@ -164,6 +174,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             </section>
 
+            <section data-route="remoteresources">
+              <paper-material elevation="1">
+                <taaabs-remote-ressources></taaabs-remote-ressources>
+              </paper-material>
+            </section>
+
+            <section data-route="ktbs">
+              <paper-material elevation="1">
+                <taaabs-ktbs class="PolymerKTBS" encoded-ktbs-url="{{params.url}}"></taaabs-ktbs>
+              </paper-material>
+            </section>
+
+            <section data-route="ktbs-base">
+              <paper-material elevation="1">
+                <taaabs-base encoded-ktbs-base-url="{{params.url}}"></taaabs-base>
+              </paper-material>
+            </section>
+
+            <section data-route="ktbs-trace">
+              <paper-material elevation="1">
+                <taaabs-visualization encoded-ktbs-trace-url="{{params.url}}"></taaabs-visualization>
+              </paper-material>
+            </section>
+
               <section data-route="users">
                 <paper-material elevation="1">
                   <h2 class="paper-font-display2">Users</h2>
@@ -195,7 +229,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 </paper-material>
 
                 <paper-material elevation="1">
-                  <taaabs-ktbs class="PolymerKTBS" src-ktbs="http://localhost:8001/" basesel="{{data}}"></taaabs-ktbs>
+                  <taaabs-ktbs class="PolymerKTBS" ktbs-url="http://localhost:8001/" basesel="{{data}}"></taaabs-ktbs>
                   <taaabs-base base="{{data}}" tracesel="{{objtrace}}" modelsel="{{objmodel}}"></taaabs-base>
                   <paper-tabs selected="{{distantSelected}}">
                     <paper-tab>Trace Visualization</paper-tab>
