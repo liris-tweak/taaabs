@@ -46,10 +46,9 @@
       _tracelChanged:function (newValue){
         var that = this ;
         newValue.on('trace:model',function(){
-          var modelUri = newValue.get_model();
+          var modelUri = newValue.get_model(); // jshint ignore:line
           that.set('model', new Samotraces.Ktbs.Model(modelUri));
-        })
-
+        });
       },
       _encodedKtbsModelUrlChanged: function(encodedKtbsModelUrl) {
         this.set('ktbsModelUrl', decodeURIComponent(encodedKtbsModelUrl));
