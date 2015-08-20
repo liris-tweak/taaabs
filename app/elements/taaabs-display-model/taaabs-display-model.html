@@ -31,20 +31,26 @@
           type: Object
         }
       },
-      _modelSelChanged: function(newModelSel) {
-        console.log('_modelselChanged');
-        if (this.trace){
-          this.options = this._getStylesheet(this.trace.get_uri());
+      _modelSelChanged: function() {
+        var that = this;
+        if (that.trace) {
+          that._getStylesheet(that.trace.get_uri()).then(function(stylesheet) { // jshint ignore:line
+            that.options = stylesheet;
+            that._attachWidget();
+          });
         }
         else {
-          this.options = this._getStylesheet();
+          that._getStylesheet().then(function(stylesheet) {
+            that.options = stylesheet;
+            that._attachWidget();
+          });
         }
-        new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'), newModelSel, this.options);
-        var that = this;
-        this.model.on('Model:listeType',function(){
-          setTimeout(that.observObselsType.bind(that), 2000);
-        })
-
+      },
+      _attachWidget: function() {
+        new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'), this.model, this.options);
+        this.model.on('Model:listeType', (function(){
+          setTimeout(this.observObselsType.bind(this), 2000); // TODO check if this bind(this) is useless ? 
+        }).bind(this));
       },
       observObselsType: function() {
         // this is a NodeList, not an Array, so no forEach

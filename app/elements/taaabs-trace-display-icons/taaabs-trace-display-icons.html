@@ -62,19 +62,27 @@
 
       //  this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
       },
-      traceChanged: function(newValue) {
-        this.set('loading', true);
-        this._detachWidget();
-        if (newValue.get_uri)
-        {this.options = this._getStylesheet(newValue.get_uri());}
-        else
-        this.options = this._getStylesheet();
-        this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
+      traceChanged: function() {
+        var that = this;
+        that.set('loading', true);
+        that._detachWidget();
 
+        if (that.trace.get_uri) { // jshint ignore:line
+          that._getStylesheet(that.trace.get_uri()).then(function(stylesheet) { // jshint ignore:line
+            that.options = stylesheet;
+            that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.timezoom, that.options]);
+          });
+        }
+        else {
+          that._getStylesheet().then(function(stylesheet) {
+            that.options = stylesheet;
+            that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.timezoom, that.options]);
+          });
+        }
         // disable the paper-spinner when the trace is fully loaded:
-        this.trace.on('trace:updateCompleted', (function() {
-          this.set('loading', false);
-        }).bind(this));
+        that.trace.on('trace:updateCompleted', function() {
+          that.set('loading', false);
+        });
       },
       timeChanged: function() {
         this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);

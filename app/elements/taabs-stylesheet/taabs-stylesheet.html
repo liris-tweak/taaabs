@@ -45,24 +45,22 @@
             var model = new Samotraces.Ktbs.Model(newValue.get_model());
             model.on('Model:listeType', function(e) {
               var arrayObselTypes = e.data;
-              var Stylesheet = that._getStylesheet(newValue.get_uri());
-              var objDefault = {};
-              obj = Stylesheet.default
-              objDefault.type ="default";
-              arrayObselTypes.push(objDefault);
-              for (var attrname in arrayObselTypes){
-                if (Stylesheet[arrayObselTypes[attrname].type]){
-                    for (var attrname2 in Stylesheet[arrayObselTypes[attrname].type]){
-                      arrayObselTypes[attrname][attrname2] = Stylesheet[arrayObselTypes[attrname].type][attrname2];
 
-                    }
+              that._getStylesheet(newValue.get_uri()).then(function (stylesheet) {
+                var objDefault = {};
+                objDefault.type = 'default';
+                arrayObselTypes.push(objDefault);
+                for (var attrname in arrayObselTypes){
+                  if (stylesheet[arrayObselTypes[attrname].type]){
+                      for (var attrname2 in stylesheet[arrayObselTypes[attrname].type]){
+                        arrayObselTypes[attrname][attrname2] = stylesheet[arrayObselTypes[attrname].type][attrname2];
+                      }
+                  }
+                  if (Number (attrname) === arrayObselTypes.length - 1) {
+                    that.obselTypes = arrayObselTypes;
+                  }
                 }
-                if (Number (attrname) === arrayObselTypes.length-1)
-                {
-
-                  that.obselTypes = arrayObselTypes;
-                }
-              }
+              });
             });
           });
        },

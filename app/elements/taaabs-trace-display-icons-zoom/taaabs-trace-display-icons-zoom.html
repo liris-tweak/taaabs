@@ -30,17 +30,16 @@
         }
       },
       timeChanged: function() {
-
+        var that = this;
         var WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsZoom;
-        if (this.trace.get_uri)
-        {this.options = this._getStylesheet(this.trace.get_uri());}
-        else
-        this.options = this._getStylesheet();
-        this._attachWidget(WidgetConstructor, [this.trace, this.time, this.options]);
+        var traceUri = (this.trace.get_uri) ? this.trace.get_uri() : null;
+        this._getStylesheet(traceUri).then(function (stylesheet) {
+          that.options = stylesheet;
+          that._attachWidget(WidgetConstructor, [that.trace, that.time, that.options]);
+        });
       },
       traceChanged: function() {
         this._detachWidget();
-      //  this.options = this._getStylesheet();
         var WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsZoom;
         this._attachWidget(WidgetConstructor, [this.trace, this.time, this.options]);
       },

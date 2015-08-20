@@ -1,6 +1,6 @@
 <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 <script>
- /* global TaaabsBehaviors:true */
+ /* global TaaabsBehaviors:true, $ */
  /* exported TaaabsBehaviors */
 
  var TaaabsBehaviors = TaaabsBehaviors || {};
@@ -36,27 +36,32 @@
 
 
    _getStylesheet : function(traceURI) {
-     if (traceURI) {
-       var mode = this._getMode(traceURI) ;
+     var mode = (!!traceURI) ? this._getMode(traceURI) : 'R';
+     var that = this;
+     if (mode === 'R') {
+       return new Promise(function(resolve, reject) {
+         $.ajax({
+           url: that.urlFileStylesheet,
+           success: function(data) {
+             resolve(data.ObselType);
+           },
+           error: function(err) {
+             reject(err);
+           }
+         });
+       });
      }
-     else mode = "R";
-
-     if (mode === "R"){
-       $.ajax({
-        url:this.urlFileStylesheet,
-        async: false,
-        success:function(data) {
-           result = data.ObselType;
-        }
-     });
-
-      }
-      else {
-          result = JSON.parse(localStorage.getItem("stylesheetTaabs."+traceURI)).ObselType
-      }
-
-      return result;
-    },
+     else {
+       return new Promise(function(resolve, reject) {
+         if (!!localStorage.getItem('stylesheetTaabs.' + traceURI)) {
+           var obselType = JSON.parse(localStorage.getItem('stylesheetTaabs.' + traceURI)).ObselType;
+           resolve(obselType);
+         } else {
+           reject('[localStorage] don\'t contains value for' + traceURI);
+         }
+       });
+     }
+   },
    _PutStylesheet: function(traceURI, objStyle) {
      if (localStorage["stylesheetTaabs"]){
        // add URI Trace to array
