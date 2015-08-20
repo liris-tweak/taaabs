@@ -64,9 +64,10 @@
          var arrayTraceUri =  JSON.parse (localStorage.getItem("stylesheetTaabs"));
          arrayTraceUri.push (traceURI);
          localStorage.setItem("stylesheetTaabs",JSON.stringify(arrayTraceUri));
-         localStorage.setItem("stylesheetTaabs."+traceURI,JSON.stringify(objStyle));
+
        }
 
+       localStorage.setItem("stylesheetTaabs."+traceURI,JSON.stringify(objStyle));
      }
      else {
        var arrayTraceUri = [];
