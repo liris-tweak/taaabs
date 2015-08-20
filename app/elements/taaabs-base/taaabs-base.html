@@ -68,6 +68,8 @@
       },
       _clickModel: function() {
         // TODO doing what here ?
+        var modelURL = this.base.id + event.target.innerHTML.replace('./', '');
+        page('/ktbs-model/?url=' + encodeURIComponent(modelURL));
       },
       _attachWidgets: function() {
         ['trace-list', 'model-list'].forEach((function(id) {

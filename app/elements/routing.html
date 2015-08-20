@@ -44,6 +44,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.route = 'ktbs-trace';
     });
 
+    page('/ktbs-model', function (ctx) {
+      app.params = {'ktbsModelUrl': QS(ctx.path).get('url')};
+      app.route = 'ktbs-model';
+    });
+
     page('/users', function () {
       app.route = 'users';
     });

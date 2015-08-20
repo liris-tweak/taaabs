@@ -100,6 +100,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Ktbs Trace</span>
           </a>
 
+          <a data-route="ktbs-model" href="/ktbs-model">
+            <iron-icon icon="cloud"></iron-icon>
+            <span>Ktbs Model</span>
+          </a>
+
           <a data-route="hello-taaabs" href="/hellotaaabs">
             <iron-icon icon="icons:face"></iron-icon>
             <span>Hello Taaabs</span>
@@ -173,7 +178,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </paper-material>
 
             </section>
-
             <section data-route="remoteresources">
               <paper-material elevation="1">
                 <taaabs-remote-ressources></taaabs-remote-ressources>
@@ -189,6 +193,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <section data-route="ktbs-base">
               <paper-material elevation="1">
                 <taaabs-base encoded-ktbs-base-url="{{params.ktbsBaseUrl}}"></taaabs-base>
+              </paper-material>
+            </section>
+
+            <section data-route="ktbs-model">
+              <paper-material elevation="1">
+                <taaabs-model encoded-ktbs-model-url="{{params.ktbsModelUrl}}"></taaabs-model>
               </paper-material>
             </section>
 
@@ -261,7 +271,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                           <taaabs-display-model model-sel="{{objmodel}}" obsel-type="{{distantObselType}}"> </taaabs-display-model>
                         </paper-material>
                         <paper-material elevation="2">
-                          <taaabs-obsel-inspector-type obsel-type-selector="{{distantObselSelector}}"></taaabs-obsel-inspector-type>
+                          <!--taaabs-obsel-inspector-type obsel-type-selector="{{distantObselSelector}}"></taaabs-obsel-inspector-type-->
                         </paper-material>
                       </taaabs-model>
                     </paper-material>

@@ -16,21 +16,35 @@
         TaaabsBehaviors.Stylesheet
       ],
       properties: {
-        modelSel: {
+        model: {
           type: Object,
           notify: true,
           observer: '_modelSelChanged'
         },
-        obselType: {
+        obselSelector: {
           type: Object,
+          reflectToAttribute: true,
           notify: true
+        },
+
+        trace: {
+          type: Object
         }
       },
       _modelSelChanged: function(newModelSel) {
         console.log('_modelselChanged');
-        this.options = this._getStylesheet();
+        if (this.trace){
+          this.options = this._getStylesheet(this.trace.get_uri());
+        }
+        else {
+          this.options = this._getStylesheet();
+        }
         new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'), newModelSel, this.options);
-        setTimeout(this.observObselsType.bind(this), 2000);
+        var that = this;
+        this.model.on('Model:listeType',function(){
+          setTimeout(that.observObselsType.bind(that), 2000);
+        })
+
       },
       observObselsType: function() {
         // this is a NodeList, not an Array, so no forEach
@@ -43,7 +57,8 @@
       },
       handleClick: function(event) {
         var obsel = event.target.__data__;
-        this.set('obselType', obsel);
+        this.set('obselSelector', obsel);
+
       }
     });
   </script>

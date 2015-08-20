@@ -1,10 +1,15 @@
 
 <dom-module id="taaabs-model">
-  <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
 
   <template>
-    <div id="modeldiv"></div>
-    <content></content>
+    <!--div id="modeldiv"></div>
+    <content></content-->
+    <h1 class="paper-font-display1"><span>taaabs-model</span></h1>
+    <h2 class="paper-font-display2"><span>{{ktbsTraceUrl}}</span></h2>
+    <taaabs-display-model model="{{model}}" obsel-selector="{{obselType}}" trace="{{trace}}"> </taaabs-display-model>
+    <paper-material elevation="2">
+      <taaabs-obsel-inspector-type obsel-selector="{{obselTypeSelector}}"></taaabs-obsel-inspector-type>
+    </paper-material>
   </template>
 
   <script>
@@ -21,11 +26,43 @@
           type: Object,
           notify: true,
           observer: '_obselTypeChanged'
+        },
+        encodedKtbsModelUrl: {
+          type: String,
+          observer: '_encodedKtbsModelUrlChanged'
+        },
+        ktbsModelUrl: {
+          type: String,
+          observer: '_ktbsModelUrlChanged'
+        },
+        model: {
+          type: Object
+        },
+        trace: {
+          type: Object,
+          observer: '_tracelChanged'
         }
       },
+      _tracelChanged:function (newValue){
+        var that = this ;
+        newValue.on('trace:model',function(){
+          var modelUri = newValue.get_model();
+          that.set('model', new Samotraces.Ktbs.Model(modelUri));
+        })
+
+      },
+      _encodedKtbsModelUrlChanged: function(encodedKtbsModelUrl) {
+        this.set('ktbsModelUrl', decodeURIComponent(encodedKtbsModelUrl));
+      },
+      _ktbsModelUrlChanged: function(ktbsModelUrl) {
+        this.set('model', new Samotraces.Ktbs.Model(ktbsModelUrl));
+      },
+
+
       _obselTypeChanged: function(newObselType) {
         console.log('_obselTypeChanged');
         this.obselTypeSelector.select(newObselType);
+        this.set('obselSelector._changed', this.obselTypeSelector._changed );
       },
       ready: function() {
         this.obselTypeSelector = new Samotraces.Selector('Obsel');
