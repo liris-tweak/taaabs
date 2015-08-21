@@ -56,12 +56,9 @@
       _ktbsModelUrlChanged: function(ktbsModelUrl) {
         this.set('model', new Samotraces.Ktbs.Model(ktbsModelUrl));
       },
-
-
       _obselTypeChanged: function(newObselType) {
-        console.log('_obselTypeChanged');
         this.obselTypeSelector.select(newObselType);
-        this.set('obselSelector._changed', this.obselTypeSelector._changed );
+        this.set('obselTypeSelector._changed', !this.obselTypeSelector._changed);
       },
       ready: function() {
         this.obselTypeSelector = new Samotraces.Selector('Obsel');
