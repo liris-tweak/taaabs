@@ -24,7 +24,7 @@
     "polymer": "Polymer/polymer#1.0.6",
     "paper-scroll-header-panel": "PolymerElements/paper-scroll-header-panel#^1.0.6",
     "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.4",
-    "samotracesjs": "https://github.com/fderbel/samotraces.js.git#0.13.0",
+    "samotracesjs": "https://github.com/liris-tweak/samotraces.js.git#0.14.0",
     "iron-elements": "PolymerElements/iron-elements#1.0.3",
     "iron-component-page": "PolymerElements/iron-component-page#1.0.3",
     "paper-elements": "PolymerElements/paper-elements#1.0.2",
