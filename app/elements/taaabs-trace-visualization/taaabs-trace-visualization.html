@@ -8,16 +8,16 @@
     <paper-material elevation="2">
       <h1 class="paper-font-display1"><span>taaabs-trace-visualization</span></h1>
       <h2 class="paper-font-display2"><span>{{}}</span></h2>
-      <taaabs-samotraceme trace="{{trace}}" time="{{tw}}" timezoom="{{twzoom}}" >
+      <taaabs-samotraceme trace="{{trace}}" time="{{tw}}" timezoom="{{twzoom}}" options="{{options}}">
         <taaabs-timeform  time="{{twzoom}}"></taaabs-timeform>
         <taaabs-window-scale-fix page-num="0" selected="{{selected}}" time="{{tw}}"></taaabs-window-scale-fix>
-        <taaabs-trace-display-icons-fix page-num="0" selected="{{selected}}" trace="{{trace}}" time="{{tw}}" timezoom="{{twzoom}}" loading="true"></taaabs-trace-display-icons-fix>
-        <taaabs-trace-display-icons-zoom page-num="0" selected="{{selected}}" trace="{{trace}}" time="{{twzoom}}"></taaabs-trace-display-icons-zoom>
+        <taaabs-trace-display-icons-fix page-num="0" selected="{{selected}}" trace="{{trace}}" time="{{tw}}" timezoom="{{twzoom}}" loading="true" options="{{options}}"></taaabs-trace-display-icons-fix>
+        <taaabs-trace-display-icons-zoom page-num="0" selected="{{selected}}" trace="{{trace}}" time="{{twzoom}}" options="{{options}}"></taaabs-trace-display-icons-zoom>
         <taaabs-window-scale-fix page-num="0" selected="{{selected}}" time="{{twzoom}}"></taaabs-window-scale-fix>
       </taaabs-samotraceme>
-      <taaabs-trace-fix trace="{{trace}}" time="{{tw2}}">
+      <taaabs-trace-fix trace="{{trace}}" time="{{tw2}}" options="{{options}}">
         <paper-material elevation="2">
-          <taaabs-trace-display-icons page-num="0" selected="{{selected}}" time-window="{{tw2}}" trace="{{trace}}" obsel-selector="{{selectedObsel}}"> </taaabs-trace-display-icons>
+          <taaabs-trace-display-icons page-num="0" selected="{{selected}}" time-window="{{tw2}}" trace="{{trace}}" obsel-selector="{{selectedObsel}}" options="{{options}}"> </taaabs-trace-display-icons>
           <taaabs-window-scale page-num="0" selected="{{selected}}" timewindow="{{tw2}}"></taaabs-window-scale>
         </paper-material>
         <paper-material elevation="2">
@@ -37,6 +37,11 @@
           selected: {
             type: Number,
             notify: true
+          },
+          options: {
+            type: String,
+            notify: true,
+            reflectToAttribute: true
           },
           trace: Object
         }

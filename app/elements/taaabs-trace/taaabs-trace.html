@@ -68,7 +68,9 @@
             type: Object
           },
           options: {
-            type: String
+            type: String,
+            notify: true,
+            reflectToAttribute: true
           },
           outterSelected: {
             type: Number,
@@ -81,9 +83,6 @@
         _ktbsTraceUrlChanged: function(ktbsTraceUrl) {
           // objetTrace
           this.set('trace', new Samotraces.Ktbs.Trace(ktbsTraceUrl));
-          //Objet model
-          //options stylesheet
-
         },
         _tracelChanged:function (newValue){
           var that = this ;
