@@ -23,7 +23,7 @@ for functional filtering, uniq... -->
        * A String holding a String representation of the Model according to
        * <http://liris.cnrs.fr/silex/2011/ktbs-jsonld-context>
        */
-      model: {
+      modeldata: {
         type: String,
         notify: true
       },
@@ -34,8 +34,8 @@ for functional filtering, uniq... -->
        * <https://github.com/liris-tweak/samotraces.js/blob/master/src/core/KTBS.Trace.js>
        */
       trace: {
-        type: Object,
-        observer: '_traceChanged',
+        type: Object
+        //observer: '_traceChanged',
       }
     },
 
@@ -44,11 +44,11 @@ for functional filtering, uniq... -->
      * it to extract a model from it.
      * the model will be available on `this.model` property
      */
-    _traceChanged: function(trace) {
+    _generateModelFromTrace: function(trace,model,callback) {
       // Start to fetch the server to get obsels
-      trace.list_obsels(); // jshint ignore:line
+      //trace.list_obsels(); // jshint ignore:line
 
-      trace.on('trace:updateCompleted', (function() {
+    //  trace.on('trace:updateCompleted', (function() {
         // We now have all obsels, we can get the obsel list
         var obsels = trace.obsel_list; // jshint ignore:line
 
@@ -56,18 +56,20 @@ for functional filtering, uniq... -->
         var context = 'http://liris.cnrs.fr/silex/2011/ktbs-jsonld-context';
 
         // Fix trace url (Samotrace wrote URL like this: "http://localhost:8001/base42/./t4242/")
-        var traceUrl = trace.get_uri().replace('./', ''); // jshint ignore:line
-
+        //var traceUrl = trace.get_uri().replace('./', ''); // jshint ignore:line
+        var traceUrl = trace.get_uri();
         // Parse informations about trace uri, traceName
-        var parsedTraceInformations = this._traceUriParser(traceUrl); // jshint ignore:line
+        /*var parsedTraceInformations = this._traceUriParser(traceUrl); // jshint ignore:line
         var baseUrl = parsedTraceInformations.baseUrl;
         var traceName = parsedTraceInformations.traceName;
         this.baseUrl = baseUrl;
 
         // Create a virtual Uri for the generated model to be able tu PUT it to the KTBS if needed
         var modelUrl = baseUrl + traceName + '-' + 'model';
-        this.modelUrl = modelUrl;
-        var doc = {
+        this.modelUrl = modelUrl;*/
+          var modelUrl = trace.get_model();
+          this.modelUrl = modelUrl;
+          var doc = {
           '@context': 'http://liris.cnrs.fr/silex/2011/ktbs-jsonld-context',
           '@graph': [{
             '@id': modelUrl,
@@ -118,9 +120,16 @@ for functional filtering, uniq... -->
         // This is not technically required
         // We use this to do JSON-LD validation:
         jsonld.promises.compact(doc, context).then(function(compact) {
-          that.model = JSON.stringify(compact, null, 2);
+          that.modeldata = JSON.stringify(compact, null, 2);
+          //var baseObj = new Samotraces.Ktbs.Base (trace.get_base());
+          //baseObj.create_model(modelUrl);
+          model.put_model(that.modeldata).then(function(model){
+            callback(model);
+          });
+
         });
-      }).bind(this));
+      //}).bind(this));
+
     },
 
     /**
@@ -234,7 +243,7 @@ for functional filtering, uniq... -->
         xhr.onerror = function() {
           reject(Error('There was a network error.'));
         };
-        xhr.send(that.model);
+        xhr.send(that.modeldata);
       });
     },
 
