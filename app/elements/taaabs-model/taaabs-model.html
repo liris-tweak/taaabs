@@ -8,10 +8,10 @@
     <h1 class="paper-font-display1"><span>taaabs-model</span></h1>
     <h2 class="paper-font-display2"><span>{{ktbsTraceUrl}}</span></h2>
     <paper-material elevation="2">
-    <paper-button  on-click="_RefreshModel" raised>Refresh Model</paper-button>
+      <paper-button  on-click="_RefreshModel" raised>Refresh Model</paper-button>
     </paper-material>
     <paper-material elevation="2">
-    <taaabs-display-model model="{{model}}" obsel-selector="{{obselType}}" trace="{{trace}}"> </taaabs-display-model>
+      <taaabs-display-model model="{{model}}" obsel-selector="{{obselType}}" options="{{options}}"> </taaabs-display-model>
     </paper-material>
     <paper-material elevation="2">
       <taaabs-obsel-inspector-type obsel-selector="{{obselTypeSelector}}"></taaabs-obsel-inspector-type>
@@ -47,18 +47,21 @@
         model: {
           type: Object
         },
-        trace: {
+        options: {
+          type: String
+        }
+      /*  trace: {
           type: Object,
           observer: '_tracelChanged'
-        }
+        }*/
       },
-      _tracelChanged:function (newValue){
+    /*  _tracelChanged:function (newValue){
         var that = this ;
         newValue.on('trace:model',function(){
           var modelUri = newValue.get_model(); // jshint ignore:line
           that.set('model', new Samotraces.Ktbs.Model(modelUri));
         });
-      },
+      },*/
       _encodedKtbsModelUrlChanged: function(encodedKtbsModelUrl) {
         this.set('ktbsModelUrl', decodeURIComponent(encodedKtbsModelUrl));
       },

@@ -26,14 +26,13 @@
           reflectToAttribute: true,
           notify: true
         },
-
-        trace: {
-          type: Object
+        options: {
+          type: String
         }
       },
       _modelSelChanged: function() {
         var that = this;
-        if (that.trace) {
+        /*if (that.trace) {
           that._getStylesheet(that.trace.get_uri()).then(function(stylesheet) { // jshint ignore:line
             that.options = stylesheet;
             that._attachWidget();
@@ -44,6 +43,15 @@
             that.options = stylesheet;
             that._attachWidget();
           });
+        }*/
+        if (!this.options){
+          this._getStylesheet().then(function(stylesheet) {
+            that.options = stylesheet;
+            that._attachWidget();
+          });
+        }
+        else {
+          that._attachWidget();
         }
       },
       _attachWidget: function() {
