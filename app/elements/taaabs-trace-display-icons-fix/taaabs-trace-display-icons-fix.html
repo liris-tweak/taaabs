@@ -21,63 +21,60 @@
         time: {
           type: Object,
           notify: true,
-          reflectToAttribute: true,
           observer: 'timeChanged'
         },
         timezoom: {
           type: Object,
           notify: true,
-          reflectToAttribute: true,
           observer: 'timeZoomChanged'
         },
         trace: {
           type: Object,
           notify: true,
-          reflectToAttribute: true,
           observer: 'traceChanged'
         },
         loading: {
           type: Boolean
         }
       },
-      traceChanged: function() {
-        var that = this;
-        that.set('loading', true);
-        that._detachWidget();
-
-        if (that.trace.get_uri) { // jshint ignore:line
-          that._getStylesheet(that.trace.get_uri()).then(function(stylesheet) { // jshint ignore:line
-            that.options = stylesheet;
-            that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.timezoom, that.options]);
-          });
-        }
-        else {
-          that._getStylesheet().then(function(stylesheet) {
-            that.options = stylesheet;
-            that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.timezoom, that.options]);
-          });
-        }
-        // disable the paper-spinner when the trace is fully loaded:
-        that.trace.on('trace:updateCompleted', function() {
-          that.set('loading', false);
-        });
-      },
-      timeChanged: function() {
-        this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);
-      },
-      timeZoomChanged: function() {
-        this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);
-      },
       ready: function() {
         this.WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsFix;
-        var that = this;
+        this._reloadWidget();
+      },
+      traceChanged: function() {
+        this._reloadWidget();
+      },
+      timeChanged: function() {
+        this._reloadWidget();
+      },
+      timeZoomChanged: function() {
+        this._reloadWidget();
+      },
+      _reloadWidget: function() {
+        if (this.trace && this.time && this.timezoom) {
+          var that = this;
+          
+          that.trace.list_obsels(); // jshint ignore:line
+          that.set('loading', true);
+          that._detachWidget();
 
-        this._getStylesheet().then(function (stylesheet) {
-          that.options = stylesheet;
-          if (that.trace) {
-            that.trace.list_obsels(); // jshint ignore:line
+          if (that.trace.get_uri) { // jshint ignore:line
+            that._getStylesheet(that.trace.get_uri()).then(function(stylesheet) { // jshint ignore:line
+              that.options = stylesheet;
+              that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.timezoom, that.options]);
+            });
           }
-        });
+          else {
+            that._getStylesheet().then(function(stylesheet) {
+              that.options = stylesheet;
+              that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.timezoom, that.options]);
+            });
+          }
+          // disable the paper-spinner when the trace is fully loaded:
+          that.trace.on('trace:updateCompleted', function() {
+            that.set('loading', false);
+          });  
+        }
       }
     });
   </script>

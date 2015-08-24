@@ -59,33 +59,13 @@
       },
       ready: function () {
         this.WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIcons;
-
-      //  this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
+        this._reloadWidget();
       },
       traceChanged: function() {
-        var that = this;
-        that.set('loading', true);
-        that._detachWidget();
-
-        if (that.trace.get_uri) { // jshint ignore:line
-          that._getStylesheet(that.trace.get_uri()).then(function(stylesheet) { // jshint ignore:line
-            that.options = stylesheet;
-            that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.timezoom, that.options]);
-          });
-        }
-        else {
-          that._getStylesheet().then(function(stylesheet) {
-            that.options = stylesheet;
-            that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.timezoom, that.options]);
-          });
-        }
-        // disable the paper-spinner when the trace is fully loaded:
-        that.trace.on('trace:updateCompleted', function() {
-          that.set('loading', false);
-        });
+        this._reloadWidget();
       },
       timeChanged: function() {
-        this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
+        this._reloadWidget();
       },
       observChangeHandler: function() {
         var checkboxObservObsels = this.$$('#checkbox-observ-obsels');
@@ -107,6 +87,30 @@
         var obsel = event.target.__data__;
         this.obselSelector.select(obsel);
         this.set('obselSelector._changed', !this.obselSelector._changed ); // just notify that that this.obselSelector changes his value, the this.obselSelector._changed has no meaning
+      },
+      _reloadWidget: function() {
+        if (this.trace && this.timeWindow) {
+          var that = this;
+          that.set('loading', true);
+          that._detachWidget();
+
+          if (that.trace.get_uri) { // jshint ignore:line
+            that._getStylesheet(that.trace.get_uri()).then(function(stylesheet) { // jshint ignore:line
+              that.options = stylesheet;
+              that._attachWidget(that.WidgetConstructor, [that.trace, that.timeWindow, that.options]);
+            });
+          }
+          else {
+            that._getStylesheet().then(function(stylesheet) {
+              that.options = stylesheet;
+              that._attachWidget(that.WidgetConstructor, [that.trace, that.timeWindow, that.options]);
+            });
+          }
+          // disable the paper-spinner when the trace is fully loaded:
+          that.trace.on('trace:updateCompleted', function() {
+            that.set('loading', false);
+          });
+        }
       },
     });
   </script>

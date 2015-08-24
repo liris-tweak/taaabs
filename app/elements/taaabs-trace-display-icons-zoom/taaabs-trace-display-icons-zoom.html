@@ -29,27 +29,34 @@
           observer: 'traceChanged'
         }
       },
+      ready: function() {
+        this.WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsZoom;
+        this._reloadWidget();
+      },
       timeChanged: function() {
-        var that = this;
-        var WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsZoom;
-
-        if (that.trace.get_uri) { // jshint ignore:line
-          that._getStylesheet(that.trace.get_uri()).then(function (stylesheet) { // jshint ignore:line
-            that.options = stylesheet;
-            that._attachWidget(WidgetConstructor, [that.trace, that.time, that.options]);
-          });
-        } else {
-          that._getStylesheet().then(function (stylesheet) { // jshint ignore:line
-            that.options = stylesheet;
-            that._attachWidget(WidgetConstructor, [that.trace, that.time, that.options]);
-          });
-        }
+        this._reloadWidget();
       },
       traceChanged: function() {
-        this._detachWidget();
-        var WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsZoom;
-        this._attachWidget(WidgetConstructor, [this.trace, this.time, this.options]);
+        this._reloadWidget();
       },
+      _reloadWidget: function() {
+        if (this.trace && this.time) {
+          var that = this;
+
+          this._detachWidget();
+          if (that.trace.get_uri) { // jshint ignore:line
+            that._getStylesheet(that.trace.get_uri()).then(function (stylesheet) { // jshint ignore:line
+              that.options = stylesheet;
+              that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.options]);
+            });
+          } else {
+            that._getStylesheet().then(function (stylesheet) { // jshint ignore:line
+              that.options = stylesheet;
+              that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.options]);
+            });
+          }
+        }
+      }
     });
   </script>
 </dom-module>
