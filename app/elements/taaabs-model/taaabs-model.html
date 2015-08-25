@@ -65,7 +65,9 @@
         });
       },*/
       _encodedKtbsModelUrlChanged: function(encodedKtbsModelUrl) {
-        this.set('ktbsModelUrl', decodeURIComponent(encodedKtbsModelUrl));
+        if (!!encodedKtbsModelUrl) {
+          this.set('ktbsModelUrl', decodeURIComponent(encodedKtbsModelUrl));
+        }
       },
       _ktbsModelUrlChanged: function(ktbsModelUrl) {
         this.set('model', new Samotraces.Ktbs.Model(ktbsModelUrl));

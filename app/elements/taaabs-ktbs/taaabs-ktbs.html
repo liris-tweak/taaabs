@@ -54,8 +54,10 @@
         // the TaaabsBehaviors.LazyLoading has exposed this.widgetObject as the Samotraces Widget instance, we can use it
         this.widgetObject.on('ListBase', this._listBaseCallback.bind(this));
       },
-      _encodedKtbsUrlChanged: function(url) {
-        this.set('ktbsUrl', decodeURIComponent(url));
+      _encodedKtbsUrlChanged: function(encodedKtbsUrl) {
+        if (!!encodedKtbsUrl) {
+          this.set('ktbsUrl', decodeURIComponent(encodedKtbsUrl));
+        }
       }
     });
   </script>

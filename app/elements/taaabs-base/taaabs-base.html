@@ -44,8 +44,10 @@
         listModelwidget.on('ListModel', this._listModel.bind(this));
       },
       _encodedKtbsBaseUrlChanged: function(encodedKtbsBaseUrl) {
-        var decodedKtbsBaseUrl = decodeURIComponent(encodedKtbsBaseUrl); // TODO use _decodeKtbsBaseUrl
-        this.set('ktbsBaseUrl', decodedKtbsBaseUrl);
+        if (!!encodedKtbsBaseUrl) {
+          var decodedKtbsBaseUrl = decodeURIComponent(encodedKtbsBaseUrl); // TODO use _decodeKtbsBaseUrl
+          this.set('ktbsBaseUrl', decodedKtbsBaseUrl);
+        }
       },
       _ktbsBaseUrlChanged: function(ktbsBaseUrl) {
         this.set('base', new Samotraces.Ktbs.Base(ktbsBaseUrl));
