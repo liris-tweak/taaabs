@@ -1,3 +1,4 @@
+<link rel="import" href="../../behaviors/taaabs-stylesheet.html">
 
 <dom-module id="taaabs-local-trace">
   <style>
@@ -15,6 +16,9 @@
 
     Polymer({
       is: 'taaabs-local-trace',
+      behaviors: [
+        TaaabsBehaviors.Stylesheet
+      ],
       properties: {
         timewindow: {
           type: Object,
@@ -30,6 +34,7 @@
           type: Object,
           notify: true,
           reflectToAttribute: true,
+          observer: '_tracelChanged'
         },
         obselselector: {
           type: Object,
@@ -44,6 +49,10 @@
         loading: {
           type: Boolean,
           notify: true
+        },
+        options: {
+          type: String,
+          notify: true
         }
       },
       ready: function() {
@@ -52,7 +61,7 @@
 
         this.trace.on('beforLoadFile', (function(){
           this.timewindow = new Samotraces.TimeWindow({start: 0, end: 0});
-          this.timewindowzoom = new Samotraces.TimeWindow({start: 0, end: 20});
+          //this.timewindowzoom = new Samotraces.TimeWindow({start: 0, end: 20});
           this.set('loading', true);
         }).bind(this));
 
@@ -62,9 +71,19 @@
 
         this.trace.on('LastObselLocal', (function(e){
           this.timewindow.set_end(e.data.begin); // jshint ignore:line
+          this.timewindowzoom = new Samotraces.TimeWindow({start: e.data.begin-2, end: e.data.begin});
           this.set('loading', false);
         }).bind(this));
+      },
+      _tracelChanged: function(){
+        var that = this;
+        that._getStylesheet().then(function(stylesheet) { // jshint ignore:line
+          console.log ("options in taabs trace local", stylesheet);
+          that.set('options', stylesheet);
+        });
+          that.trace.list_obsels();
       }
+
     });
   </script>
 </dom-module>

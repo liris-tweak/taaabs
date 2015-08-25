@@ -38,7 +38,7 @@
         options: {
           type: String,
           notify: true,
-          reflectToAttribute: true
+
         },
         origin: String,
         type: String,
@@ -52,13 +52,6 @@
         this.set('time', new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()}));
       },
       _traceselChanged: function(newValue) {
-        var that = this;
-        // just for local trace
-        if (!this.options){
-          this._getStylesheet().then(function(stylesheet) {
-            that.options = stylesheet;
-           });
-        }
         newValue.on('trace:updateData', this._onUpdateData.bind(this, newValue));
       },
       _timeChanged : function () {

@@ -37,6 +37,11 @@
             type: Object,
             notify: true,
             observer: 'traceChanged'
+          },
+          options: {
+            type: String,
+            notify: true,
+            reflectToAttribute: true
           }
         },
         traceChanged: function(newValue) {

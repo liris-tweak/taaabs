@@ -288,14 +288,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 </paper-material>
 
 
-              </section>
+              </section-->
 
               <section data-route="local-trace">
                 <paper-material elevation="1">
                   <h2 class="paper-font-display2">local trace</h2>
                 </paper-material>
                 <paper-material elevation="1">
-                  <taaabs-local-trace trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}" timewindowzoom="{{localTimeWindowsZoom1}}" obselselector="{{localObselSelector1}}" loading="{{localTraceLoading}}">
+                  <taaabs-local-trace trace="{{localTrace1}}" timewindow="{{localTimeWindow1}}" timewindowzoom="{{localTimeWindowsZoom1}}" obselselector="{{localObselSelector1}}" loading="{{localTraceLoading}}" options="{{options}}">
                     <taaabs-import-trace trace="{{localTrace1}}">
                     </taaabs-import-trace>
 
@@ -306,24 +306,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <iron-pages selected="{{localSelected}}">
                       <!-- Display Icons: -->
                       <paper-material elevation="2">
-                      <taaabs-trace-fix trace="{{localTrace1}}" time="{{localTimeWindow1}}" options="{{options}}">
-                        <paper-material elevation="2">
-                          <taaabs-trace-display-icons page-num="0" selected="{{localSelected}}" time-window="{{localTimeWindow1}}" trace="{{localTrace1}}" obsel-selector="{{localObselSelector1}}" options="{{options}}" loading="{{localTraceLoading}}"> </taaabs-trace-display-icons>
-                          <taaabs-window-scale page-num=0 selected="{{localSelected}}" timewindow="{{localTimeWindow1}}"></taaabs-window-scale>
-                        </paper-material>
-                        <paper-material elevation="2">
-                          <taaabs-obsel-inspector obsel-selector="{{localObselSelector1}}"></taaabs-obsel-inspector>
-                        </paper-material>
-                      </taaabs-trace-fix>
+                            <taaabs-trace-fix trace="{{localTrace1}}" time="{{localTimeWindow1}}" options="{{options}}">
+                                  <paper-material elevation="2">
+                                    <taaabs-trace-display-icons page-num="0" selected="{{localSelected}}" time-window="{{localTimeWindow1}}" trace="{{localTrace1}}" obsel-selector="{{localObselSelector1}}" options="{{options}}" loading="{{localTraceLoading}}"> </taaabs-trace-display-icons>
+                                    <taaabs-window-scale page-num=0 selected="{{localSelected}}" timewindow="{{localTimeWindow1}}"></taaabs-window-scale>
+                                  </paper-material>
+                                  <paper-material elevation="2">
+                                    <taaabs-obsel-inspector obsel-selector="{{localObselSelector1}}"></taaabs-obsel-inspector>
+                                  </paper-material>
+                            </taaabs-trace-fix>
                         </paper-material>
                       <!--paper-material elevation="2">
                         <taaabs-trace-display-icons page-num=0 selected="{{localSelected}}" trace="{{localTrace1}}" time-window="{{localTimeWindow1}}" obselselector="{{localObselSelector1}}" loading="{{localTraceLoading}}">
                         </taaabs-trace-display-icons>
                         <taaabs-window-scale page-num=0 selected="{{localSelected}}" timewindow="{{localTimeWindow1}}"></taaabs-window-scale>
                       </paper-material-->
-                      <!-- Display Icons Zoom: -->
+                      <!--Display Icons Zoom:-->
                       <paper-material elevation="2">
-                        <taaabs-samotraceme trace="{{localTrace1}}" time="{{localTimeWindow1}}" timezoom="{{twzoom}}" options="{{options}}">
+                        <taaabs-samotraceme trace="{{localTrace1}}" time="{{localTimeWindow1}}" timezoom="{{localTimeWindowsZoom1}}" options="{{options}}">
                           <taaabs-trace-display-icons-fix page-num=1 selected="{{localSelected}}" trace="{{localTrace1}}" time="{{localTimeWindow1}}" timezoom="{{localTimeWindowsZoom1}}" loading="{{localTraceLoading}}" options="{{options}}"></taaabs-trace-display-icons-fix>
                           <taaabs-window-scale-fix page-num=1 selected="{{localSelected}}" time="{{localTimeWindow1}}"></taaabs-window-scale-fix>
                           <taaabs-trace-display-icons-zoom page-num=1 selected="{{localSelected}}" trace="{{localTrace1}}" time="{{localTimeWindowsZoom1}}" options="{{options}}"></taaabs-trace-display-icons-zoom>

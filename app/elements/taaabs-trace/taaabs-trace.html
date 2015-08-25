@@ -69,8 +69,7 @@
           },
           options: {
             type: String,
-            notify: true,
-            reflectToAttribute: true
+            notify:true
           },
           outterSelected: {
             type: Number,
@@ -93,8 +92,11 @@
           });
           //options stylesheet
           that._getStylesheet(that.trace.get_uri()).then(function(stylesheet) { // jshint ignore:line
+            console.log ("options in taabs trace", stylesheet);
             that.set('options', stylesheet);
           });
+
+            that.trace.list_obsels();
         }
 
       });

@@ -43,7 +43,7 @@
         this._reloadWidget();
       },
       traceChanged: function() {
-        this._reloadWidget();
+        //this._reloadWidget();
       },
       timeChanged: function() {
         this._reloadWidget();
@@ -57,8 +57,7 @@
       _reloadWidget: function() {
         if (this.trace && this.time && this.timezoom) {
           var that = this;
-
-          that.trace.list_obsels(); // jshint ignore:line
+          //that.trace.list_obsels(); // jshint ignore:line
           that.set('loading', true);
           that._detachWidget();
           that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.timezoom, that.options]);

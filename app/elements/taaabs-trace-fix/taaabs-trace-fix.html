@@ -46,18 +46,11 @@
         this.time = new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()});
       },
       _traceselChanged: function(newValue) {
-        var that = this;
-        // just for local trace
-        if (!this.options){
-          this._getStylesheet().then(function(stylesheet) {
-            that.options = stylesheet;
-           });
-        }
-
         newValue.on('trace:updateData', this._traceUpdateData.bind(this, newValue));
       },
       _timeChanged : function () {
         var that = this;
+        console.log ("options in tracefix time changed",this.options);
         if (!this.options){
           this._getStylesheet().then(function(stylesheet) {
             that.options = stylesheet;
