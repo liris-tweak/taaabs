@@ -1,3 +1,5 @@
+<link rel="import" href="../../behaviors/taaabs-stylesheet.html">
+
 <dom-module id="taaabs-trace">
   <style>
     :host {
@@ -16,17 +18,26 @@
     </paper-tabs>
     <iron-pages selected="{{outterSelected}}">
       <paper-material elevation="2" class="trace-visualization">
-        <taaabs-trace-visualization 
+        <taaabs-trace-visualization
           selected="{{outterSelected}}"
-          trace="{{trace}}">
+          trace="{{trace}}"
+          options="{{options}}">
         </taaabs-trace-visualization>
       </paper-material>
       <paper-material elevation="2" class="Model Visualization">
-          <taaabs-model trace="{{trace}}"></taaabs-model>
+          <taaabs-model
+            trace="{{trace}}"
+            options="{{options}}"
+            model="{{model}}">
+          </taaabs-model>
       </paper-material>
       <paper-material elevation="2"></paper-material>
       <paper-material elevation="2">
-        <taabs-stylesheet trace="{{trace}}"> </taabs-stylesheet>
+        <taabs-stylesheet
+            trace="{{trace}}"
+            options="{{options}}"
+            model="{{model}}">
+        </taabs-stylesheet>
       </paper-material>
     </iron-pages>
   </template>
@@ -37,6 +48,9 @@
 
       Polymer({
         is: 'taaabs-trace',
+        behaviors: [
+          TaaabsBehaviors.Stylesheet
+        ],
         properties: {
           encodedKtbsTraceUrl: {
             type: String,
@@ -47,7 +61,15 @@
             observer: '_ktbsTraceUrlChanged'
           },
           trace: {
+            type: Object,
+            observer: '_tracelChanged'
+          },
+          model: {
             type: Object
+          },
+          options: {
+            type: String,
+            notify:true
           },
           outterSelected: {
             type: Number,
@@ -58,8 +80,22 @@
           this.set('ktbsTraceUrl', decodeURIComponent(encodedKtbsTraceUrl));
         },
         _ktbsTraceUrlChanged: function(ktbsTraceUrl) {
+          // objetTrace
           this.set('trace', new Samotraces.Ktbs.Trace(ktbsTraceUrl));
         },
+        _tracelChanged:function (newValue){
+          var that = this ;
+          //Objet model
+          newValue.on('trace:model',function(){
+            var modelUri = newValue.get_model(); // jshint ignore:line
+            that.set('model', new Samotraces.Ktbs.Model(modelUri));
+          });
+          //options stylesheet
+          that._getStylesheet(that.trace.get_uri()).then(function(stylesheet) { // jshint ignore:line
+            that.set('options', stylesheet);
+          });
+            that.trace.list_obsels();
+        }
 
       });
     })();

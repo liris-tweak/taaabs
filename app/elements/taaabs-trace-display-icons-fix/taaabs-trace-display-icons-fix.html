@@ -1,5 +1,4 @@
 <link rel="import" href="../../behaviors/taaabs-lazy-loading.html">
-<link rel="import" href="../../behaviors/taaabs-stylesheet.html">
 
 
 <dom-module id="taaabs-trace-display-icons-fix">
@@ -13,9 +12,7 @@
     Polymer({
       is: 'taaabs-trace-display-icons-fix',
       behaviors: [
-        TaaabsBehaviors.LazyLoading,
-        TaaabsBehaviors.Stylesheet
-
+        TaaabsBehaviors.LazyLoading
       ],
       properties: {
         time: {
@@ -35,6 +32,10 @@
         },
         loading: {
           type: Boolean
+        },
+        options: {
+          type: String,
+          observer: 'optionsChanged'
         }
       },
       ready: function() {
@@ -42,7 +43,7 @@
         this._reloadWidget();
       },
       traceChanged: function() {
-        this._reloadWidget();
+        //this._reloadWidget();
       },
       timeChanged: function() {
         this._reloadWidget();
@@ -50,18 +51,23 @@
       timeZoomChanged: function() {
         this._reloadWidget();
       },
+      optionsChanged:function(){
+        if (this.trace && this.time && this.timezoom) {
+          this._detachWidget();
+          this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);
+        }
+      },
       _reloadWidget: function() {
         if (this.trace && this.time && this.timezoom) {
           var that = this;
-          
-          that.trace.list_obsels(); // jshint ignore:line
+          //that.trace.list_obsels(); // jshint ignore:line
           that.set('loading', true);
           that._detachWidget();
+          that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.timezoom, that.options]);
 
-          if (that.trace.get_uri) { // jshint ignore:line
+          /*if (that.trace.get_uri) { // jshint ignore:line
             that._getStylesheet(that.trace.get_uri()).then(function(stylesheet) { // jshint ignore:line
               that.options = stylesheet;
-              that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.timezoom, that.options]);
             });
           }
           else {
@@ -69,11 +75,11 @@
               that.options = stylesheet;
               that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.timezoom, that.options]);
             });
-          }
+          }*/
           // disable the paper-spinner when the trace is fully loaded:
           that.trace.on('trace:updateCompleted', function() {
             that.set('loading', false);
-          });  
+          });
         }
       }
     });

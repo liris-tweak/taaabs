@@ -1,3 +1,4 @@
+<link rel="import" href="../../behaviors/taaabs-stylesheet.html">
 
 <dom-module id="taaabs-samotraceme">
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
@@ -15,6 +16,9 @@
 
     Polymer({
       is: 'taaabs-samotraceme',
+      behaviors: [
+        TaaabsBehaviors.Stylesheet
+      ],
       properties: {
         trace: {
           type: Object,
@@ -23,11 +27,18 @@
         },
         time: {
           type: Object,
-          notify: true
+          notify: true,
+          reflectToAttribute: true,
+          observer:'_timeChanged'
         },
         timezoom: {
           type: Object,
           notify: true,
+        },
+        options: {
+          type: String,
+          notify: true,
+
         },
         origin: String,
         type: String,
@@ -42,6 +53,14 @@
       },
       _traceselChanged: function(newValue) {
         newValue.on('trace:updateData', this._onUpdateData.bind(this, newValue));
+      },
+      _timeChanged : function () {
+        var that = this;
+        if (!this.options){
+          this._getStylesheet().then(function(stylesheet) {
+            that.options = stylesheet;
+           });
+        }
       }
     });
   </script>

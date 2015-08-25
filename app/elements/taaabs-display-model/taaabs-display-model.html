@@ -1,7 +1,7 @@
 <link rel="import" href="../../behaviors/taaabs-stylesheet.html">
 
 <dom-module id="taaabs-display-model">
-
+<link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
   <template>
     <h2> Show Model </h2>
     <div id="modeldiv"></div>
@@ -26,31 +26,36 @@
           reflectToAttribute: true,
           notify: true
         },
-
-        trace: {
-          type: Object
+        options: {
+          type: String,
+          notify: true,
+          observer: '_optionsChanged'
         }
       },
       _modelSelChanged: function() {
         var that = this;
-        if (that.trace) {
-          that._getStylesheet(that.trace.get_uri()).then(function(stylesheet) { // jshint ignore:line
+        if (!this.options){
+          this._getStylesheet().then(function(stylesheet) {
             that.options = stylesheet;
             that._attachWidget();
           });
         }
         else {
-          that._getStylesheet().then(function(stylesheet) {
-            that.options = stylesheet;
-            that._attachWidget();
-          });
+          that._attachWidget();
         }
       },
+      _optionsChanged: function(){
+
+          this._attachWidget();
+      },
       _attachWidget: function() {
+        if (this.model && this.options) {
+        this.$$('#modeldiv').innerHTML="";
         new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'), this.model, this.options);
         this.model.on('Model:listeType', (function(){
-          setTimeout(this.observObselsType.bind(this), 2000); // TODO check if this bind(this) is useless ? 
+          setTimeout(this.observObselsType.bind(this), 2000); // TODO check if this bind(this) is useless ?
         }).bind(this));
+        }
       },
       observObselsType: function() {
         // this is a NodeList, not an Array, so no forEach

@@ -130,12 +130,12 @@ for functional filtering, uniq... -->
         });
       //}).bind(this));
 
-    },
+    }
 
     /**
      * Perform an HTTP DELETE on the `this.modelUrl` ressource
      */
-    deleteModel: function() {
+    /*deleteModel: function() {
       var that = this;
       return new Promise(function(resolve, reject) {
         var xhr = new XMLHttpRequest();
@@ -187,7 +187,7 @@ for functional filtering, uniq... -->
     /**
      * Perform an HTTP POST on the `this.baseUrl` ressource
      */
-    _postModel: function() {
+    /*_postModel: function() {
       // KTBS only accept an empty model on POST
       var emptyModel = {
         '@context': 'http://liris.cnrs.fr/silex/2011/ktbs-jsonld-context',
@@ -274,7 +274,7 @@ for functional filtering, uniq... -->
      * @return {Object} an Object holding informations about base url
      * and trace name, in both case if the URL finish by `/` or not.
      */
-    _traceUriParser: function(traceUri) {
+    /*_traceUriParser: function(traceUri) {
       var traceUriArray = traceUri.split('/');
       var baseUrl = '';
       var traceName = '';
@@ -292,6 +292,6 @@ for functional filtering, uniq... -->
         'baseUrl': baseUrl.join('/') + '/',
         'traceName': traceName
       };
-    }
+    }*/
   };
 </script>

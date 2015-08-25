@@ -1,5 +1,4 @@
 <link rel="import" href="../../behaviors/taaabs-lazy-loading.html">
-<link rel="import" href="../../behaviors/taaabs-stylesheet.html">
 
 <dom-module id="taaabs-trace-display-icons-zoom">
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
@@ -14,14 +13,17 @@
     Polymer({
       is: 'taaabs-trace-display-icons-zoom',
       behaviors: [
-        TaaabsBehaviors.LazyLoading,
-        TaaabsBehaviors.Stylesheet
+        TaaabsBehaviors.LazyLoading
       ],
       properties: {
         time: {
           type: Object,
           notify: true,
           observer: 'timeChanged'
+        },
+        options: {
+          type: String,
+          observer: 'optionsChanged'
         },
         trace: {
           type: Object,
@@ -33,18 +35,23 @@
         this.WidgetConstructor = Samotraces.Ui.Widgets.TraceDisplayIconsZoom;
         this._reloadWidget();
       },
-      timeChanged: function() {
+      timeChanged: function(newvalue) {
         this._reloadWidget();
       },
       traceChanged: function() {
         this._reloadWidget();
       },
+      optionsChanged:function(){
+        if (this.trace && this.time) {
+          this._detachWidget();
+          this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.options]);
+      }
+      },
       _reloadWidget: function() {
         if (this.trace && this.time) {
-          var that = this;
-
           this._detachWidget();
-          if (that.trace.get_uri) { // jshint ignore:line
+          this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.options]);
+          /*if (that.trace.get_uri) { // jshint ignore:line
             that._getStylesheet(that.trace.get_uri()).then(function (stylesheet) { // jshint ignore:line
               that.options = stylesheet;
               that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.options]);
@@ -54,7 +61,7 @@
               that.options = stylesheet;
               that._attachWidget(that.WidgetConstructor, [that.trace, that.time, that.options]);
             });
-          }
+          }*/
         }
       }
     });

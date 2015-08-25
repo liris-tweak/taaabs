@@ -1,3 +1,4 @@
+<link rel="import" href="../../behaviors/taaabs-stylesheet.html">
 
 <dom-module id="taaabs-trace-fix">
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
@@ -16,6 +17,9 @@
 
     Polymer({
       is: 'taaabs-trace-fix',
+      behaviors: [
+        TaaabsBehaviors.Stylesheet
+      ],
       properties: {
         trace: {
           type: Object,
@@ -27,7 +31,13 @@
           type: Object,
           notify: true,
           reflectToAttribute: true,
-        }
+          observer:'_timeChanged'
+        },
+        options: {
+          type: String,
+          notify: true
+
+        },
       },
       _traceUpdateData: function(newValue) {
         this.$.origin.appendChild (document.createTextNode('Origin : '+this.trace.origin));
@@ -37,6 +47,15 @@
       },
       _traceselChanged: function(newValue) {
         newValue.on('trace:updateData', this._traceUpdateData.bind(this, newValue));
+      },
+      _timeChanged : function () {
+        var that = this;
+        console.log ("options in tracefix time changed",this.options);
+        if (!this.options){
+          this._getStylesheet().then(function(stylesheet) {
+            that.options = stylesheet;
+           });
+        }
       }
     });
   </script>
