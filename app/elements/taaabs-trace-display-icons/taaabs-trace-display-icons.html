@@ -47,7 +47,8 @@
           observer: 'traceChanged'
         },
         options: {
-          type: String
+          type: String,
+          observer: 'optionsChanged'
         },
         obselSelector: {
           type: Object,
@@ -67,6 +68,12 @@
       },
       timeChanged: function() {
         this._reloadWidget();
+      },
+      optionsChanged:function(){
+        if (this.trace && this.timeWindow) {
+        this._detachWidget();
+        this._attachWidget(this.WidgetConstructor, [this.trace, this.timeWindow, this.options]);
+      }
       },
       observChangeHandler: function() {
         var checkboxObservObsels = this.$$('#checkbox-observ-obsels');

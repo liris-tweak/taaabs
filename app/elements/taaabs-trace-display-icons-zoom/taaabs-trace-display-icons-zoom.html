@@ -21,6 +21,10 @@
           notify: true,
           observer: 'timeChanged'
         },
+        options: {
+          type: String,
+          observer: 'optionsChanged'
+        },
         trace: {
           type: Object,
           notify: true,
@@ -37,9 +41,14 @@
       traceChanged: function() {
         this._reloadWidget();
       },
+      optionsChanged:function(){
+        if (this.trace && this.time) {
+          this._detachWidget();
+          this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.options]);
+      }
+      },
       _reloadWidget: function() {
         if (this.trace && this.time) {
-
           this._detachWidget();
           this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.options]);
           /*if (that.trace.get_uri) { // jshint ignore:line

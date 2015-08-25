@@ -52,7 +52,10 @@
         this._reloadWidget();
       },
       optionsChanged:function(){
-        this._reloadWidget();
+        if (this.trace && this.time && this.timezoom) {
+          this._detachWidget();
+          this._attachWidget(this.WidgetConstructor, [this.trace, this.time, this.timezoom, this.options]);
+        }
       },
       _reloadWidget: function() {
         if (this.trace && this.time && this.timezoom) {
