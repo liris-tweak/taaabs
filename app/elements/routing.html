@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<script src='../../bower_components/qs/dist/qs.min.js'></script>
+<script src="../../bower_components/qs/dist/qs.min.js"></script>
 <script src="../../bower_components/page/page.js"></script>
 <script>
   /* global QS */
@@ -25,42 +25,64 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.route = 'remoteresources';
     });
 
-    page('/ktbs', function (ctx) {
+    var statefulRouting = function(ctx) {
+      // ctx must contains the following two informations:
+      // ctx.urlType = 'ktbsUrl|ktbsBaseUrl|ktbsTraceUrl'
+      // ctx.route = 'ktbs|ktbs-base|ktbs-trace'
+      var urlType = ctx.urlType;
+      var route = ctx.route;
+
+
+      // Get the requested URL in the Query String
       // get the 'url' field in the querystring (note the url field below)
       // http://localhost:5000/#!/ktbs/?url=https%3A%2F%2Fwww.example.co/ktbs/
       //                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      var urlFromQS = QS(ctx.path).get('url');
 
-      app.params = {'ktbsUrl': QS(ctx.path).get('url')};
-      app.route = 'ktbs';
-    });
+      // Get the last accessed URL in the Session Storage
+      var urlFromSS = sessionStorage.getItem(urlType);
 
-    page('/ktbs-base', function (ctx) {
-      app.params = {'ktbsBaseUrl': QS(ctx.path).get('url')};
-      app.route = 'ktbs-base';
-    });
+      var appParams = {};
+      if (!!urlFromQS) {
+        // if the QueryString contains an URL
+        sessionStorage.setItem(urlType, urlFromQS);
 
-    page('/ktbs-trace', function (ctx) {
-      app.params = {'ktbsTraceUrl': QS(ctx.path).get('url')};
-      app.route = 'ktbs-trace';
-    });
+        appParams[urlType] = urlFromQS;
+        app.params = appParams;
+        app.route = route;
+      } else if (!!urlFromSS) {
+        // If we have already stored a KTBS URL
+        appParams[urlType] = urlFromSS;
+        app.params = appParams;
+        app.route = route;
+      } else {
+        app.route = window.history.state.path.replace('/', '');
+      }
+    };
 
-    page('/ktbs-model', function (ctx) {
-      app.params = {'ktbsModelUrl': QS(ctx.path).get('url')};
-      app.route = 'ktbs-model';
-    });
+    page('/ktbs', function (ctx, next) {
+      ctx.urlType = 'ktbsUrl';
+      ctx.route = 'ktbs';
+      next();
+    }, statefulRouting);
 
-    page('/users', function () {
-      app.route = 'users';
-    });
+    page('/ktbs-base', function (ctx, next) {
+      ctx.urlType = 'ktbsBaseUrl';
+      ctx.route = 'ktbs-base';
+      next();
+    }, statefulRouting);
 
-    page('/users/:name', function (data) {
-      app.route = 'user-info';
-      app.params = data.params;
-    });
+    page('/ktbs-trace', function (ctx, next) {
+      ctx.urlType = 'ktbsTraceUrl';
+      ctx.route = 'ktbs-trace';
+      next();
+    }, statefulRouting);
 
-    page('/contact', function () {
-      app.route = 'contact';
-    });
+    page('/ktbs-model', function (ctx, next) {
+      ctx.urlType = 'ktbsModelUrl';
+      ctx.route = 'ktbs-model';
+      next();
+    }, statefulRouting);
 
     page('/hellotaaabs', function () {
       app.route = 'hello-taaabs';
