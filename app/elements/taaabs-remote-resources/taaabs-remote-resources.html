@@ -1,17 +1,31 @@
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../../bower_components/jsonld/js/jsonld.js"></script>
+
 <dom-module id="taaabs-remote-ressources">
   <style>
     :host {
       display: block;
     }
+    paper-button {
+      background: #4285F4;
+      color: #FFF;
+    }
   </style>
   <template>
-    <h1 class="paper-font-display1"><span>Hello StatelessCat</span></h1>
-    <paper-input label="localRoute" auto-validate pattern="/[a-zA-Z]*/" char-counter value="{{localRoute}}" error-message="/<localRoute>/ please"></paper-input>
-    <paper-input label="route params" auto-validate char-counter type="url" value="{{remoteUrl}}" error-message="Valid URL please"></paper-input>
-    <a href="{{encodedLink}}">{{encodedLink}}</a>
+    <h1 class="paper-font-display1"><span>Remote Resource Connect</span></h1>
+    <form is="iron-form" id="form" method="post" action="/form/handler">
+      <paper-input id="url-input" label="{{resourceType}}" char-counter type="url" value="{{remoteUrl}}" error-message="Valid URL please"></paper-input>
+      <paper-badge for="btn" label="{{resourceType}}"></paper-badge>
+      <div>
+      <a href="{{encodedLink}}" class="inherit">
+        <paper-button id="btn" raised>Connect</paper-button>
+      </a>
+    </div>
+    </form>
   </template>
 
   <script>
+    /* global Polymer, $, jsonld */
     (function () {
       Polymer({
         is: 'taaabs-remote-ressources',
@@ -22,15 +36,62 @@
           },
           remoteUrl: {
             type: String,
-            value: 'http://localhost:8001/'
+            value: 'http://localhost:8001/',
+            observer: '_remoteUrlChanged'
           },
           encodedLink: {
             type: String,
             computed: 'computeEncodedLink(localRoute, remoteUrl)'
+          },
+          resourceType: {
+            type: String,
+            computed: 'computedResourceType(localRoute)'
           }
+        },
+        _remoteUrlChanged: function(remoteUrl) {
+          var that = this;
+
+          $.ajax({
+            url: remoteUrl,
+            headers: {
+              'Accept': 'application/ld+json'
+            }
+          }).then(function (resource) {
+            var frame = {
+              '@id': remoteUrl
+            };
+            jsonld.frame(resource, frame, function(err, framed) {
+              var graph = framed['@graph'];
+
+              // TODO UNSAFE ??, Ask @pchampin about this
+              if ((graph.length === 1) && (!!graph[0]['@type'])) {
+                var type = graph[0]['@type'].replace(/.*#/, '');
+                var cases = {
+                  'KtbsRoot': '/ktbs/',
+                  'Base': '/ktbs-base/',
+                  'StoredTrace': '/ktbs-trace/',
+                  'ComputedTrace': '/ktbs-trace/',
+                  'TraceModel': '/ktbs-model/',
+                };
+                that.set('localRoute', cases[type]);
+                Polymer.dom(that.root).querySelector('#url-input').invalid = false;
+              } else {
+                console.log('Something bad happens on the received ld+json document');
+                Polymer.dom(that.root).querySelector('#url-input').invalid = true;
+              }
+            });
+          }).fail(function () {
+            Polymer.dom(that.root).querySelector('#url-input').invalid = true;
+          });
         },
         computeEncodedLink: function(localRoute, remoteUrl) {
           return localRoute + '\?url=' + encodeURIComponent(remoteUrl);
+        },
+        computedResourceType: function(localRoute) {
+          // '/ktbs-trace/' -----> 'trace'
+          // '/ktbs-base/' -----> 'base'
+          // '/ktbs/' -----> 'ktbs'
+          return localRoute.replace(/\//g, '').replace(/.*\-/, '');
         }
       });
     })();
