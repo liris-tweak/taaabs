@@ -60,7 +60,7 @@
       },
       observObselsType: function() {
         // this is a NodeList, not an Array, so no forEach
-        var obselsNodeList = this.shadowRoot.querySelectorAll('.Samotraces-obsel');
+        var obselsNodeList = Polymer.dom(this.root).querySelectorAll('.Samotraces-obsel');
         // forall obsel Node, attach a click handler
         for (var i = 0; i < obselsNodeList.length; i++) {
           var obsel = obselsNodeList[i];
