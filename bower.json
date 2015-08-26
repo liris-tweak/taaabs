@@ -35,7 +35,7 @@
     "platinum-elements": "PolymerElements/platinum-elements#1.0.1",
     "polymer": "Polymer/polymer#1.1.1",
     "qs": "~0.3.9",
-    "samotracesjs": "https://github.com/liris-tweak/samotraces.js.git#0.15.0",
+    "samotracesjs": "https://github.com/liris-tweak/samotraces.js.git#0.17.0",
     "underscore": "~1.8.3"
   },
   "devDependencies": {
