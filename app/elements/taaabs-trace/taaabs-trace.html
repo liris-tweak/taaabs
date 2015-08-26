@@ -9,7 +9,9 @@
   <template>
     <h1 class="paper-font-display1"><span>taaabs-trace</span></h1>
     <h2 class="paper-font-display2"><span>{{ktbsTraceUrl}}</span></h2>
-
+    <paper-material elevation="2">
+      <paper-button  on-click="_RefreshTrace" raised>Refresh Trace</paper-button>
+    </paper-material>
     <paper-tabs selected="{{outterSelected}}">
       <paper-tab>Trace Visualization</paper-tab>
       <paper-tab>Model Visualization</paper-tab>
@@ -98,6 +100,15 @@
             that.set('options', stylesheet);
           });
             that.trace.list_obsels(); // jshint ignore:line
+        },
+        _RefreshTrace:function (){
+          var beginLastObsel = this.trace.get_Last_obsel().begin - new Date (this.trace.get_origin()).getTime()
+          this.trace.list_obsels(beginLastObsel);
+          var that = this;
+          this.trace.on('trace:updateT',function(){
+            that.set('trace', that.trace);
+          });
+
         }
 
       });
