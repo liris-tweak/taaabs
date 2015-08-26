@@ -64,13 +64,12 @@
           baseButton[i].onclick = this._clickModel.bind(this);
         }
       },
-      _clickTrace: function(event) {
-        var traceURL = this.base.id + event.target.innerHTML.replace('./', '');
+      _clickTrace: function(evt) {
+        var traceURL = this.base.id + evt.target.innerHTML.replace('./', '');
         page('/ktbs-trace/?url=' + encodeURIComponent(traceURL));
       },
-      _clickModel: function() {
-        // TODO doing what here ?
-        var modelURL = this.base.id + event.target.innerHTML.replace('./', '');
+      _clickModel: function(evt) {
+        var modelURL = this.base.id + evt.target.innerHTML.replace('./', '');
         page('/ktbs-model/?url=' + encodeURIComponent(modelURL));
       },
       _attachWidgets: function() {
