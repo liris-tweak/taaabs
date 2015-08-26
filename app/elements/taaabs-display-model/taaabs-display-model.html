@@ -45,18 +45,18 @@
         }
       },
       _optionsChanged: function(){
-
+          if (this.model && this.options) {
           this._attachWidget();
           this.observObselsType();
+        }
       },
       _attachWidget: function() {
-        if (this.model && this.options) {
+
         this.$$('#modeldiv').innerHTML="";
         new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'), this.model, this.options);
         this.model.on('Model:listeType', (function(){
           setTimeout(this.observObselsType.bind(this), 2000); // TODO check if this bind(this) is useless ?
         }).bind(this));
-        }
       },
       observObselsType: function() {
         // this is a NodeList, not an Array, so no forEach

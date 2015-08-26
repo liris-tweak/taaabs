@@ -36,6 +36,10 @@
           trace: {
             type: Object,
             notify: true,
+          },
+          model: {
+            type: Object,
+            notify: true,
             observer: 'traceChanged'
           },
           options: {
@@ -46,8 +50,9 @@
         },
         traceChanged: function(newValue) {
           var that = this ;
-          newValue.on('trace:model',function() {
-            var model = new Samotraces.Ktbs.Model(newValue.get_model()); // jshint ignore:line
+        //  newValue.on('trace:model',function() {
+          //  var model = new Samotraces.Ktbs.Model(newValue.get_model()); // jshint ignore:line
+          var model = this.model;
             model.on('Model:listeType', function(e) {
               var arrayObselTypes = e.data;
               var stylesheet = that.options;
@@ -68,7 +73,7 @@
                 }
             //  });
             });
-          });
+          //});
        },
       _Submit: function () {
           var objStyle = {};
