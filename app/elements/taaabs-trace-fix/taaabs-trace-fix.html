@@ -13,7 +13,7 @@
   </template>
 
   <script>
-    /* global Polymer, Samotraces */
+    /* global Polymer, Samotraces, TaaabsBehaviors */
 
     Polymer({
       is: 'taaabs-trace-fix',
@@ -50,7 +50,6 @@
       },
       _timeChanged : function () {
         var that = this;
-        console.log ("options in tracefix time changed",this.options);
         if (!this.options){
           this._getStylesheet().then(function(stylesheet) {
             that.options = stylesheet;

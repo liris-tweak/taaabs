@@ -52,7 +52,7 @@
       },
       _attachWidget: function() {
 
-        this.$$('#modeldiv').innerHTML="";
+        this.$$('#modeldiv').innerHTML='';
         new Samotraces.Ui.Widgets.DisplayModel (this.$$('#modeldiv'), this.model, this.options);
         this.model.on('Model:listeType', (function(){
           setTimeout(this.observObselsType.bind(this), 2000); // TODO check if this bind(this) is useless ?

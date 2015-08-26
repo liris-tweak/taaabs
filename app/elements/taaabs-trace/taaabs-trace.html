@@ -44,7 +44,7 @@
 
   <script>
     (function () {
-      /* global Polymer, Samotraces */
+      /* global Polymer, Samotraces, TaaabsBehaviors */
 
       Polymer({
         is: 'taaabs-trace',
@@ -79,7 +79,7 @@
         },
         _encodedKtbsTraceUrlChanged: function(encodedKtbsTraceUrl) {
           if (!!encodedKtbsTraceUrl) {
-            this.set('ktbsTraceUrl', decodeURIComponent(encodedKtbsTraceUrl));  
+            this.set('ktbsTraceUrl', decodeURIComponent(encodedKtbsTraceUrl));
           }
         },
         _ktbsTraceUrlChanged: function(ktbsTraceUrl) {
@@ -97,7 +97,7 @@
           that._getStylesheet(that.trace.get_uri()).then(function(stylesheet) { // jshint ignore:line
             that.set('options', stylesheet);
           });
-            that.trace.list_obsels();
+            that.trace.list_obsels(); // jshint ignore:line
         }
 
       });

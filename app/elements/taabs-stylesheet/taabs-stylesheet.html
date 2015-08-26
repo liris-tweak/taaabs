@@ -23,7 +23,7 @@
 
   <script>
     (function () {
-      /* global Polymer, TaaabsBehaviors, Samotraces*/
+      /* global Polymer, TaaabsBehaviors */
 
       Polymer({
         is: 'taabs-stylesheet',
@@ -48,7 +48,7 @@
             reflectToAttribute: true
           }
         },
-        traceChanged: function(newValue) {
+        traceChanged: function() {
           var that = this ;
         //  newValue.on('trace:model',function() {
           //  var model = new Samotraces.Ktbs.Model(newValue.get_model()); // jshint ignore:line
@@ -56,7 +56,6 @@
             model.on('Model:listeType', function(e) {
               var arrayObselTypes = e.data;
               var stylesheet = that.options;
-              console.log ("style in stylesheet",stylesheet)
             //  that._getStylesheet(newValue.get_uri()).then(function (stylesheet) { // jshint ignore:line
                 var objDefault = {};
                 objDefault.type = 'default';
