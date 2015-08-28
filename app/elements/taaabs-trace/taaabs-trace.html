@@ -102,8 +102,8 @@
             that.trace.list_obsels(); // jshint ignore:line
         },
         _RefreshTrace:function (){
-          var beginLastObsel = this.trace.get_Last_obsel().begin - new Date (this.trace.get_origin()).getTime()
-          this.trace.list_obsels(beginLastObsel);
+          var beginLastObsel = this.trace.get_Last_obsel().begin - new Date (this.trace.get_origin()).getTime(); // jshint ignore:line
+          this.trace.list_obsels(beginLastObsel); // jshint ignore:line
           var that = this;
           this.trace.on('trace:updateT',function(){
             that.set('trace', that.trace);
