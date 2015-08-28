@@ -1,0 +1,49 @@
+
+<dom-module id="taaabs-import-external-html">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <form is="iron-form" id="form" method="post" action="/form/handler">
+      <paper-input label="Write an url here (but remember CORS issues)" char-counter type="url" value="{{externalHtmlUrl}}"></paper-input>
+    </form>
+    <div id="imported"></div>
+  </template>
+
+  <script>
+    /* global Polymer */
+    (function () {
+      Polymer({
+        is: 'taaabs-import-external-html',
+        properties: {
+          externalHtmlUrl: {
+            type: String,
+            value: '',
+            observer: '_externalHtmlUrlChanged'
+          }
+        },
+        _externalHtmlUrlChanged: function(externalHtmlUrl) {
+          this.importHref(externalHtmlUrl, function(e) {
+            // e.target.import is the import document.
+            console.log(e.target.import);
+            var imported =  e.target.import;
+            var body = imported.querySelector('body');
+            var nodes = body.childNodes;
+            for (var i = 0; i < nodes.length; i++) {
+              console.log(nodes[i]);
+              var node = nodes[i];
+              var importedRoot = Polymer.dom(this.root).querySelector('#imported');
+              var deepClonedNode = node.cloneNode(true);
+              Polymer.dom(importedRoot).appendChild(deepClonedNode);
+            }
+          }, function(e) {
+            console.log(e);
+          });
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

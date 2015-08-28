@@ -13,7 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <head>
   <!-- Edit the following line with the URL where you are serving the taaabs application -->
-  <base href="http://localhost:3000/">
+  <base href="http://localhost:8080/dist/">
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -105,6 +105,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <a data-route="ktbs-model" href="/ktbs-model">
             <iron-icon icon="cloud"></iron-icon>
             <span>Ktbs Model</span>
+          </a>
+
+          <a data-route="sparelnc" href="/sparelnc">
+            <iron-icon icon="cloud"></iron-icon>
+            <span>sparelnc</span>
+          </a>
+
+          <a data-route="importexternalhtml" href="/importexternalhtml">
+            <iron-icon icon="cloud"></iron-icon>
+            <span>importexternalhtml</span>
           </a>
 
           <a data-route="hello-taaabs" href="/hellotaaabs">
@@ -215,6 +225,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <h2 class="paper-font-display2">Users</h2>
                   <p>This is the users section</p>
                   <a href="/users/Rob">Rob</a>
+                </paper-material>
+              </section>
+
+              <section data-route="sparelnc">
+                <paper-material elevation="1">
+                  <h2 class="paper-font-display2">sparelnc</h2>
+                  <taaabs-sparelnc-test></taaabs-sparelnc-test>
+                </paper-material>
+              </section>
+
+              <section data-route="importexternalhtml">
+                <paper-material elevation="1">
+                  <h2 class="paper-font-display2">importexternalhtml</h2>
+                  <taaabs-import-external-html external-html-url="http://localhost:8080/app/elements/foo-project/foo.html"></taaabs-import-external-html>
                 </paper-material>
               </section>
 

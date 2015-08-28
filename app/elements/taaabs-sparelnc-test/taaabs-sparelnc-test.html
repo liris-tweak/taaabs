@@ -1,0 +1,47 @@
+<script src="../../bower_components/sparelnc/dist/sparelnc.js"></script>
+
+<dom-module id="taaabs-sparelnc-test">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <form is="iron-form" id="form">
+      <paper-input label="" char-counter type="url" value="{{naturalLanguageSentence}}"></paper-input>
+    </form>
+    <pre>{{sparqlQuery}}</pre>
+  </template>
+
+  <script>
+    /* global Polymer, sparelnc */
+    (function () {
+      Polymer({
+        is: 'taaabs-sparelnc-test',
+        properties: {
+          naturalLanguageSentence: {
+            type: String,
+            value: 'Je nomme < d obsel pendant un obsel ayant un attribut <.',
+            observer: '_naturalLanguageSentenceChanged'
+          },
+          sparqlQuery: {
+            type: String,
+            value: ''
+          }
+        },
+        _naturalLanguageSentenceChanged: function (naturalLanguageSentence) {
+          try {
+            this.set('sparqlQuery', sparelnc.parse(naturalLanguageSentence));
+          }
+          catch(e) {
+            console.log(e);
+          }
+        },
+        ready: function () {
+          console.log('');
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

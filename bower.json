@@ -32,7 +32,8 @@
     "platinum-elements": "PolymerElements/platinum-elements#1.0.1",
     "polymer": "Polymer/polymer#1.1.1",
     "qs": "~0.3.9",
-    "samotracesjs": "https://github.com/liris-tweak/samotraces.js.git#0.17.0",
+    "samotracesjs": "https://github.com/liris-tweak/samotraces.js.git#0.18.0",
+    "sparelnc": "https://github.com/StatelessCat/SPARE-LNC.git#cd48063125533a11940a3c81f1237e6002256527",
     "underscore": "~1.8.3"
   },
   "devDependencies": {
