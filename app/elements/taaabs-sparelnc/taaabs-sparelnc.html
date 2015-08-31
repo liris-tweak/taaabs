@@ -1,0 +1,35 @@
+<link rel="import" href="../../behaviors/taaabs-import-external-module.html">
+
+<dom-module id="taaabs-sparelnc">
+  <link rel="import" type="css" href="../../bower_components/sparelnc/build/SPARE_Sept2014/css/ui-lightness/jquery-ui-1.10.4.custom.css"/>
+  <link rel="import" type="css" href="../../bower_components/sparelnc/build/SPARE_Sept2014/css/MyCustom.css"/>
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <div id="imported"></div>
+  </template>
+
+  <script>
+    /* global Polymer, TaaabsBehaviors */
+    (function () {
+      Polymer({
+        is: 'taaabs-sparelnc',
+        behaviors: [
+          TaaabsBehaviors.ImportExternalModule
+        ],
+        properties: {
+          externalHtmlUrl: {
+            type: String
+          }
+        },
+        ready: function() {
+          this.htmlImport(this.get('externalHtmlUrl'));
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

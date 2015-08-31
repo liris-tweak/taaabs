@@ -1,0 +1,31 @@
+
+<script>
+  /* global TaaabsBehaviors:true */
+  /* exported TaaabsBehaviors */
+
+  var TaaabsBehaviors = TaaabsBehaviors || {};
+
+  /**
+   * @demo no demo availaible yet
+   * @polymerBehavior
+   */
+  TaaabsBehaviors.ImportExternalModule = {
+    htmlImport: function(externalHtmlUrl) {
+      this.importHref(externalHtmlUrl, function(e) {
+        // e.target.import is the import document.
+        var imported =  e.target.import;
+        var body = imported.querySelector('body');
+        var nodes = body.childNodes;
+        for (var i = 0; i < nodes.length; i++) {
+          var node = nodes[i];
+          var importedRoot = Polymer.dom(this.root).querySelector('#imported');
+          var deepClonedNode = node.cloneNode(true);
+          Polymer.dom(importedRoot).appendChild(deepClonedNode);
+        }
+        Polymer.dom.flush(); // force the browser to do rendering
+        sparelnc.init(Polymer.dom(this.root).querySelector('#imported'));
+      }, function() {
+      });
+    }
+  };
+</script>
