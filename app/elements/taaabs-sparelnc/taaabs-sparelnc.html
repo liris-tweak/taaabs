@@ -23,10 +23,21 @@
         properties: {
           externalHtmlUrl: {
             type: String
+          },
+          trace: {
+            type: Object,
+            notify: true,
+            observer: '_traceselChanged'
           }
         },
         ready: function() {
-          this.htmlImport(this.get('externalHtmlUrl'));
+        //  this.htmlImport(this.get('externalHtmlUrl'));
+        },
+        _traceselChanged: function(newValue){
+
+          this.htmlImport(this.get('externalHtmlUrl'), function(el){
+            sparelnc.init(el,newValue.get_uri(),newValue.get_model());
+          });
         }
       });
     })();
