@@ -47,7 +47,7 @@
       _onUpdateData: function(newValue) {
         this.set('origin', this.trace.origin);
         this.set('type', this.trace.type);
-        this.set('origin', this.trace.model_uri); // jshint ignore:line
+        this.set('model', this.trace.model_uri); // jshint ignore:line
         this.set('timezoom', new Samotraces.TimeWindow({start: new Date(Date()).setHours(new Date (Date()).getHours() - 2), end: Date.now()}));
         this.set('time', new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()}));
       },
