@@ -17,6 +17,7 @@
       <paper-tab>Model Visualization</paper-tab>
       <paper-tab>Setting Visualization</paper-tab>
       <paper-tab>Stylesheet Visualization</paper-tab>
+      <paper-tab>Spare-LNC</paper-tab>
     </paper-tabs>
     <iron-pages selected="{{outterSelected}}">
       <paper-material elevation="2" class="trace-visualization">
@@ -40,6 +41,15 @@
             options="{{options}}"
             model="{{model}}">
         </taabs-stylesheet>
+      </paper-material>
+      <paper-material elevation="2">
+        <taaabs-sparelnc
+            trace="{{trace}}"
+            model="{{model}}"
+            external-html-url="http://localhost:3000/bower_components/sparelnc/build/SPARE_Sept2014/Interface_31_Juil.html"
+            >
+        </taaabs-sparelnc>
+
       </paper-material>
     </iron-pages>
   </template>

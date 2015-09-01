@@ -33,7 +33,7 @@
     "polymer": "Polymer/polymer#1.1.1",
     "qs": "~0.3.9",
     "samotracesjs": "https://github.com/liris-tweak/samotraces.js.git#0.18.0",
-    "sparelnc": "https://github.com/liris-tweak/SPARE-LNC.git#f9ec9e0edc0a11e8a053bf54b1210400af3f60f5",
+    "sparelnc": "https://github.com/liris-tweak/SPARE-LNC.git#3a44217a65bcef385eebc9cce8fa1dc2cb3a48c2",
     "underscore": "~1.8.3"
   },
   "devDependencies": {

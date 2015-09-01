@@ -10,7 +10,7 @@
    * @polymerBehavior
    */
   TaaabsBehaviors.ImportExternalModule = {
-    htmlImport: function(externalHtmlUrl) {
+    htmlImport: function(externalHtmlUrl,callback) {
       this.importHref(externalHtmlUrl, function(e) {
         // e.target.import is the import document.
         var imported =  e.target.import;
@@ -23,8 +23,11 @@
           Polymer.dom(importedRoot).appendChild(deepClonedNode);
         }
         Polymer.dom.flush(); // force the browser to do rendering
-        sparelnc.init(Polymer.dom(this.root).querySelector('#imported'));
+        callback(Polymer.dom(this.root).querySelector('#imported'));
+        //sparelnc.init(Polymer.dom(this.root).querySelector('#imported'));
       }, function() {
+
+
       });
     }
   };
