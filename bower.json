@@ -1,6 +1,6 @@
 {
   "name": "taaabs",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "homepage": "https://github.com/liris-tweak/taaabs",
   "authors": [
     "Amélie Cordier <amelie.cordier@liris.cnrs.fr>",
@@ -33,7 +33,7 @@
     "polymer": "Polymer/polymer#1.1.1",
     "qs": "~0.3.9",
     "samotracesjs": "https://github.com/liris-tweak/samotraces.js.git#0.18.0",
-    "sparelnc": "https://github.com/liris-tweak/SPARE-LNC.git#3a44217a65bcef385eebc9cce8fa1dc2cb3a48c2",
+    "sparelnc": "https://github.com/liris-tweak/SPARE-LNC.git#e76887a6c0d636de30a32dd53ea962f5cea31889",
     "underscore": "~1.8.3"
   },
   "devDependencies": {

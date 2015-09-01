@@ -36,7 +36,7 @@
         _traceselChanged: function(newValue){
 
           this.htmlImport(this.get('externalHtmlUrl'), function(el){
-            sparelnc.init(el,newValue.get_uri(),newValue.get_model());
+            sparelnc.init(el,newValue.get_uri(),newValue.get_model()); // jshint ignore:line
           });
         }
       });
