@@ -63,17 +63,17 @@
             jsonld.frame(resource, frame, function(err, framed) {
               var graph = framed['@graph'];
 
-              // TODO UNSAFE ??, Ask @pchampin about this
+              // Theses two test are an ASSERT
               if ((graph.length === 1) && (!!graph[0]['@type'])) {
-                var type = graph[0]['@type'].replace(/.*#/, '');
+                var type = graph[0]['@type'];
                 var cases = {
-                  'KtbsRoot': '/ktbs/',
-                  'Base': '/ktbs-base/',
-                  'StoredTrace': '/ktbs-trace/',
-                  'ComputedTrace': '/ktbs-trace/',
-                  'TraceModel': '/ktbs-model/',
+                  'http://liris.cnrs.fr/silex/2009/ktbs#KtbsRoot': '/ktbs/',
+                  'http://liris.cnrs.fr/silex/2009/ktbs#Base': '/ktbs-base/',
+                  'http://liris.cnrs.fr/silex/2009/ktbs#StoredTrace': '/ktbs-trace/',
+                  'http://liris.cnrs.fr/silex/2009/ktbs#ComputedTrace': '/ktbs-trace/',
+                  'http://liris.cnrs.fr/silex/2009/ktbs#TraceModel': '/ktbs-model/',
                 };
-                that.set('localRoute', cases[type]);
+                that.set('localRoute', cases[type] || '/notfound/');
                 Polymer.dom(that.root).querySelector('#url-input').invalid = false;
               } else {
                 console.log('Something bad happens on the received ld+json document');
