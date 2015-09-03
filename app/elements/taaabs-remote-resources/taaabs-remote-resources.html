@@ -14,7 +14,7 @@
   <template>
     <h1 class="paper-font-display1"><span>Remote Resource Connect</span></h1>
     <form is="iron-form" id="form" method="post" action="/form/handler">
-      <paper-input id="url-input" label="Resource URL:" char-counter type="url" value="{{remoteUrl}}" error-message="Invalid URL :(s"></paper-input>
+      <paper-input id="url-input" label="Resource URL:" char-counter type="url" value="{{remoteUrl}}" error-message="Invalid URL :("></paper-input>
       <div>
       <a href="{{encodedLink}}" class="inherit">
         <paper-button id="connect-button" disabled>connect to this <span>{{resourceType}}</span></paper-button>
@@ -24,7 +24,7 @@
   </template>
 
   <script>
-    /* global Polymer, $, jsonld */
+    /* global Polymer, Samotraces */
     (function () {
       Polymer({
         is: 'taaabs-remote-ressources',
@@ -51,7 +51,7 @@
           var that = this;
 
           var resource = new Samotraces.Ktbs.Resource(remoteUrl, remoteUrl);
-          resource.force_state_refresh({'_on_state_refresh_': false, 'callback': true}, function(resource) {
+          resource.force_state_refresh({'_on_state_refresh_': false, 'callback': true}, function(resource) { // jshint ignore:line
             // keys: Resources Types. values: client-side URLs
             var cases = {
               'KtbsRoot': '/ktbs/',
@@ -77,6 +77,7 @@
             Polymer.dom(that.root).querySelector('#url-input').invalid = false;
             Polymer.dom(that.root).querySelector('#connect-button').disabled = false;
           }, function (error) {
+            console.log(error);
             Polymer.dom(that.root).querySelector('#url-input').invalid = true;
             Polymer.dom(that.root).querySelector('#connect-button').disabled = true;
           });
