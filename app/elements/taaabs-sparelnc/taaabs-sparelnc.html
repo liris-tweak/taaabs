@@ -41,25 +41,23 @@
         ready: function() {
         //  this.htmlImport(this.get('externalHtmlUrl'));
         },
-        _traceselChanged: function(newValue){
-
-        this.tracechange = true ;
-        this.importsparlnc();
+        _traceselChanged: function() {
+          this.tracechange = true ;
+          this.importsparlnc();
         },
         attached: function () {
           this.attachedvar = true ;
           this.importsparlnc();
         },
         importsparlnc: function(){
-          if (this.tracechange && this.attachedvar){ 
+          if (this.tracechange && this.attachedvar) { 
             var traceobj = this.trace ; 
             var that = this;
             setTimeout(function(){
               that.htmlImport(that.get('externalHtmlUrl'), function(el){
                 sparelnc.init(el,traceobj.get_uri(),traceobj.get_model()); // jshint ignore:line
-              },4000);
-            })
-            
+              }, 4000);
+            });
           }
         }
       });
