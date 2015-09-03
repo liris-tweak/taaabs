@@ -54,7 +54,7 @@
             var traceobj = this.trace ; 
             var that = this;
             setTimeout(function(){
-              that.htmlImport(that.get('externalHtmlUrl'), function(el){
+              that.htmlImport(that.resolveUrl(that.get('externalHtmlUrl')), function(el){
                 sparelnc.init(el,traceobj.get_uri(),traceobj.get_model()); // jshint ignore:line
               }, 4000);
             });
