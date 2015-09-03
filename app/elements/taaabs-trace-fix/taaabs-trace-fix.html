@@ -5,10 +5,10 @@
 
   <template>
     <h4 style="margin-left: 50%;"> Display Trace Icon </h4>
-    <div >{{trace.id}}</div>
-    <div id="origin"></div>
-    <div id= "type" ></div>
-    <div id = "model"></div>
+    <div>Trace URL:<a href="{{trace.id}}">{{trace.id}}</a><div>
+    <div>Trace Origin:<span>{{origin}}</span></div>
+    <div>Trace Type:<span>{{type}}</span></div>
+    <div>Trace Model:<a href="{{model}}">{{model}}</a></div>
     <content></content>
   </template>
 
@@ -36,13 +36,15 @@
         options: {
           type: String,
           notify: true
-
         },
+        origin: String,
+        type: String,
+        model: String
       },
       _traceUpdateData: function(newValue) {
-        this.$.origin.appendChild (document.createTextNode('Origin : '+this.trace.origin));
-        this.$.type.appendChild (document.createTextNode('type : '+this.trace.type));
-        this.$.model.appendChild (document.createTextNode('model : '+this.trace.model_uri)); // jshint ignore:line
+        this.set('origin', this.trace.origin);
+        this.set('type', this.trace.type);
+        this.set('model', this.trace.get_model()); // jshint ignore:line
         this.time = new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()});
       },
       _traceselChanged: function(newValue) {

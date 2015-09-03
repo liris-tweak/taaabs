@@ -4,10 +4,10 @@
   <link rel="import" type="css" href="../../bower_components/samotracesjs/dist/samotraces.css"/>
   <template>
     <h4 style="margin-left: 50%;"> Samo Trace Me </h4>
-    <div>Trace URL:<span>{{trace.id}}</span><div>
+    <div>Trace URL:<a href="{{trace.id}}">{{trace.id}}</a></div>
     <div>Trace Origin:<span>{{origin}}</span></div>
     <div>Trace Type:<span>{{type}}</span></div>
-    <div>Trace Model:<span>{{model}}</span></div>
+    <div>Trace Model:<a href="{{model}}">{{model}}</a></div>
     <content></content>
   </template>
 
@@ -47,7 +47,7 @@
       _onUpdateData: function(newValue) {
         this.set('origin', this.trace.origin);
         this.set('type', this.trace.type);
-        this.set('model', this.trace.model_uri); // jshint ignore:line
+        this.set('model', this.trace.get_model()); // jshint ignore:line
         this.set('timezoom', new Samotraces.TimeWindow({start: new Date(Date()).setHours(new Date (Date()).getHours() - 2), end: Date.now()}));
         this.set('time', new Samotraces.TimeWindow({start: new Date(newValue.origin).getTime(), end: Date.now()}));
       },
