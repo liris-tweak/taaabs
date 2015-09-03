@@ -52,7 +52,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         app.route = route;
       } else if (!!urlFromSS) {
         // If we have already stored a KTBS URL
-        appParams[urlType] = urlFromSS;
+        appParams[urlType] = encodeURIComponent(urlFromSS);
+        ctx.path = ctx.path + '/?url=' + encodeURIComponent(urlFromSS); // add the remote resource URL to the query string
         app.params = appParams;
         app.route = route;
       } else {
