@@ -40,18 +40,18 @@
           },
           encodedLink: {
             type: String,
-            computed: 'computeEncodedLink(localRoute, remoteUrl)'
+            computed: '_computeEncodedLink(localRoute, remoteUrl)'
           },
           resourceType: {
             type: String,
-            computed: 'computedResourceType(localRoute)'
+            computed: '_computedResourceType(localRoute)'
           }
         },
         _remoteUrlChanged: function(remoteUrl) {
           var that = this;
 
           var resource = new Samotraces.Ktbs.Resource(remoteUrl, remoteUrl);
-          resource.force_state_refresh({'_on_state_refresh_': false, 'callback': true}, function(resource) { // jshint ignore:line
+          resource.force_state_refresh({'_on_state_refresh_': false}, function(resource) { // jshint ignore:line
             // keys: Resources Types. values: client-side URLs
             var cases = {
               'KtbsRoot': '/ktbs/',
@@ -82,10 +82,10 @@
             Polymer.dom(that.root).querySelector('#connect-button').disabled = true;
           });
         },
-        computeEncodedLink: function(localRoute, remoteUrl) {
+        _computeEncodedLink: function(localRoute, remoteUrl) {
           return localRoute + '\?url=' + encodeURIComponent(remoteUrl);
         },
-        computedResourceType: function(localRoute) {
+        _computedResourceType: function(localRoute) {
           // '/ktbs-trace/' -----> 'trace'
           // '/ktbs-base/' -----> 'base'
           // '/ktbs/' -----> 'ktbs'
