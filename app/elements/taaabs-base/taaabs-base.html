@@ -78,7 +78,6 @@
           element.setAttribute('id', id);
           Polymer.dom(this.root).appendChild(element);
         }).bind(this));
-        Polymer.dom.flush();
       },
       _detachWidgets: function() {
         if (this.$$('#trace-list')) {
