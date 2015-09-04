@@ -26,9 +26,19 @@
   <script>
     /* global Polymer, Samotraces */
     (function () {
+      /**
+       * `<taaabs-remote-ressources>` is a graphical representation of the
+       * user choice for an available resource on the KTBS.
+       *
+       * @use Samotraces.Ktbs.Resource
+       * @element taaabs-remote-ressources
+       */
       Polymer({
         is: 'taaabs-remote-ressources',
         properties: {
+          /**
+           * Browser-side URL
+           */
           localRoute: {
             type: String,
             value: '/ktbs/'

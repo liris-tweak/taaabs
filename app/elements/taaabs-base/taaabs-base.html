@@ -16,6 +16,18 @@
   <script>
     /* global Polymer, Samotraces */
 
+    /**
+     * `<taaabs-base>` is a graphical representation of a KTBS Base.
+     * More information about <a href="https://kernel-for-trace-based-systems.readthedocs.org/en/latest/concepts/abstract_api.html#base-base">KTBS Bases</a>.
+     *
+     * (@see) Samotraces.Ktbs.Base : Model (in the MVC pattern)
+     *
+     * (@see) Samotraces.Ui.Widgets.Ktbs.ListTracesInBases : View
+     *
+     * (@see) Samotraces.Ui.Widgets.Ktbs.ListModelInBases : View
+     *
+     * @element taaabs-ktbs
+     */
     Polymer({
       is: 'taaabs-base',
       properties: {
@@ -66,10 +78,12 @@
       },
       _clickTrace: function(evt) {
         var traceURL = this.base.id + evt.target.innerHTML.replace('./', '');
+        // do navigation using page.js
         page('/ktbs-trace/?url=' + encodeURIComponent(traceURL));
       },
       _clickModel: function(evt) {
         var modelURL = this.base.id + evt.target.innerHTML.replace('./', '');
+        // do navigation using page.js
         page('/ktbs-model/?url=' + encodeURIComponent(modelURL));
       },
       _attachWidgets: function() {
