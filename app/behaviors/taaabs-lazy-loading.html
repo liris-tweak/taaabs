@@ -6,19 +6,38 @@
   var TaaabsBehaviors = TaaabsBehaviors || {};
 
   /**
-   * @demo no demo availaible yet
+   * `TaaabsBehaviors.LazyLoading` is a Polymer Behavior that is delaying the
+   *  instanciation of Widgets.
+   *
+   * The purpose of this behavior is to handle Widgets using D3.js because
+   * those widgets need some values (displayed width,...) that are accessibles
+   * only when the browser have done the rendering of the Polymer Custom Element.
+   *
+   * There is some logic to instanciate the widget only is he is selected.
+   * If you don't want this, for now you can set selected and pageNum to 0. TODO need improvement
+   *
    * @polymerBehavior
    */
   TaaabsBehaviors.LazyLoading = {
     properties: {
+      /**
+       * The actual selected tab in <iron-page>
+       */
       selected: {
         type: Number,
         observer: '_selectedChanged'
       },
+      /**
+       * The page number of the tab that is diplaying 'this' Polymer
+       */
       pageNum: {
         type: Number,
       }
     },
+    /**
+     * @param {Function} WidgetConstructor - The constructor of the Widget we want to be instanciated
+     * @param {Array} widgetConsArgs - all the arguments to be passed to the WidgetConstructor
+     */
     _attachWidget: function(WidgetConstructor, widgetConsArgs) {
       if (!!WidgetConstructor && !!widgetConsArgs) {
         this.WidgetConstructor = WidgetConstructor;
@@ -39,11 +58,13 @@
       });
 
       if ( allArgsDefined && this.pageNum === this.selected && !(this.widgetObject) ) {
+        // creating an Element that will hold the Widget
         var element = document.createElement('div');
         element.setAttribute('id', 'widget');
         Polymer.dom(this.root).appendChild(element);
         // add the HTML element at the fist position of the arg array
         var widgetConsArgsClone = this.widgetConsArgs.slice(0);
+        // the DOM Element that is holding the widget will be passed as the first argument to the constructor
         widgetConsArgsClone.unshift(element);
         // construct the Widget
         this.widgetObject = Construct(this.WidgetConstructor, widgetConsArgsClone);

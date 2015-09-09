@@ -15,19 +15,41 @@
   <script>
     /* global Polymer, TaaabsBehaviors */
     (function () {
+
+      /**
+       * `<taaabs-sparelnc>` is a Polymer Customs Elements that is loading
+       *  the SPARE LNC application into Taaabs.
+       *
+       * More information about <a href="http://tbs-platform.org/tbs/doku.php/tools:spare_lnc">SPARE LNC</a>.
+       * The source code of  <a href="https://github.com/liris-tweak/SPARE-LNC">SPARE LNC</a>.
+       *
+       * (@polymerBehavior) TaaabsBehaviors.ImportExternalModule : Polymer Behavior (Mixin)
+       *  We use it to add a generic behavior for importing external HTML.
+       *
+       * @element taaabs-sparelnc
+       */
       Polymer({
         is: 'taaabs-sparelnc',
         behaviors: [
           TaaabsBehaviors.ImportExternalModule
         ],
         properties: {
+          /**
+           * The URL where sparelnc main page can be found
+           */
           externalHtmlUrl: {
             type: String
           },
+          /**
+           * true only if the trace was already setted
+           */
           tracechange: {
             type: Boolean,
             value :false
           },
+          /**
+           * true only if the Polymer passed into the attached state
+           */
           attachedvar: {
             type: Boolean,
             value:false
@@ -50,11 +72,14 @@
           this.importsparlnc();
         },
         importsparlnc: function(){
-          if (this.tracechange && this.attachedvar) { 
-            var traceobj = this.trace ; 
+          if (this.tracechange && this.attachedvar) {
+            var traceobj = this.trace ;
             var that = this;
             setTimeout(function(){
               that.htmlImport(that.resolveUrl(that.get('externalHtmlUrl')), function(el){
+                // el is the element holding all cloned elements from sparelnc,
+                // actually it's the <div id="imported"></div> in the template
+                // see the TODO in TaaabsBehaviors.ImportExternalModule
                 sparelnc.init(el,traceobj.get_uri(),traceobj.get_model()); // jshint ignore:line
               }, 4000);
             });

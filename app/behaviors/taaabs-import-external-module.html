@@ -6,28 +6,38 @@
   var TaaabsBehaviors = TaaabsBehaviors || {};
 
   /**
-   * @demo no demo availaible yet
+   * `TaaabsBehaviors.ImportExternalModule` is a Polymer Behavior that is importing
+   *  all Element in the <body> of an HTML document from an external URL.
+   *  Imported elements are appended to the local element wich have the
+   *  `id="imported"` inside the Local DOM of the Polymer Custom Element.
+   *
+   * More information about <a href="https://www.polymer-project.org/1.0/docs/devguide/utility-functions.html">Polymer importHref</a>.
+   * More information about <a href="http://w3c.github.io/webcomponents/spec/imports/">HTML Imports</a>.*
+   *
    * @polymerBehavior
    */
   TaaabsBehaviors.ImportExternalModule = {
     htmlImport: function(externalHtmlUrl,callback) {
       this.importHref(externalHtmlUrl, function(e) {
-        // e.target.import is the import document.
+        // at the point all JavaScript of the imported document have been imported
         var imported =  e.target.import;
         var body = imported.querySelector('body');
         var nodes = body.childNodes;
         for (var i = 0; i < nodes.length; i++) {
           var node = nodes[i];
+
+          // TODO it's better to just use a new element without any root
           var importedRoot = Polymer.dom(this.root).querySelector('#imported');
           var deepClonedNode = node.cloneNode(true);
           Polymer.dom(importedRoot).appendChild(deepClonedNode);
         }
         Polymer.dom.flush(); // force the browser to do rendering
+
+        // TODO it's better to just pass to the callback the new element without any root
+        //  and the Polymer will be putting it in his Local DOM.
         callback(Polymer.dom(this.root).querySelector('#imported'));
-        //sparelnc.init(Polymer.dom(this.root).querySelector('#imported'));
       }, function() {
-
-
+        // in case of importation error
       });
     }
   };
