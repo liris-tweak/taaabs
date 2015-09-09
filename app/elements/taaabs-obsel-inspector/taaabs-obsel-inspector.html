@@ -26,13 +26,31 @@
   <script>
     /* global Polymer, Samotraces */
 
+    /**
+     * `<taaabs-obsel-inspector>` display a graphical representation of
+     *  detailled informations about Obsels.
+     *
+     * This Polymer Custom Element use the `obselSelector` property to know which Obsel will be displayed.
+     *
+     * (@see) Samotraces.Selector :
+     * More information about <a href="http://dsi-liris-silex.univ-lyon1.fr/bmathern/samotraces/doc/Samotraces.UI.Widgets.ObselInspector.html">Samotraces.Ui.Widgets.ObselTypeInspector</a>. TODO Need update
+     *
+     * @element taaabs-obsel-inspector
+     */
     Polymer({
       is: 'taaabs-obsel-inspector',
       properties: {
+        /**
+         * Samotraces Selector object holding informations about the selected Obsel
+         */
         obselSelector: {
           type: Object,
           notify: true
         },
+        /**
+         * If set to true, when the user click on an Obsel, a Polymer <paper-toast> will be shown.
+         * If not, a <div> will be created with `id="widget-fix"` and will be used as a container
+         */
         autoHide: {
           type: Boolean,
           value: true,
@@ -50,8 +68,6 @@
         if (this.autoHide) {
           var toast = this.$$('#toast1');
           toast.show();
-        } else {
-
         }
       },
       _autoHideChanged: function(autoHideValue) {
