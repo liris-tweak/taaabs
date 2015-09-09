@@ -11,9 +11,22 @@
   <script>
     /* global Polymer, Samotraces */
 
+    /**
+     * `<taaabs-taaabs>` is a Polymer Customs Elements that is loading
+     *  Samotraces.js and Samotraces.js dependencies in the browser scope.
+     *
+     * For now we are using the fact that app/elements/elements.html contains
+     * <taaabs-taaabs>. This lead to the importation of the two scripts on the
+     * beginning of this document.
+     *
+     * @element taaabs-taaabs
+     */
     Polymer({
       is: 'taaabs-taaabs',
       properties:{
+        /**
+         * TODO remove these properties
+         */
         basesel: {
           type: Object,
           notify: true,
@@ -25,6 +38,9 @@
           value: ''
         }
       },
+      /**
+       * TODO remove these two function.
+       */
       ready: function() {
         new Samotraces.Ktbs(this.srcKtbs);
         this.addEventListener('eventFromListBaseClickBase', this.GetObjBaseSelectetd);
